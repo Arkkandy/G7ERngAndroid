@@ -38,7 +38,8 @@ namespace Gen7EggRNG
 
         // Current data
         /*private SearchParams currentParams;
-        private ParentData currentParentData;*/
+        private ParentData currentParentData;
+        */
 
         private int maxResults = SearchConstants.ResultLimitLow;
         private int minFrame = 0;
