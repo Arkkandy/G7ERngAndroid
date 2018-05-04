@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:id="@+id/resLayout">
+    <TextView
+        android:text="@string/search_guide_frame"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resFrame"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_advance"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resAdvance"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_gender"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resGender"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_nature"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resNature"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_ability"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resAbility"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_ball"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resBall"
+        android:gravity="left|center_vertical" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout5"
+        android:layout_weight="2.2">
+        <TextView
+            android:text="@string/search_guide_hp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resHP"
+            android:textSize="12sp"
+            android:gravity="center_vertical" />
+        <TextView
+            android:text="@string/search_guide_atk"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resAtk"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="@string/search_guide_def"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resDef"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="@string/search_guide_spa"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resSpA"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="@string/search_guide_spd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resSpD"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="@string/search_guide_spe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/resSpe"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+    </LinearLayout>
+    <TextView
+        android:text="@string/search_guide_hiddenpower"
+        android:layout_weight="1.4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/resHiddenP" />
+    <TextView
+        android:text="@string/search_guide_psv"
+        android:layout_weight="0.6"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resTSV"
+        android:gravity="center_vertical" />
+</LinearLayout>

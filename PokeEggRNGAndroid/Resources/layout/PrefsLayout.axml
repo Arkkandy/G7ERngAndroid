@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+    p1:layout_width="match_parent"
+    p1:layout_height="match_parent"
+    p1:id="@+id/relativeLayout1">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="match_parent"
+        p1:layout_height="wrap_content">
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linearLayout2">
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:gravity="center"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout3"
+                p1:layout_weight="1">
+                <TextView
+                    p1:text="@string/setting_resultheight"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textView1"
+                    p1:gravity="center_vertical" />
+                <Spinner
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/prefsHeight" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout8"
+                p1:layout_weight="1"
+                p1:gravity="center">
+                <TextView
+                    p1:text="@string/setting_maxresult"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:gravity="center"
+                    p1:id="@+id/textView4" />
+                <Spinner
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/prefMaxResult" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:id="@+id/linearLayout5"
+                p1:layout_width="wrap_content"
+                p1:layout_height="match_parent">
+                <ImageButton
+                    p1:src="@android:drawable/ic_menu_help"
+                    p1:id="@+id/prefsHelp"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:gravity="center"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:layout_marginLeft="20dp"
+            p1:layout_marginRight="20dp">
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:gravity="center"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout4"
+                p1:layout_width="wrap_content">
+                <TextView
+                    p1:text="@string/setting_shinycolor"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textView1"
+                    p1:gravity="center_vertical" />
+                <Spinner
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/prefsShiny" />
+                <LinearLayout
+                    p1:orientation="horizontal"
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="20dp"
+                    p1:layout_height="20dp"
+                    p1:id="@+id/prefsShinyPreview" />
+            </LinearLayout>
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="wrap_content"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout6"
+                p1:gravity="center"
+                p1:layout_marginLeft="20dp">
+                <TextView
+                    p1:text="@string/setting_othershinycolor"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textView3"
+                    p1:gravity="center_vertical" />
+                <Spinner
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/prefsOtherTSV" />
+                <LinearLayout
+                    p1:orientation="horizontal"
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="20dp"
+                    p1:layout_height="20dp"
+                    p1:id="@+id/prefsOtherPreview" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linearLayout7"
+            p1:gravity="center"
+            p1:layout_marginRight="20dp"
+            p1:layout_marginLeft="20dp"
+            p1:layout_marginTop="10dp">
+            <CheckBox
+                p1:text="@string/setting_autosearch"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/prefsAuto"
+                p1:layout_weight="1" />
+            <CheckBox
+                p1:text="@string/setting_allgender"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/prefsGender"
+                p1:layout_marginLeft="10dp"
+                p1:layout_weight="1" />
+            <CheckBox
+                p1:text="@string/setting_allability"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/prefsAbility"
+                p1:layout_marginLeft="10dp"
+                p1:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        p1:text="Andslg 2018"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/textView2"
+        p1:layout_alignParentBottom="true"
+        p1:layout_alignParentLeft="true" />
+</RelativeLayout>

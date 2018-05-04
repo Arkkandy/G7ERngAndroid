@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_accept"
+           android:showAsAction="always"
+           android:title="@string/accept"/>
+    <item android:id="@+id/action_reject"
+           android:showAsAction="always"
+           android:title="@string/reject"/>
+    <item android:id="@+id/action_copyseed"
+           android:showAsAction="always"
+           android:title="@string/search_popup_copyseed"/>
+    <item android:id="@+id/action_setseed"
+         android:showAsAction="always"
+         android:title="@string/search_popup_currentseed"/>
+    <item android:id="@+id/action_target"
+         android:showAsAction="always"
+         android:title="@string/search_popup_targetframe"/>
+    <item android:id="@+id/action_shortest"
+         android:showAsAction="always"
+         android:title="@string/search_popup_shortestpath"/>
+    <item android:id="@+id/action_detailed"
+         android:showAsAction="always"
+         android:title="@string/search_popup_viewdetailed"/>
+</menu>
+
+<!-- Code to implement into Activity:
+
+Android.Widget.SearchView searchView;
+public override bool OnCreateOptionsMenu(IMenu menu)
+{
+  this.MenuInflater.Inflate(Resource.Menu.EggResultMenu, menu);
+
+  var searchItem = menu.FindItem(Resource.Id.action_search);
+
+  searchView = searchItem.ActionProvider.JavaCast<Android.Widget.SearchView>();
+
+  searchView.QueryTextSubmit += (sender, args) =>
+  {
+    Toast.MakeText(this, "You searched: " + args.Query, ToastLength.Short).Show();
+
+  };
+
+
+  return base.OnCreateOptionsMenu(menu);
+}
+
+-->

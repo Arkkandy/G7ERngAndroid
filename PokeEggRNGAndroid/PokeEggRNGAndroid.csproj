@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A079847F-B78D-4E51-A74C-CFCA90CA9290}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gen7EggRNG</RootNamespace>
+    <AssemblyName>Gen7EggRNG</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v7.1</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>PdbOnly</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidManagedSymbols>true</AndroidManagedSymbols>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
+    <EnableProguard>true</EnableProguard>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Utility\DebugUtil.cs" />
+    <Compile Include="Utility\EditInputUtil.cs" />
+    <Compile Include="Utility\LocalThreadManager.cs" />
+    <Compile Include="Utility\MathUtil.cs" />
+    <Compile Include="Utility\NumberLimitFilter.cs" />
+    <Compile Include="Utility\ProgressThreadPool.cs" />
+    <Compile Include="Utility\StringUtil.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\EggResult.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\EggRNG.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\IGenerator.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\RNGPool.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\RNGResult.cs" />
+    <Compile Include="EggRM\AppPreferences.cs" />
+    <Compile Include="EggRM\ArrayUtil.cs" />
+    <Compile Include="EggRM\DataConstants.cs" />
+    <Compile Include="EggRM\DetailedFrame.cs" />
+    <Compile Include="EggRM\EggDataConversion.cs" />
+    <Compile Include="EggRM\EggResultAdapter.cs" />
+    <Compile Include="EggRM\FilterData.cs" />
+    <Compile Include="EggRM\G7EFrame.cs" />
+    <Compile Include="EggRM\GenderConversion.cs" />
+    <Compile Include="EggRM\HiddenPower.cs" />
+    <Compile Include="EggRM\MiscUtility.cs" />
+    <Compile Include="EggRM\ParentData.cs" />
+    <Compile Include="EggRM\PokeEnum.cs" />
+    <Compile Include="EggRM\ProfileData.cs" />
+    <Compile Include="EggRM\ResultMenuHandler.cs" />
+    <Compile Include="EggRM\RTStrings.cs" />
+    <Compile Include="EggRM\SearchParameters.cs" />
+    <Compile Include="EggRM\SmartTinyFinder.cs" />
+    <Compile Include="EggRM\UtilStructs.cs" />
+    <Compile Include="EggSeedFinderActivity.cs" />
+    <Compile Include="EnterTextDialog.cs" />
+    <Compile Include="FilterEditActivity.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\Egg7.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\Results\Result7.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\Results\ResultE7.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\Results\ResultME7.cs" />
+    <Compile Include="MagikarpSeedActivity.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="MiscOptionsActivity.cs" />
+    <Compile Include="ParentEditActivity.cs" />
+    <Compile Include="ParentIVDialog.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\IPKM.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\Lead.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\PKX.cs" />
+    <Compile Include="PokeRNGApp.cs" />
+    <Compile Include="PreferencesActivity.cs" />
+    <Compile Include="ProfileEditActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\DeepCopy.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\IRNG.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\IRNGState.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\MT.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\SFMT.cs" />
+    <Compile Include="Pk3DSRNGTool\RNG\TinyMT.cs" />
+    <Compile Include="SeedRecoveryActivity.cs" />
+    <Compile Include="TemplateIVDialog.cs" />
+    <Compile Include="TinyFinderActivity.cs" />
+    <Compile Include="Pk3DSRNGTool\Util\FuncUtil.cs" />
+    <Compile Include="Pk3DSRNGTool\Util\Gen7EggPath.cs" />
+    <Compile Include="Pk3DSRNGTool\Util\MagikarpCalc.cs" />
+    <Compile Include="Pk3DSRNGTool\Util\TinySeedFinder.cs" />
+    <Compile Include="Widgets\SpinnerCheckboxAdapter.cs" />
+    <Compile Include="Widgets\SpinnerCheckboxContainer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GettingStarted.Xamarin" />
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Properties\AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\ResultItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ProfileEditLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ParentDataLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FilterEditLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TestLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemNormal.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemPlus.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemShortest.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PrefsLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SeedFinderLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MagikarpLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TinyFinderLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SeedRecoveryLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\MiscOptionsLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\TSV_Dialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchSettingsDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FrameDetailedDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemGuideNormal.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemGuidePlus.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EditProfileDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ParentTemplateDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FilterTemplateDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\Main.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-ja\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\EggResultMenu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Arrays.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\SpinnerMulti.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\ShortestEggResultMenu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Star.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\styles.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values-pt\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-hdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-mdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xhdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxhdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+		Other similar extension points exist, see Microsoft.Common.targets.
+		<Target Name="BeforeBuild">
+		</Target>
+		<Target Name="AfterBuild">
+		</Target>
+	-->
+</Project>

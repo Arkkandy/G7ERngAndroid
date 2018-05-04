@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <string name="search_guide_hp">HP</string>
+  <string name="search_guide_atk">攻撃</string>
+  <string name="search_guide_def">防御</string>
+  <string name="search_guide_spa">特講</string>
+  <string name="search_guide_spd">特防</string>
+  <string name="search_guide_spe">素早さ</string>
+
+  <string name="hp_stat">HP</string>
+  <string name="attack_stat">攻撃</string>
+  <string name="defense_stat">防御</string>
+  <string name="specialattack_stat">特講</string>
+  <string name="specialdefense_stat">特防</string>
+  <string name="speed_stat">素早さ</string>
+</resources>

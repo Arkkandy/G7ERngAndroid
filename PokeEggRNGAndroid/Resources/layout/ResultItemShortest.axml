@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:id="@+id/respLayout">
+    <CheckedTextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respEggN"
+        android:gravity="left|center_vertical"
+        android:text="Egg#"
+        android:layout_weight="0.8"/>
+    <TextView
+        android:text="Frame"
+        android:layout_weight="0.8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respFrame"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Advance"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respAdv"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Gender"
+        android:layout_weight="0.8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respGender"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Nature"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respNature"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Ability"
+        android:layout_weight="0.8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respAbility"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Ball"
+        android:layout_weight="0.8"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respBall"
+        android:gravity="left|center_vertical" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.2">
+        <TextView
+            android:text="HP"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respHP"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="Atk"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respAtk"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="Def"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respDef"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="SpA"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respSpA"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="SpD"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respSpD"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+        <TextView
+            android:text="Spe"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/respSpe"
+            android:layout_weight="1"
+            android:textSize="12sp"
+            android:gravity="left|center_vertical" />
+    </LinearLayout>
+    <TextView
+        android:text="Hidden P."
+        android:layout_weight="1.4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respHiddenPower"
+        android:gravity="center" />
+    <TextView
+        android:text="PSV"
+        android:layout_weight="0.6"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/respTSV"
+        android:gravity="left|center_vertical" />
+</LinearLayout>

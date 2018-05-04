@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/relativeLayout1"
+        android:layout_weight="0.8">
+        <ImageButton
+            android:src="@android:drawable/ic_menu_help"
+            android:id="@+id/MagikarpHelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+        <TextView
+            android:text="Count: 0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MagikarpCount"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout1"
+        android:layout_weight="0.8"
+        android:gravity="center_horizontal">
+        <TextView
+            android:text="--------,--------,--------,--------"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/magikarpSeedView"
+            android:typeface="monospace"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/result_guide_color" />
+        <ImageButton
+            android:src="@android:drawable/ic_menu_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/magiSetSeed"
+            android:foregroundTint="#00000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/linearLayout2"
+        android:layout_weight="3">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout5"
+            android:layout_weight="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+            <TextView
+                android:text="1 - 32"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/textView2"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right" />
+            <TextView
+                android:text="33 - 64"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/textView3"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right" />
+            <TextView
+                android:text="65 - 96"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/textView4"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right" />
+            <TextView
+                android:text="97 - 127"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/textView5"
+                android:layout_weight="1"
+                android:gravity="center_vertical|right" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout4"
+            android:layout_weight="2">
+            <EditText
+                android:inputType="number"
+                android:id="@+id/MagiPart1"
+                android:textSize="14sp"
+                android:maxLength="32"
+                android:digits="01"
+                android:typeface="monospace"
+                android:layout_width="280sp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:imeOptions="flagNoFullscreen|actionDone" />
+            <EditText
+                android:inputType="number"
+                android:id="@+id/MagiPart2"
+                android:gravity="left"
+                android:textSize="14sp"
+                android:digits="01"
+                android:maxLength="32"
+                android:typeface="monospace"
+                android:layout_width="280sp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:imeOptions="flagNoFullscreen|actionDone" />
+            <EditText
+                android:inputType="number"
+                android:id="@+id/MagiPart3"
+                android:textSize="14sp"
+                android:maxLength="32"
+                android:digits="01"
+                android:typeface="monospace"
+                android:layout_width="280sp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:imeOptions="flagNoFullscreen|actionDone" />
+            <EditText
+                android:inputType="number"
+                android:id="@+id/MagiPart4"
+                android:textSize="14sp"
+                android:digits="01"
+                android:maxLength="31"
+                android:typeface="monospace"
+                android:layout_width="280sp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:imeOptions="flagNoFullscreen|actionDone" />
+        </LinearLayout>
+        <ImageButton
+            android:src="@android:drawable/ic_menu_revert"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/magiBackspace"
+            android:layout_gravity="center_vertical|right"
+            android:layout_weight="0.4"
+            android:layout_marginRight="20dp" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/relativeLayout2"
+        android:layout_weight="1">
+        <Button
+            android:text="0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MagikarpButton0"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp" />
+        <Button
+            android:text="@string/profile_magikarp_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MagikarpFind"
+            android:layout_centerHorizontal="true"
+            android:enabled="false"
+            android:layout_alignParentBottom="true" />
+        <Button
+            android:text="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/MagikarpButton1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp" />
+    </RelativeLayout>
+</LinearLayout>

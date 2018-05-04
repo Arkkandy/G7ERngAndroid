@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:gravity="center_horizontal">
+        <TextView
+            android:text="@string/filter_templates"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="center" />
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/filterTemplateSpin" />
+        <ImageButton
+            android:src="@android:drawable/ic_menu_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/filterTemplateDelete" />
+    </LinearLayout>
+    <TextView
+        android:text="Max: --, --, --, --, --, --"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filterTemplateMax"
+        android:gravity="center"
+        android:typeface="monospace" />
+    <TextView
+        android:text="Min: --, --, --, --, --, --"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/filterTemplateMin"
+        android:gravity="center_horizontal"
+        android:typeface="monospace" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:gravity="center_horizontal">
+        <Button
+            android:text="@string/apply"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/filterTemplateApply"
+            android:textSize="12sp" />
+        <Button
+            android:text="@string/filter_templates_save"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/filterTemplateSave"
+            android:textSize="12sp"
+            android:layout_marginLeft="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3"
+        android:gravity="center_horizontal" />
+</LinearLayout>

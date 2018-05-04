@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string-array name="SearchType">
+    <item>@string/search_frame</item>
+    <item>@string/search_accept</item>
+    <item>@string/search_acceptplus</item>
+    <item>@string/search_shortest</item>
+    <item>@string/search_least</item>
+  </string-array>
+  <string-array name="GenderRatio">
+    <item>@string/gender_ratio_same</item>
+    <item>@string/gender_ratio_7m1f</item>
+    <item>@string/gender_ratio_3m1f</item>
+    <item>@string/gender_ratio_1m3f</item>
+    <item>@string/gender_ratio_1m7f</item>
+    <item>@string/gender_ratio_male</item>
+    <item>@string/gender_ratio_female</item>
+    <item>@string/gender_ratio_genderless</item>
+  </string-array>
+  <string-array name="Ability">
+    <item>@string/ability_one</item>
+    <item>@string/ability_two</item>
+    <item>@string/ability_hidden</item>
+  </string-array>
+  <string-array name="BreedingItem">
+    <item>@string/item_none</item>
+    <item>@string/item_ev</item>
+    <item>@string/item_dk</item>
+    <item>@string/item_php</item>
+    <item>@string/item_patk</item>
+    <item>@string/item_pdef</item>
+    <item>@string/item_pspatk</item>
+    <item>@string/item_pspdef</item>
+    <item>@string/item_pspeed</item>
+  </string-array>
+  <string-array name="HiddenPowerIndexed">
+    <item>@string/pokemon_type_fighting</item>
+    <item>@string/pokemon_type_flying</item>
+    <item>@string/pokemon_type_poison</item>
+    <item>@string/pokemon_type_ground</item>
+    <item>@string/pokemon_type_rock</item>
+    <item>@string/pokemon_type_bug</item>
+    <item>@string/pokemon_type_ghost</item>
+    <item>@string/pokemon_type_steel</item>
+    <item>@string/pokemon_type_fire</item>
+    <item>@string/pokemon_type_water</item>
+    <item>@string/pokemon_type_grass</item>
+    <item>@string/pokemon_type_electric</item>
+    <item>@string/pokemon_type_psychic</item>
+    <item>@string/pokemon_type_ice</item>
+    <item>@string/pokemon_type_dragon</item>
+    <item>@string/pokemon_type_dark</item>
+  </string-array>
+  <string-array name="NatureIndexed">
+    <item>@string/pokemon_nature_hardy</item>
+    <item>@string/pokemon_nature_lonely</item>
+    <item>@string/pokemon_nature_brave</item>
+    <item>@string/pokemon_nature_adamant</item>
+    <item>@string/pokemon_nature_naughty</item>
+    <item>@string/pokemon_nature_bold</item>
+    <item>@string/pokemon_nature_docile</item>
+    <item>@string/pokemon_nature_relaxed</item>
+    <item>@string/pokemon_nature_impish</item>
+    <item>@string/pokemon_nature_lax</item>
+    <item>@string/pokemon_nature_timid</item>
+    <item>@string/pokemon_nature_hasty</item>
+    <item>@string/pokemon_nature_serious</item>
+    <item>@string/pokemon_nature_jolly</item>
+    <item>@string/pokemon_nature_naive</item>
+    <item>@string/pokemon_nature_modest</item>
+    <item>@string/pokemon_nature_mild</item>
+    <item>@string/pokemon_nature_quiet</item>
+    <item>@string/pokemon_nature_bashful</item>
+    <item>@string/pokemon_nature_rash</item>
+    <item>@string/pokemon_nature_calm</item>
+    <item>@string/pokemon_nature_gentle</item>
+    <item>@string/pokemon_nature_sassy</item>
+    <item>@string/pokemon_nature_careful</item>
+    <item>@string/pokemon_nature_quirky</item>
+  </string-array>
+</resources>

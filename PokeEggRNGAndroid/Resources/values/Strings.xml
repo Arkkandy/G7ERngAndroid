@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Gen7 Egg RNG</string>
+
+  <!--ACTIVITY TITLES-->
+  <string name="activity_filter">Edit Filters</string>
+  <string name="activity_parents">Edit Parents</string>
+  <string name="activity_profile">Edit Profiles</string>
+  <string name="activity_misc">Misc Settings</string>
+  <string name="activity_preferences">Edit Preferences</string>
+
+  <string name="activity_magikarp">127 Magikarp Seed Finder</string>
+  <string name="activity_tinyseed">8 Egg Seed Finder</string>
+  <string name="activity_seedrecovery">Seed Recovery</string>
+
+
+
+  <!--MAIN ACITIVITY DATA-->
+  <string name="main_search_button">Search</string>
+  <string name="main_filter_button">Filters</string>
+  <string name="main_parents_button">Parents</string>
+  <string name="main_profile_button">Profile</string>
+  <string name="main_misc_button">Misc</string>
+
+  <string name="search_type">Search Type</string>
+  <string name="search_frame">Frame-By-Frame</string>
+  <string name="search_accept">Accept Only</string>
+  <string name="search_acceptplus">Accept Plus</string>
+  <string name="search_shortest">Shortest Path</string>
+  <string name="search_least"># Advances</string>
+  
+  <string name="search_acceptplus_rcount">R&gt;</string>
+
+  <string name="search_settings">Search Settings</string>
+  <string name="search_simple">Simple Search</string>
+  <string name="search_range">Range Search</string>
+  <string name="search_min">Min</string>
+  <string name="search_max">Max</string>
+  <string name="search_near">Near Target</string>
+
+  <string name="search_targetframe">Target Frame</string>
+  <string name="search_checkfilter">Filter</string>
+  <string name="search_checktsvs">+TSVs</string>
+
+  <string name="search_profileinfo_currentseed">Current Seed:</string>
+  <string name="search_profileinfo_tsv">TSV=</string>
+
+  <string name="search_guide_egg">Egg#</string>
+  <string name="search_guide_frame">Frame</string>
+  <string name="search_guide_advance">Advance</string>
+  <string name="search_guide_gender">Gender</string>
+  <string name="search_guide_nature">Nature</string>
+  <string name="search_guide_ability">Ability</string>
+  <string name="search_guide_ball">Ball</string>
+  <string name="search_guide_hp">HP</string>
+  <string name="search_guide_atk">Atk</string>
+  <string name="search_guide_def">Def</string>
+  <string name="search_guide_spa">SpA</string>
+  <string name="search_guide_spd">SpD</string>
+  <string name="search_guide_spe">Spe</string>
+  <string name="search_guide_hiddenpower">Hidden P.</string>
+  <string name="search_guide_psv">PSV</string>
+
+  <string name="search_popup_copyseed">Copy Seed</string>
+  <string name="search_popup_currentseed">Set Current Seed</string>
+  <string name="search_popup_targetframe">Set Target Frame</string>
+  <string name="search_popup_shortestpath">Shortest Path</string>
+  <string name="search_popup_viewdetailed">View Detailed</string>
+  <string name="search_popup_searchfrom">Search from</string>
+  <string name="search_popup_searchnext">Search from next</string>
+
+  <!--SHORTENED STAT NAMES, USED IN PARENT/FILTER STATS-->
+  <string name="hp_stat">HP</string>
+  <string name="attack_stat">Atk</string>
+  <string name="defense_stat">Def</string>
+  <string name="specialattack_stat">SpA</string>
+  <string name="specialdefense_stat">SpD</string>
+  <string name="speed_stat">Spe</string>
+
+  <!--FILTER ACITIVITY DATA-->
+  <string name="filter_clear">Clear Filter</string>
+  <string name="filter_remind">Shiny Remind</string>
+  <string name="filter_shiny">Shiny Only</string>
+  <string name="filter_perfects">Perfect IVs</string>
+  <string name="filter_templates">Templates</string>
+  <string name="filter_templates_save">Save Filter</string>
+  <string name="filter_templates_title">Filter IV Templates</string>
+  <string name="filter_templates_newname">Filter IV Template Name</string>
+  <string name="filter_templates_delete">Delete filter template?</string>
+  <string name="filter_templates_deleteyes">Yes, delete</string>
+  <string name="filter_templates_deleteno">Never mind</string>
+  <string name="filter_templates_emptyname">Text field is empty!</string>
+  
+  <!--PARENT ACITIVITY DATA-->
+  <string name="parents_ditto">Is Ditto?</string>
+  <string name="parents_samedex">Same Dex#</string>
+  <string name="parents_genderratio">Gender Ratio</string>
+  <string name="parents_masuda">Masuda Method</string>
+  <string name="parents_nido">Breeding Nidoran?</string>
+  <string name="parents_default">Default</string>
+  <string name="parents_default_ability">Default Abilities</string>
+  <string name="parents_default_item">Default Items</string>
+  <string name="parents_default_ivs">Default IVs</string>
+  <string name="parents_swap">Swap</string>
+  <string name="parents_swap_ability">Swap Abilities</string>
+  <string name="parents_swap_item">Swap Items</string>
+  <string name="parents_swap_ivs">Swap IVs</string>
+  <string name="parents_other">Other</string>
+  <string name="parents_templates_title">Parent IV Templates</string>
+  <string name="parents_templates_savemale">Save Male</string>
+  <string name="parents_templates_savefemale">Save Female</string>
+  <string name="parents_templates_tomale">&lt;- Male</string>
+  <string name="parents_templates_tofemale">Female -&gt;</string>
+  <string name="parents_templates_newname">IV Template Name</string>
+  <string name="parents_templates_delete">Delete filter template?</string>
+  <string name="parents_templates_deleteyes">Yes, delete</string>
+  <string name="parents_templates_deleteno">Never mind</string>
+  <string name="parents_templates_emptyname">Text field is empty!</string>
+  
+  <!--PROFILE & SEED ACITIVITY DATA-->
+  <string name="profile_profile">Profile</string>
+  <string name="profile_checkcharm">Shiny Charm?</string>
+  <string name="profile_tsv">TSV</string>
+  <string name="profile_current">Current Seed</string>
+  <string name="profile_checkpoint">Checkpoint Seed</string>
+  <string name="profile_find">Find Seed</string>
+  <string name="profile_setcurrent">Set current from checkpoint</string>
+  <string name="profile_setcheckpoint">Set checkpoint from current</string>
+  <string name="profile_copycurrent">Copy current to clipboard</string>
+  <string name="profile_copycheckpoint">Copy checkpoint to clipboard</string>
+  <string name="profile_pastetocurrent">Paste seed to current</string>
+  <string name="profile_copiedcurrent">Current seed copied to clipboard.</string>
+  <string name="profile_copiedcheckpoint">Checkpoint seed copied to clipboard.</string>
+  <string name="profile_malformedseed">Malformed seed.\nFormat: S3,S2,S1,S0</string>
+  <string name="profile_noseed">No seed in clipboard.</string>
+  <string name="profile_editname">Edit Profile Name</string>
+  <string name="profile_editnameempty">Name field is empty!</string>
+  <string name="profile_createprofile">Create New Profile</string>
+  <string name="profile_defaultprofile">New Profile</string>
+  <string name="profile_delete">Delete profile?</string>
+  <string name="profile_deletemessage">If you delete your profile you will be unable to recover your user data. Are you sure you want to delete your profile?</string>
+  <string name="profile_deleteyes">Yes, delete</string>
+  <string name="profile_deleteno">Never mind</string>
+  
+  
+  <string name="profile_magikarp">127 Magikarp</string>
+  <string name="profile_tinyseed">8 Egg New Game</string>
+  <string name="profile_seedrecovery">Seed Recovery</string>
+  <string name="profile_magikarp_find">Find</string>
+  
+  <string name="profile_magikarp_set">Current seed set from Magikarp calculator.</string>
+  <string name="profile_tinyfinder_set">Current seed set from 8 Egg calculator.</string>
+  <string name="profile_seedrecovery_set">Current seed set from Seed Recovery tool.</string>
+
+  <string name="magikarpseed_help_title">127 Magikarp Seed help</string>
+  <string name="magikarpseed_help">Refer to r/pokemonrng/wiki/eggrng for a detailed guide on how to find your seed.</string>
+
+  <string name="profile_searchingseed">Searching</string>
+  <string name="profile_seedrecoveryhelptitle">Seed Recovery Help</string>
+  <string name="profile_seedrecoveryhelpmessage">1. Place Ditto + Magikarp in nursery.\n2. NO ITEMS.\n3. Breed between 4 and 8 Pokémon.\n4. Enter their natures in the tool.\n\nSeeds are automatically copied to the clipboard. If you get multiple results you may have to enter more natures or, in rare cases, verify frames manually as they advance into the same sequence of eggs.</string>
+  <string name="profile_copyseedframe">Copy seed {0}</string>
+  <string name="profile_setseed">Set current seed</string>
+  <string name="profile_copyall">Copy all seeds</string>
+  <string name="profile_copiedall">Copied all seeds to clipboard. Paste in a different application and try each seed separately.</string>
+  <string name="profile_copiedresultseed">Copied seed to clipboard: {0}</string>
+  <string name="profile_noresult">No result was found.</string>
+
+  <string name="seed_tiny_helptitle">Tiny Seed Finder Help</string>
+  <string name="seed_tiny_helpmessage">RECOMMENDATION: Prefer the Desktop version of this algorithm in the 3DSRNGTOOL as it is much faster.\n\nREQUIREMENT: Must have never bred a single Pokémon in your save file.\n\n1. Place Ditto + Magikarp in nursery.\n2. NO ITEMS, NO MASUDA.\n3. Breed and hatch 8 Pokemon.\n4. Enter their natures in the tool.\n\nYou can pause and resume your search at any time. The search will automatically be paused and saved when leaving the application. This algorithm can take about 30 minutes to complete on a smartphone.</string>
+  <string name="seed_tiny_searchfinishedone">Search finished. Copied seed to clipboard: {0}</string>
+  <string name="seed_tiny_searchfinishedall">Search finished. Copied all seeds to clipboard. Paste in a different application and try each seed separately.</string>
+  <string name="seed_tiny_noresult">Search finished. No result was found.</string>
+  <string name="seed_tiny_copyseed">Copy Seed</string>
+  <string name="seed_clear">Clear</string>
+  <string name="seed_resume">Resume</string>
+  <string name="seed_pause">Pause</string>
+  <string name="seed_abort">Abort</string>
+  <string name="seed_done">Done</string>
+  <string name="seed_end">End</string>
+
+  <string name="profile_profiletag">Profile Tag</string>
+
+  <string name="profile_magikarp_count">Count:</string>
+  
+  <string name="seed_maxframe">Max Frame</string>
+  <string name="seed_nature_sequence">Nature Sequence</string>
+  <string name="seed_recover">Recover</string>
+  <string name="seed_search">Search</string>
+  
+  <!--MISC ACITIVITY DATA-->
+  <string name="misc_tsv">Other TSVs</string>
+  <string name="misc_add">Add TSV</string>
+  <string name="misc_remove_tsv">Remove TSV {0}</string>
+  <string name="misc_remove_all">Remove All</string>
+  <string name="misc_newtsvset">New TSV Set</string>
+  <string name="misc_defaultsetname">Other TSV</string>
+  <string name="misc_deleteset">Delete TSV Set?</string>
+  <string name="misc_deletesetdescription">If you delete your TSV set you will be unable to recover its data. Are you sure you want to delete this set?</string>
+  <string name="misc_deleteyes">Yes, delete</string>
+  <string name="misc_deleteno">Never mind</string>
+  <string name="misc_editsetname">Edit TSV Set Name</string>
+  <string name="misc_tsvalreadyinlist">TSV {0} is already in the list.</string>
+  <string name="misc_tsvadded">TSV {0} added.</string>
+  <string name="misc_emptysetname">Text field is empty!</string>
+  
+  <!--PREFERENCES ACITIVITY DATA-->
+  <string name="setting_resultheight">Result Row Height</string>
+  <string name="setting_maxresult">Max Results</string>
+  <string name="setting_shinycolor">Shiny Row Color</string>
+  <string name="setting_othershinycolor">Other TSV Color</string>
+  <string name="setting_autosearch">Automatically redo search</string>
+  <string name="setting_allgender">Show all genders</string>
+  <string name="setting_allability">Show all abilities</string>
+  <string name="setting_rowsize_small">Tight</string>
+  <string name="setting_rowsize_medium">Medium</string>
+  <string name="setting_rowsize_large">Tall</string>
+  <string name="setting_shinycolors_blue">Blue</string>
+  <string name="setting_shinycolors_purple">Purple</string>
+  <string name="setting_shinycolors_yellow">Yellow</string>
+  <string name="setting_shinycolors_green">Green</string>
+  <string name="setting_shinycolors_orange">Orange</string>
+  <string name="setting_shinycolors_gray">Gray</string>
+  <string name="setting_helptitle">Help</string>
+  <string name="setting_helpmessage">Gen 7 Android RNG Tool V1.0\n\nSearch Modes\n\n 1. Frame-By-Frame: Search all frames from the current seed up to a maximum number of results. Additional settings can be seen by holding the Search button.\n\n 2. Accept List: Sequence of eggs that you would obtain by only accepting eggs.\n\n 3. Accept Plus: Sequence of eggs that you would obtain by accepting X eggs and rejecting up to 4 eggs.\n\n 4. Shortest Path: See the shortest sequence of eggs you must accept/reject to get to the egg you want. To help you keep track of your progress, you can click rows to mark eggs as completed.\n\n 5. # Advances: See the number of accepts/rejects you would need to complete to get to each egg. This is effectively a preview of how many eggs you need to take in the Shortest Path.\n\n Auto Search: Any time you click to \"Accept\" or \"Reject\" an egg, if the egg is not in the search, or the search could be improved, the application will automatically redo the search from the new seed.\n\n All Genders: Show all possible genders for random gender ratios.\n\n All Abilities: Show all possible abilities based on the inherited ability.\n\nThank you for using this tool!</string>
+
+  <!--POKEMON TYPES-->
+  <string name="pokemon_type_bug">Bug</string>
+  <string name="pokemon_type_dark">Dark</string>
+  <string name="pokemon_type_dragon">Dragon</string>
+  <string name="pokemon_type_electric">Electric</string>
+  <string name="pokemon_type_fairy">Fairy</string>
+  <string name="pokemon_type_fighting">Fighting</string>
+  <string name="pokemon_type_fire">Fire</string>
+  <string name="pokemon_type_flying">Flying</string>
+  <string name="pokemon_type_ghost">Ghost</string>
+  <string name="pokemon_type_grass">Grass</string>
+  <string name="pokemon_type_ground">Ground</string>
+  <string name="pokemon_type_ice">Ice</string>
+  <string name="pokemon_type_normal">Normal</string>
+  <string name="pokemon_type_poison">Poison</string>
+  <string name="pokemon_type_psychic">Psychic</string>
+  <string name="pokemon_type_rock">Rock</string>
+  <string name="pokemon_type_steel">Steel</string>
+  <string name="pokemon_type_water">Water</string>
+
+  <!--POKEMON NATURES-->
+  <string name="pokemon_nature_adamant">Adamant</string>
+  <string name="pokemon_nature_bashful">Bashful</string>
+  <string name="pokemon_nature_bold">Bold</string>
+  <string name="pokemon_nature_brave">Brave</string>
+  <string name="pokemon_nature_calm">Calm</string>
+  <string name="pokemon_nature_careful">Careful</string>
+  <string name="pokemon_nature_docile">Docile</string>
+  <string name="pokemon_nature_gentle">Gentle</string>
+  <string name="pokemon_nature_hardy">Hardy</string>
+  <string name="pokemon_nature_hasty">Hasty</string>
+  <string name="pokemon_nature_impish">Impish</string>
+  <string name="pokemon_nature_jolly">Jolly</string>
+  <string name="pokemon_nature_lax">Lax</string>
+  <string name="pokemon_nature_lonely">Lonely</string>
+  <string name="pokemon_nature_mild">Mild</string>
+  <string name="pokemon_nature_modest">Modest</string>
+  <string name="pokemon_nature_naive">Naive</string>
+  <string name="pokemon_nature_naughty">Naughty</string>
+  <string name="pokemon_nature_quiet">Quiet</string>
+  <string name="pokemon_nature_quirky">Quirky</string>
+  <string name="pokemon_nature_rash">Rash</string>
+  <string name="pokemon_nature_relaxed">Relaxed</string>
+  <string name="pokemon_nature_sassy">Sassy</string>
+  <string name="pokemon_nature_serious">Serious</string>
+  <string name="pokemon_nature_timid">Timid</string>
+
+  <!--POKEMON ITEMS-->
+  <string name="item_none">None</string>
+  <string name="item_ev">Everstone</string>
+  <string name="item_dk">DestinyKnot</string>
+  <string name="item_php">PowerHP</string>
+  <string name="item_patk">PowerAtk</string>
+  <string name="item_pdef">PowerDef</string>
+  <string name="item_pspatk">PowerSpA</string>
+  <string name="item_pspdef">PowerSpD</string>
+  <string name="item_pspeed">PowerSpe</string>
+
+  <!--ABILITY NAMES USED IN SPINNERS-->
+  <string name="ability_one">Slot 1</string>
+  <string name="ability_two">Slot 2</string>
+  <string name="ability_hidden">Hidden</string>
+
+  <!--GENDER RATIOS - PARENT SPINNER-->
+  <string name="gender_ratio_same">1M/1F</string>
+  <string name="gender_ratio_7m1f">7M/1F</string>
+  <string name="gender_ratio_3m1f">3M/1F</string>
+  <string name="gender_ratio_1m3f">1M/3F</string>
+  <string name="gender_ratio_1m7f">1M/7F</string>
+  <string name="gender_ratio_male">Male Only</string>
+  <string name="gender_ratio_female">Female Only</string>
+  <string name="gender_ratio_genderless">Genderless</string>
+  
+  <!--GENERAL SPINNER-->
+  <string name="spinner_option_all">Any</string>
+  <string name="spinner_option_none">None</string>  
+  
+  <!--TOAST STRINGS-->
+  <string name="search_range_warning">Invalid values in range search.\nSetting range to [ {0} , {1} ].</string>
+  <string name="search_shortestpath_highframe">Target frame is too high.\nMaximum target frame is: {0}</string>
+  <string name="search_shortestpath_sequence">"Accept: {0} Reject: {1}\nTotal of {2} eggs.</string>
+  <string name="search_noframes">No matching frames found.</string>
+
+  <string name="search_popup_toast_acceptedegg">Accepted egg {0}</string>
+  <string name="search_popup_toast_acceptedframe">Accepted frame {0}</string>
+
+  <string name="search_popup_toast_rejectedegg">Rejected egg {0}</string>
+  <string name="search_popup_toast_rejectedframe">Rejected frame {0}</string>
+
+  <string name="search_popup_toast_setnewegg">Setting new seed from egg {0}</string>
+  <string name="search_popup_toast_setnewframe">Setting new seed from frame {0}</string>
+
+  <string name="search_popup_toast_filteregg">New egg {0} was filtered.</string>
+  <string name="search_popup_toast_filterframe">New frame {0} was filtered.</string>
+
+  <string name="search_popup_toast_eggexceeds">Egg {0} exceeds current search.</string>
+  <string name="search_popup_toast_frameexceeds">Frame {0} exceeds current search.</string>
+
+  <string name="search_popup_toast_eggredo">Re-doing search from new egg.</string>
+  <string name="search_popup_toast_frameredo">Re-doing search from new frame.</string>
+
+  <string name="search_popup_toast_copyseed">Seed copied to clipboard.</string>
+  <string name="search_popup_toast_setcurrentseed">Setting current seed from frame {0}.</string>
+
+
+  <string name="search_popup_accept">Accept {0}</string>
+  <string name="search_popup_reject">Reject {0}</string>
+
+  <string name="search_popup_acceptframe">Accept Frame {0}</string>
+  <string name="search_popup_rejectframe">Reject Frame {0}</string>
+
+  <string name="search_popup_acceptegg">Accept Egg {0}</string>
+  <string name="search_popup_rejectegg">Reject Egg {0}</string>
+
+  <string name="search_popup_searchfromnum">Search from Egg# {0}</string>
+
+  <string name="search_toast_shortpathcomplete">Completed shortest path to egg.\nReturning to normal search.</string>
+
+  <!--DETAILED FRAME DIALOG-->
+  <string name="detailed_copyspread">Copy Spread</string>
+  <string name="search_detailed_frame">Frame {0}</string>
+  <string name="search_detailed_spreadcopied">Spread copied to clipboard.</string>
+  <string name="search_detailed_gender">Gender:</string>
+  <string name="search_detailed_ball">Ball:</string>
+  <string name="search_detailed_ability">Ability:</string>
+  <string name="search_detailed_nature">Nature:</string>
+  <string name="search_detailed_wurmple">Wurmple Evolution:</string>
+  <string name="dustox">Dustox</string>
+  <string name="beautifly">Beautifly</string>
+  
+  <!--GENERAL STRINGS-->
+  <string name="gender">Gender</string>
+  <string name="ball">Ball</string>
+  <string name="ability">Ability</string>
+  <string name="item">Item</string>
+  <string name="hiddenpower">Hidden Power</string>
+  <string name="nature">Nature</string>
+  
+  <string name="male">Male</string>
+  <string name="female">Female</string>
+
+  <string name="accept">Accept</string>
+  <string name="reject">Reject</string>
+  <string name="apply">Apply</string>
+  <string name="done">Done</string>
+  <string name="ok">OK</string>
+  <string name="confirm">Confirm</string>
+  <string name="cancel">Cancel</string>
+  <string name="okthanks">Ok, thanks!</string>
+  <string name="clear">Clear</string>
+  
+</resources>

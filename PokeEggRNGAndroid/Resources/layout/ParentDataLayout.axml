@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/PareMaleData">
+        <TextView
+            android:text="@string/male"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+        <CheckBox
+            android:text="@string/parents_ditto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/maleIsDitto"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/ability"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textView3"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:singleLine="true" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/maleAbility"
+                android:layout_weight="1"
+                android:entries="@array/Ability"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/textView4"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:singleLine="true" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/maleItem"
+                android:layout_weight="1"
+                android:entries="@array/BreedingItem"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/PareMaleIVs">
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/space1"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleHPView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleHP"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/hp_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleHPText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleAtkView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleAtk"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/attack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleAtkText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleDefView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleDef"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/defense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleDefText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleSpAView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleSpA"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/specialattack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleSpAText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleSpDView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleSpD"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/specialdefense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleSpDText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/maleSpeView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/maleSpe"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="@string/speed_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/maleSpeText"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/PareOther"
+        android:layout_weight="1">
+        <TextView
+            android:text="@string/parents_other"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+        <CheckBox
+            android:text="@string/parents_samedex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/isSameDex"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/genderLayout"
+            android:gravity="center_vertical">
+            <TextView
+                android:text="@string/parents_genderratio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderText"
+                android:gravity="center" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderSpinner"
+                android:entries="@array/GenderRatio"
+                android:spinnerMode="dropdown"
+                android:layout_gravity="center" />
+        </LinearLayout>
+        <CheckBox
+            android:text="@string/parents_masuda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/isMasuda"
+            android:layout_gravity="center" />
+        <CheckBox
+            android:text="@string/parents_nido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/isNido"
+            android:layout_gravity="center" />
+        <Button
+            android:text="@string/parents_default"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/buttonParentDefault"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp" />
+        <Button
+            android:text="@string/parents_swap"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/buttonParentSwap"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp" />
+        <Button
+            android:text="@string/filter_templates"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/buttonParentTemplate"
+            android:layout_gravity="center_horizontal"
+            android:textSize="12sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/PareFemale"
+        android:layout_weight="1">
+        <TextView
+            android:text="@string/female"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:gravity="center" />
+        <CheckBox
+            android:text="@string/parents_ditto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/femaleIsDitto"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/ability"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:singleLine="true" />
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/femaleAbility"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:entries="@array/Ability" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/item"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:singleLine="true" />
+            <Spinner
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/femaleItem"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:entries="@array/BreedingItem" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/PareFemaleIVs">
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/space2"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/hp_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleHPText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleHP"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleHPView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/attack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleAtkText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleAtk"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleAtkView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/defense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleDefText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleDef"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleDefView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/specialattack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleSpAText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleSpA"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleSpAView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/specialdefense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleSpDText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleSpD"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleSpDView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="top">
+                <TextView
+                    android:text="@string/speed_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/femaleSpeText"
+                    android:gravity="center_horizontal" />
+                <SeekBar
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/femaleSpe"
+                    android:layout_weight="3"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="31"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/femaleSpeView"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

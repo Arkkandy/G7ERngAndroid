@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <RadioButton
+            android:text="@string/search_simple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/simpleSearch" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <RadioButton
+            android:text="@string/search_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rangeSearchCheck" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+            <TextView
+                android:text="@string/search_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1"
+                android:gravity="center" />
+            <EditText
+                android:inputType="number"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/minFrame"
+                android:text="0"
+                android:textSize="12sp"
+                android:imeOptions="flagNoFullscreen|actionDone"
+                android:maxLength="5" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+            <TextView
+                android:text="@string/search_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+            <EditText
+                android:inputType="number"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/maxFrame"
+                android:text="10000"
+                android:textSize="12sp"
+                android:imeOptions="flagNoFullscreen|actionDone"
+                android:maxLength="5" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <RadioButton
+            android:text="@string/search_near"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nearTarget" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+            <TextView
+                android:text="+/-"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+            <EditText
+                android:inputType="number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/targetNeighbourhood"
+                android:textSize="12sp"
+                android:text="100"
+                android:imeOptions="flagNoFullscreen|actionDone"
+                android:maxLength="4" />
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:text="Ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/diaSearchAccept"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

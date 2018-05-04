@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <!--ACTIVITY TITLES-->
+  <string name="activity_filter">Editar Filtros</string>
+  <string name="activity_parents">Editar Pais</string>
+  <string name="activity_profile">Editar Perfis</string>
+  <string name="activity_misc">Outras Opções</string>
+  <string name="activity_preferences">Editar Preferências</string>
+
+  <string name="activity_magikarp">Pesquisa 127 Magikarp</string>
+  <string name="activity_tinyseed">Pesquisa 8 Ovos Tiny</string>
+  <string name="activity_seedrecovery">Recuperação de semente</string>
+
+
+
+  <!--ACITIVITY DATA-->
+  <string name="main_search_button">Procurar</string>
+  <string name="main_filter_button">Filtros</string>
+  <string name="main_parents_button">Pais</string>
+  <string name="main_profile_button">Perfil</string>
+  <string name="main_misc_button">Outros</string>
+
+  <string name="search_type">Tipo de Procura</string>
+  <string name="search_frame">Frame-a-Frame</string>
+  <string name="search_accept">Aceitar apenas</string>
+  <string name="search_acceptplus">Aceitar mais</string>
+  <string name="search_shortest">Menor sequência</string>
+  <string name="search_least"># de Avanços</string>
+
+  <string name="search_settings">Opções de Procura</string>
+  <string name="search_simple">Procura Simples</string>
+  <string name="search_range">Em Intervalo</string>
+  <string name="search_min">Min</string>
+  <string name="search_max">Max</string>
+  <string name="search_near">Proximidade</string>
+
+  <string name="search_targetframe">Objectivo</string>
+  <string name="search_checkfilter">Filtrar</string>
+  <string name="search_checktsvs">+TSVs</string>
+  
+  <string name="search_profileinfo_currentseed">Semente atual:</string>
+
+  <string name="search_guide_egg">Ovo#</string>
+  <string name="search_guide_frame">Frame</string>
+  <string name="search_guide_advance">Avanço</string>
+  <string name="search_guide_gender">Sexo</string>
+  <string name="search_guide_nature">Natureza</string>
+  <string name="search_guide_ability">Habili.</string>
+  <string name="search_guide_ball">Bola</string>
+  <string name="search_guide_hp">HP</string>
+  <string name="search_guide_atk">Atk</string>
+  <string name="search_guide_def">Def</string>
+  <string name="search_guide_spa">SpA</string>
+  <string name="search_guide_spd">SpD</string>
+  <string name="search_guide_spe">Spe</string>
+  <string name="search_guide_hiddenpower">Poder Esc.</string>
+  <string name="search_guide_psv">PSV</string>
+
+  <string name="search_popup_copyseed">Copiar semente</string>
+  <string name="search_popup_currentseed">Definir como atual</string>
+  <string name="search_popup_targetframe">Definir como objectivo</string>
+  <string name="search_popup_shortestpath">Menor sequência</string>
+  <string name="search_popup_viewdetailed">Ver em detalhe</string>
+  <string name="search_popup_searchfrom">Procurar desde</string>
+  <string name="search_popup_searchnext">Procurar no seguinte</string>
+
+  <string name="detailed_copyspread">Copiar dados</string>
+
+  <string name="hp_stat">HP</string>
+  <string name="attack_stat">Atk</string>
+  <string name="defense_stat">Def</string>
+  <string name="specialattack_stat">SpA</string>
+  <string name="specialdefense_stat">SpD</string>
+  <string name="speed_stat">Spe</string>
+
+  <string name="filter_clear">Limpar filtro</string>
+  <string name="filter_remind">Shiny Remind</string>
+  <string name="filter_shiny">Shiny Apenas</string>
+  <string name="filter_perfects">IVs Perfeitos</string>
+  <string name="filter_templates">Modelos</string>
+  <string name="filter_templates_save">Guardar Filtro</string>
+  <string name="filter_templates_title">Modelos: IVs de Filtros</string>
+  <string name="filter_templates_newname">Nome do Modelo</string>
+  <string name="filter_templates_delete">Apagar modelo de filtro?</string>
+  <string name="filter_templates_deleteyes">Sim, apagar</string>
+  <string name="filter_templates_deleteno">Não</string>
+  <string name="filter_templates_emptyname">Campo de texto vazio!</string>
+
+
+  <string name="parents_ditto">É Ditto?</string>
+  <string name="parents_samedex">Mesmo #Dex</string>
+  <string name="parents_genderratio">Tipo de Sexo</string>
+  <string name="parents_masuda">Método Masuda</string>
+  <string name="parents_nido">Procriando Nidoran?</string>
+  <string name="parents_default">Padrão</string>
+  <string name="parents_default_ability">Habilidades padrão</string>
+  <string name="parents_default_item">Itens padrão</string>
+  <string name="parents_default_ivs">IVs padrão</string>
+  <string name="parents_swap">Swap</string>
+  <string name="parents_swap_ability">Trocar Habilidades</string>
+  <string name="parents_swap_item">Trocar Itens</string>
+  <string name="parents_swap_ivs">Trocar IVs</string>
+  <string name="parents_other">Outros</string>
+  <string name="parents_templates_title">Modelos: IVs de Pais</string>
+  <string name="parents_templates_savemale">Guardar Macho</string>
+  <string name="parents_templates_savefemale">Guardar Fémea</string>
+  <string name="parents_templates_tomale">&lt;- Macho</string>
+  <string name="parents_templates_tofemale">Fémea -&gt;</string>
+  <string name="parents_templates_newname">Nome do Modelo</string>
+  <string name="parents_templates_delete">Apagar modelo?</string>
+  <string name="parents_templates_deleteyes">Sim, apagar</string>
+  <string name="parents_templates_deleteno">Não</string>
+  <string name="parents_templates_emptyname">Campo de texto vazio!</string>
+
+  <string name="profile_profile">Perfil</string>
+  <string name="profile_checkcharm">Shiny Charm?</string>
+  <string name="profile_tsv">TSV</string>
+  <string name="profile_current">Semente atual</string>
+  <string name="profile_checkpoint">Semente checkpoint</string>
+  <string name="profile_find">Encontrar Semente</string>
+  <string name="profile_setcurrent">Retroceder ao checkpoint</string>
+  <string name="profile_setcheckpoint">Guardar no checkpoint</string>
+  <string name="profile_copycurrent">Copiar semente atual</string>
+  <string name="profile_copycheckpoint">Copiar semente checkpoint</string>
+  <string name="profile_pastetocurrent">Colar em atual</string>
+  <string name="profile_copiedcurrent">Semente atual copiada.</string>
+  <string name="profile_copiedcheckpoint">Semente checkpoint copiada.</string>
+  <string name="profile_malformedseed">Formato da semente errado.\nDeve ser: S3,S2,S1,S0</string>
+  <string name="profile_noseed">Não existe uma semente válida na área de transferência.</string>
+  <string name="profile_editname">Editar nome do Perfil</string>
+  <string name="profile_editnameempty">Campo de texto vazio!</string>
+  <string name="profile_createprofile">Criar Novo Perfil</string>
+  <string name="profile_defaultprofile">Novo Perfil</string>
+  <string name="profile_delete">Apagar perfil?</string>
+  <string name="profile_deletemessage">Se apagar o seu perfil ficará impossibilitado de recuperar os dados desse utilizador. De certeza que deseja prosseguir?</string>
+  <string name="profile_deleteyes">Sim, apagar</string>
+  <string name="profile_deleteno">Não</string>
+
+
+  <string name="profile_magikarp">127 Magikarp</string>
+  <string name="profile_tinyseed">8 Egg Novo Jogo</string>
+  <string name="profile_seedrecovery">Recuperar semente</string>
+  <string name="profile_magikarp_find">Procurar</string>
+
+  <string name="profile_magikarp_set">Semente atual obtida na pesquisa 127 Magikarp.</string>
+  <string name="profile_tinyfinder_set">Semente atual obtida na pesquisa 8 Egg Tiny.</string>
+  <string name="profile_seedrecovery_set">Semente atual recuperada.</string>
+
+  <string name="magikarpseed_help_title">127 Magikarp Ajuda</string>
+  <string name="magikarpseed_help">Ver r/pokemonrng/wiki/eggrng para um guia detalhado sobre como encontrar a sua semente.</string>
+
+  <string name="profile_searchingseed">Procurando</string>
+  <string name="profile_seedrecoveryhelptitle">Ajuda na recuperação da semente</string>
+  <string name="profile_seedrecoveryhelpmessage">1. Colocar Ditto + Magikarp na nursery.\n2. NÃO UTILIZAR ITENS.\n3. Obter entre 4 and 8 Pokémons.\n4. Introduzir as naturezas na ferramenta.\n\nAs sementes serão automaticamente copiadas para a área de transferência. Se obtiver vários resultados terá de introduzir mais naturezas ou, em raros casos, verificar frames manualmente se produzirem a mesma sequência.</string>
+  <string name="profile_copyseedframe">Copiar semente {0}</string>
+  <string name="profile_setseed">Definir como atual</string>
+  <string name="profile_copyall">Copiar tudo</string>
+  <string name="profile_copiedall">Todas as sementes foram copiadas. Pode colar noutra aplicação e testar separadamente.</string>
+  <string name="profile_copiedresultseed">Semente copiada: {0}</string>
+  <string name="profile_noresult">Nenhum resultado encontrado.</string>
+
+  <string name="seed_tiny_helptitle">Tiny Seed - Ajuda</string>
+  <string name="seed_tiny_helpmessage">RECOMENDAÇÃO: Prefira a versão desktop deste algoritmo na ferramenta original 3DSRNGTOOL por ser bastante mais rápido.\n\nREQUERIMENTO: Nunca ter feito procriação de Pokémons no seu ficheiro.\n\n1. Colocar Ditto + Magikarp na nursery.\n2. NÃO UTILIZAR ITEMS NEM MÉTODO MASUDA.\n3. Obter 8 Pokémons.\n4. Introduzir as naturezas na ferramenta.\n\nEsta pesquisa pode ser pausada e retomada a qualquer momento sem que perca os seus dados. A pesquisa será pausada automaticamente quando muda para outra aplicação. Este algoritmo pode demorar cerca de 30 minutos a ser concluído num smarthone.</string>
+  <string name="seed_tiny_searchfinishedone">Procura terminada. Copiando semente: {0}</string>
+  <string name="seed_tiny_searchfinishedall">Procura terminada. Todas as sementes foram copiadas. Pode colar noutra aplicação e testar separadamente.</string>
+  <string name="seed_tiny_noresult">Procura terminada. Nenhum resultado encontrado.</string>
+  <string name="seed_tiny_copyseed">Copiar semente</string>
+  <string name="seed_clear">Apagar</string>
+  <string name="seed_resume">Retomar</string>
+  <string name="seed_pause">Pausar</string>
+  <string name="seed_abort">Abortar</string>
+  <string name="seed_done">Concluído</string>
+  <string name="seed_end">Terminar</string>
+
+  <string name="profile_profiletag">Nome de Perfil</string>
+
+  <string name="profile_magikarp_count">Contagem:</string>
+
+  <string name="seed_maxframe">Frame Máx</string>
+  <string name="seed_nature_sequence">Naturezas</string>
+  <string name="seed_recover">Recuperar</string>
+  <string name="seed_search">Procurar</string>
+
+  <string name="misc_tsv">Outros TSVs</string>
+  <string name="misc_add">Adicionar TSV</string>
+  <string name="misc_remove_tsv">Remover TSV {0}</string>
+  <string name="misc_remove_all">Remover todos</string>
+  <string name="misc_newtsvset">Novo conjunto de TSVs</string>
+  <string name="misc_defaultsetname">Outros TSVs</string>
+  <string name="misc_deleteset">Apagar conjunto de TSV?</string>
+  <string name="misc_deletesetdescription">Se apagar este conjunto não poderá recuperar os respetivos TSV. De certeza que deseja prosseguir?</string>
+  <string name="misc_deleteyes">Sim, apagar</string>
+  <string name="misc_deleteno">Não</string>
+  <string name="misc_editsetname">Editar nome do conjunto</string>
+  <string name="misc_tsvalreadyinlist">O TSV {0} já está na lista.</string>
+  <string name="misc_tsvadded">TSV {0} adicionado.</string>
+  <string name="misc_emptysetname">Campo de texto vazio!</string>
+
+  <string name="setting_resultheight">Altura das linhas</string>
+  <string name="setting_maxresult">Limite de resultados</string>
+  <string name="setting_shinycolor">Cor Shiny</string>
+  <string name="setting_othershinycolor">Cor Shiny Alternativa</string>
+  <string name="setting_autosearch">Refazer pesquisa automaticamente</string>
+  <string name="setting_allgender">Ver todos os sexos</string>
+  <string name="setting_allability">Ver todas habilidades</string>
+  <string name="setting_rowsize_small">Pequenas</string>
+  <string name="setting_rowsize_medium">Médias</string>
+  <string name="setting_rowsize_large">Altas</string>
+  <string name="setting_shinycolors_blue">Azul</string>
+  <string name="setting_shinycolors_purple">Roxo</string>
+  <string name="setting_shinycolors_yellow">Amarelo</string>
+  <string name="setting_shinycolors_green">Verde</string>
+  <string name="setting_shinycolors_orange">Laranja</string>
+  <string name="setting_shinycolors_gray">Cinzento</string>
+  <string name="setting_helptitle">Ajuda da Aplicação</string>
+  <string name="setting_helpmessage">Gen 7 Android RNG Tool V1.0\n\nModos de Procura\n\n 1. Frame-A-Frame: Procurar até um certo número de resultados com limite máximo de 50.000 frames.\n\n 2. Aceitar Apenas: Sequência de ovos que pode obter apenas aceitando ovos.\n\n 3. Aceitar Mais: Sequência de ovos que pode obter aceitando X ovos e rejeitando até 4 ovos.\n\n 4. Menor Sequência: Veja a menor sequência de aceitações/rejeições de ovos para receber o ovo pretendido. Para facilmente acompanhar o progresso, pode clicar nas linhas dos resultados e marcar ovos já recebidos.\n\n 5. # Avanços: Veja uma previsão do número de aceitações/rejeições necessárias para receber cada ovo. É, efetivamente, uma previsão do número de ovos na Menor Sequência.\n\n Procura Automática: Quando clicar em \"Aceitar\" ou \"Rejeitar\" um ovo, e apenas se o ovo seguinte não estiver nos resultados, a aplicação irá automaticamente refazer a procura a partir desse ovo.\n\n Todos os Sexos: Mostrar todas as possibilidades de sexos para géneros aleatórios.\n\n Todas as Habilidades: Mostrar todas as habilidades possíveis com base na habilidade herdada.\n\nObrigado por utilizar esta ferramenta!</string>
+
+  <string name="pokemon_type_bug">Bug</string>
+  <string name="pokemon_type_dark">Dark</string>
+  <string name="pokemon_type_dragon">Dragon</string>
+  <string name="pokemon_type_electric">Electric</string>
+  <string name="pokemon_type_fairy">Fairy</string>
+  <string name="pokemon_type_fighting">Fighting</string>
+  <string name="pokemon_type_fire">Fire</string>
+  <string name="pokemon_type_flying">Flying</string>
+  <string name="pokemon_type_ghost">Ghost</string>
+  <string name="pokemon_type_grass">Grass</string>
+  <string name="pokemon_type_ground">Ground</string>
+  <string name="pokemon_type_ice">Ice</string>
+  <string name="pokemon_type_normal">Normal</string>
+  <string name="pokemon_type_poison">Poison</string>
+  <string name="pokemon_type_psychic">Psychic</string>
+  <string name="pokemon_type_rock">Rock</string>
+  <string name="pokemon_type_steel">Steel</string>
+  <string name="pokemon_type_water">Water</string>
+
+  <string name="pokemon_nature_adamant">Adamant</string>
+  <string name="pokemon_nature_bashful">Bashful</string>
+  <string name="pokemon_nature_bold">Bold</string>
+  <string name="pokemon_nature_brave">Brave</string>
+  <string name="pokemon_nature_calm">Calm</string>
+  <string name="pokemon_nature_careful">Careful</string>
+  <string name="pokemon_nature_docile">Docile</string>
+  <string name="pokemon_nature_gentle">Gentle</string>
+  <string name="pokemon_nature_hardy">Hardy</string>
+  <string name="pokemon_nature_hasty">Hasty</string>
+  <string name="pokemon_nature_impish">Impish</string>
+  <string name="pokemon_nature_jolly">Jolly</string>
+  <string name="pokemon_nature_lax">Lax</string>
+  <string name="pokemon_nature_lonely">Lonely</string>
+  <string name="pokemon_nature_mild">Mild</string>
+  <string name="pokemon_nature_modest">Modest</string>
+  <string name="pokemon_nature_naive">Naive</string>
+  <string name="pokemon_nature_naughty">Naughty</string>
+  <string name="pokemon_nature_quiet">Quiet</string>
+  <string name="pokemon_nature_quirky">Quirky</string>
+  <string name="pokemon_nature_rash">Rash</string>
+  <string name="pokemon_nature_relaxed">Relaxed</string>
+  <string name="pokemon_nature_sassy">Sassy</string>
+  <string name="pokemon_nature_serious">Serious</string>
+  <string name="pokemon_nature_timid">Timid</string>
+
+  <string name="item_none">Nada</string>
+  <string name="item_ev">Everstone</string>
+  <string name="item_dk">DestinyKnot</string>
+  <string name="item_php">PowerHP</string>
+  <string name="item_patk">PowerAtk</string>
+  <string name="item_pdef">PowerDef</string>
+  <string name="item_pspatk">PowerSpA</string>
+  <string name="item_pspdef">PowerSpD</string>
+  <string name="item_pspeed">PowerSpe</string>
+
+  <string name="ability_one">Tipo 1</string>
+  <string name="ability_two">Tipo 2</string>
+  <string name="ability_hidden">Secreta</string>
+
+  <string name="gender_ratio_same">1M/1F</string>
+  <string name="gender_ratio_7m1f">7M/1F</string>
+  <string name="gender_ratio_3m1f">3M/1F</string>
+  <string name="gender_ratio_1m3f">1M/3F</string>
+  <string name="gender_ratio_1m7f">1M/7F</string>
+  <string name="gender_ratio_male">Macho Apenas</string>
+  <string name="gender_ratio_female">Fémea Apenas</string>
+  <string name="gender_ratio_genderless">Sem género</string>
+
+  <string name="spinner_option_all">Qualquer</string>
+  <string name="spinner_option_none">Nenhum</string>
+
+  <!--TOAST STRINGS-->
+  <string name="search_range_warning">Intervalo inválido.\nNovo intervalo: [ {0} , {1} ].</string>
+  <string name="search_shortestpath_highframe">Frame objectivo demasiado alta.\nValor máximo é: {0}</string>
+  <string name="search_shortestpath_sequence">"Aceitar: {0} Rejeitar: {1}\nTotal de {2} ovos.</string>
+  <string name="search_noframes">Não foram encontrados resultados.</string>
+
+  <string name="search_popup_toast_acceptedegg">Ovo {0} aceite</string>
+  <string name="search_popup_toast_acceptedframe">Frame {0} aceite</string>
+
+  <string name="search_popup_toast_rejectedegg">Ovo {0} rejeitado</string>
+  <string name="search_popup_toast_rejectedframe">Frame {0} rejeitada</string>
+
+  <string name="search_popup_toast_setnewegg">Definindo nova semente do ovo {0}</string>
+  <string name="search_popup_toast_setnewframe">Definindo nova semente da frame {0}</string>
+
+  <string name="search_popup_toast_filteregg">Novo ovo {0} foi filtrado.</string>
+  <string name="search_popup_toast_filterframe">Nova frame {0} foi filtrada.</string>
+
+  <string name="search_popup_toast_eggexceeds">Ovo {0} excede esta procura.</string>
+  <string name="search_popup_toast_frameexceeds">Frame {0} excete esta procura.</string>
+
+  <string name="search_popup_toast_eggredo">Auto: procurar a partir do novo ovo.</string>
+  <string name="search_popup_toast_frameredo">Auto: procurar a partir da nova frame.</string>
+
+  <string name="search_popup_toast_copyseed">Semente copiada.</string>
+  <string name="search_popup_toast_setcurrentseed">Frame {0} é a semente atual.</string>
+
+
+  <string name="search_popup_accept">Aceitar {0}</string>
+  <string name="search_popup_reject">Rejeitar {0}</string>
+
+  <string name="search_popup_acceptframe">Aceitar Frame {0}</string>
+  <string name="search_popup_rejectframe">Rejeitar Frame {0}</string>
+
+  <string name="search_popup_acceptegg">Aceitar Ovo {0}</string>
+  <string name="search_popup_rejectegg">Rejeitar Ovo {0}</string>
+
+  <string name="search_popup_searchfromnum">Procurar desde o Ovo# {0}</string>
+
+  <string name="search_toast_shortpathcomplete">Menor sequência terminada.\nVoltando à procura normal.</string>
+
+  <string name="search_detailed_frame">Frame {0}</string>
+  <string name="search_detailed_spreadcopied">Dados copiados.</string>
+  <string name="search_detailed_gender">Sexo:</string>
+  <string name="search_detailed_ball">Bola:</string>
+  <string name="search_detailed_ability">Habilidade:</string>
+  <string name="search_detailed_nature">Natureza:</string>
+  <string name="search_detailed_wurmple">Evolução do Wurmple:</string>
+  
+  <!--GENERAL STRINGS-->
+  <string name="gender">Sexo</string>
+  <string name="ball">Bola</string>
+  <string name="ability">Habilidade</string>
+  <string name="item">Item</string>
+  <string name="hiddenpower">Poder escondido</string>
+  <string name="nature">Natureza</string>
+
+  <string name="male">Macho</string>
+  <string name="female">Fémea</string>
+
+  <string name="accept">Aceitar</string>
+  <string name="reject">Rejeitar</string>
+  <string name="apply">Aplicar</string>
+  <string name="done">Feito</string>
+  <string name="ok">OK</string>
+  <string name="confirm">Confirmar</string>
+  <string name="cancel">Cancelar</string>
+  <string name="okthanks">Ok, obrigado!</string>
+  <string name="clear">Apagar</string>
+
+  <string name="dustox">Dustox</string>
+  <string name="beautifly">Beautifly</string>
+
+</resources>

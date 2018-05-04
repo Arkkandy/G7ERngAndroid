@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--<color name="theme_mylighttheme_background">#ccececec</color>-->
+  <style name="EggTheme" parent="android:style/Theme.DeviceDefault">
+    <!--
+   <item name="android:textColor">#FFFFFF</item>  
+   <item name="android:textSize">12sp</item>
+    <item name="android:colorAccent">#CC3333</item>-->
+  </style>
+</resources>

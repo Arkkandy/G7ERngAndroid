@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <color name="result_guide_color">#555555</color>
+  <color name="AcceptEgg">#40FF0000</color>
+  <color name="RejectEgg">#4000FF00</color>
+  <color name="LightTone">#FFCCCCCC</color>
+  
+</resources>
