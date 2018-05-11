@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:id="@+id/resmeLayout">
+    <TextView
+        android:layout_weight="0.7"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmeFrame"
+        android:gravity="left|center_vertical"
+        android:text="@string/search_guide_frame" />
+    <TextView
+        android:text="Shift/F"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmeShift"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Mark"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmeMark"
+        android:layout_weight="0.4" />
+    <TextView
+        android:text="Real Time"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmeRealtime"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="Delay"
+        android:layout_weight="0.4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmeDelay"
+        android:gravity="left|center_vertical" />
+    <TextView
+        android:text="@string/search_guide_psv"
+        android:layout_weight="0.4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/resmePSV"
+        android:gravity="center_vertical" />
+</LinearLayout>

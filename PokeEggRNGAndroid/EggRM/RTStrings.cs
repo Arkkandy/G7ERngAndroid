@@ -19,6 +19,8 @@ namespace Gen7EggRNG.EggRM
         public readonly string[] genderSymbols = { "-", "♂", "♀" };
         public readonly string[] abilitySymbols = { "-", "1", "2", "H" };
 
+        public readonly string[] gameVersion = { "Sun", "Moon", "Ultra Sun", "Ultra Moon" };
+
         public readonly string[] natures;
         public readonly string[] hiddenpowers;
 

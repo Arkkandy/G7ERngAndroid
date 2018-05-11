@@ -41,208 +41,286 @@
             android:layout_height="40dp"
             android:id="@+id/profileDeleteButton" />
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/linearLayout9"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout4">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/linearLayout5"
-            android:layout_weight="1"
-            android:gravity="center">
-            <CheckBox
-                android:text="@string/profile_checkcharm"
-                android:id="@+id/hasShinyCharm"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:id="@+id/linearLayout1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center">
-            <TextView
-                android:text="@string/profile_tsv"
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center" />
-            <EditText
-                android:inputType="numberSigned"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/tsvField"
-                android:numeric="signed"
-                android:typeface="monospace"
-                android:maxLength="5"
-                android:text="0000"
-                android:imeOptions="actionDone|flagNoFullscreen" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:id="@+id/linearLayout6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:id="@+id/scrollView1"
+        android:layout_marginTop="10dp">
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
             android:minHeight="25px"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/linearLayout7"
-            android:gravity="center">
+            android:id="@+id/linearLayout9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="horizontal"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linearLayout2"
-                android:gravity="center">
-                <TextView
-                    android:text="@string/profile_current"
-                    android:layout_width="120sp"
+                android:id="@+id/linearLayout4"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/linearLayout10"
+                    android:gravity="center"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/textView3"
-                    android:gravity="center" />
-                <EditText
-                    android:id="@+id/seed3"
-                    android:maxLength="8"
-                    android:text="00000000"
-                    android:gravity="right"
-                    android:typeface="monospace"
-                    android:inputType="textNoSuggestions"
-                    android:imeOptions="actionDone|flagNoFullscreen"
-                    android:layout_width="96sp"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/seed2"
-                    android:maxLength="8"
-                    android:text="00000000"
-                    android:gravity="right"
-                    android:typeface="monospace"
-                    android:inputType="textNoSuggestions"
-                    android:imeOptions="actionDone|flagNoFullscreen"
-                    android:layout_width="96sp"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/seed1"
-                    android:maxLength="8"
-                    android:text="00000000"
-                    android:gravity="right"
-                    android:typeface="monospace"
-                    android:inputType="textNoSuggestions"
-                    android:imeOptions="actionDone|flagNoFullscreen"
-                    android:layout_width="96sp"
-                    android:layout_height="match_parent" />
-                <EditText
-                    android:id="@+id/seed0"
-                    android:maxLength="8"
-                    android:text="00000000"
-                    android:gravity="right"
-                    android:typeface="monospace"
-                    android:inputType="textNoSuggestions"
-                    android:imeOptions="actionDone|flagNoFullscreen"
-                    android:layout_width="96sp"
-                    android:layout_height="match_parent" />
+                    android:layout_weight="1">
+                    <TextView
+                        android:text="Game Version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/textView6"
+                        android:gravity="center" />
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/gameVersionSpinner"
+                        android:entries="@array/GameVersions" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayout5"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <CheckBox
+                        android:text="@string/profile_checkcharm"
+                        android:id="@+id/hasShinyCharm"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <TextView
+                        android:text="@string/profile_tsv"
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center" />
+                    <EditText
+                        android:inputType="numberSigned"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/tsvField"
+                        android:numeric="signed"
+                        android:typeface="monospace"
+                        android:maxLength="5"
+                        android:text="0000"
+                        android:imeOptions="actionDone|flagNoFullscreen" />
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
                 android:minWidth="25px"
                 android:minHeight="25px"
+                android:id="@+id/linearLayout6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linearLayout3"
-                android:gravity="center">
+                android:gravity="center_horizontal">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout7"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout2"
+                        android:gravity="center">
+                        <TextView
+                            android:text="@string/profile_current"
+                            android:layout_width="120sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/textView3"
+                            android:gravity="center" />
+                        <EditText
+                            android:id="@+id/seed3"
+                            android:maxLength="8"
+                            android:text="00000000"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:inputType="textNoSuggestions"
+                            android:imeOptions="actionDone|flagNoFullscreen"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent"
+                            android:textSize="18sp" />
+                        <EditText
+                            android:id="@+id/seed2"
+                            android:maxLength="8"
+                            android:text="00000000"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:inputType="textNoSuggestions"
+                            android:imeOptions="actionDone|flagNoFullscreen"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent" />
+                        <EditText
+                            android:id="@+id/seed1"
+                            android:maxLength="8"
+                            android:text="00000000"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:inputType="textNoSuggestions"
+                            android:imeOptions="actionDone|flagNoFullscreen"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent" />
+                        <EditText
+                            android:id="@+id/seed0"
+                            android:maxLength="8"
+                            android:text="00000000"
+                            android:gravity="center"
+                            android:typeface="monospace"
+                            android:inputType="textNoSuggestions"
+                            android:imeOptions="actionDone|flagNoFullscreen"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout3"
+                        android:gravity="center">
+                        <TextView
+                            android:text="@string/profile_checkpoint"
+                            android:layout_width="120sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/textView4"
+                            android:gravity="center" />
+                        <TextView
+                            android:text="00000000"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/chseed3"
+                            android:gravity="center"
+                            android:typeface="monospace" />
+                        <TextView
+                            android:text="00000000"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/chseed2"
+                            android:gravity="center"
+                            android:typeface="monospace" />
+                        <TextView
+                            android:text="00000000"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/chseed1"
+                            android:gravity="center"
+                            android:typeface="monospace" />
+                        <TextView
+                            android:text="00000000"
+                            android:layout_width="96sp"
+                            android:layout_height="match_parent"
+                            android:id="@+id/chseed0"
+                            android:gravity="center"
+                            android:typeface="monospace" />
+                    </LinearLayout>
+                </LinearLayout>
+                <ImageButton
+                    android:src="@android:drawable/ic_menu_more"
+                    android:id="@+id/profileSeedPlus"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:scaleType="centerCrop" />
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frameLayout1"
+                android:layout_marginTop="10dp">
+                <Button
+                    android:text="@string/profile_setcurrent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonSetCurrent"
+                    android:layout_weight="2"
+                    android:layout_gravity="left|bottom" />
+                <Button
+                    android:text="@string/profile_find"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonFindSeed"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:text="@string/profile_setcheckpoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/buttonSetCheck"
+                    android:layout_weight="2"
+                    android:layout_gravity="right|bottom"
+                    android:foregroundTint="#00000000"
+                    android:backgroundTint="#ff804040" />
+            </FrameLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/linearLayout11"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
                 <TextView
-                    android:text="@string/profile_checkpoint"
-                    android:layout_width="120sp"
+                    android:text="Initial Seed"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/textView4"
+                    android:id="@+id/textView7"
                     android:gravity="center" />
-                <TextView
-                    android:text="00000000"
+                <EditText
                     android:layout_width="96sp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/chseed3"
-                    android:gravity="center"
-                    android:typeface="monospace" />
-                <TextView
+                    android:layout_height="wrap_content"
+                    android:id="@+id/initialSeed"
                     android:text="00000000"
-                    android:layout_width="96sp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/chseed2"
-                    android:gravity="center"
-                    android:typeface="monospace" />
+                    android:maxLength="8"
+                    android:inputType="textNoSuggestions"
+                    android:typeface="monospace"
+                    android:imeOptions="actionDone|flagNoFullscreen" />
                 <TextView
-                    android:text="00000000"
-                    android:layout_width="96sp"
+                    android:text="Frame:"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/chseed1"
                     android:gravity="center"
-                    android:typeface="monospace" />
+                    android:layout_marginLeft="10dp" />
                 <TextView
-                    android:text="00000000"
-                    android:layout_width="96sp"
+                    android:text="0"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/chseed0"
+                    android:id="@+id/seedFrame"
                     android:gravity="center"
-                    android:typeface="monospace" />
+                    android:layout_marginRight="10dp" />
+                <ImageButton
+                    android:src="@drawable/clock_00"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/clockHandButton" />
             </LinearLayout>
         </LinearLayout>
-        <ImageButton
-            android:src="@android:drawable/ic_menu_more"
-            android:id="@+id/profileSeedPlus"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-    <Button
-        android:text="@string/profile_find"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonFindSeed"
-        android:layout_gravity="center_horizontal" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frameLayout1">
-        <Button
-            android:text="@string/profile_setcurrent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonSetCurrent"
-            android:layout_weight="2"
-            android:layout_gravity="left|bottom" />
-        <Button
-            android:text="@string/profile_setcheckpoint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/buttonSetCheck"
-            android:layout_weight="2"
-            android:layout_gravity="right|bottom"
-            android:foregroundTint="#00000000"
-            android:backgroundTint="#ff804040" />
-    </FrameLayout>
+    </ScrollView>
 </LinearLayout>

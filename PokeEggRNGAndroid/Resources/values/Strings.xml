@@ -123,9 +123,9 @@
   <string name="profile_tsv">TSV</string>
   <string name="profile_current">Current Seed</string>
   <string name="profile_checkpoint">Checkpoint Seed</string>
-  <string name="profile_find">Find Seed</string>
-  <string name="profile_setcurrent">Set current from checkpoint</string>
-  <string name="profile_setcheckpoint">Set checkpoint from current</string>
+  <string name="profile_find">Find Egg Seed</string>
+  <string name="profile_setcurrent">Load to current</string>
+  <string name="profile_setcheckpoint">Save to checkpoint</string>
   <string name="profile_copycurrent">Copy current to clipboard</string>
   <string name="profile_copycheckpoint">Copy checkpoint to clipboard</string>
   <string name="profile_pastetocurrent">Paste seed to current</string>

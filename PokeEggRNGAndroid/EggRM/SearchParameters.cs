@@ -19,7 +19,8 @@ namespace Gen7EggRNG.EggRM
         EggAccept,
         EggAcceptPlus,
         ShortestPath,
-        LeastAdvances
+        LeastAdvances,
+        MainEggRNG
     }
 
     public enum SearchRange
@@ -27,7 +28,27 @@ namespace Gen7EggRNG.EggRM
         Simple,
         MinMax,
         AroundTarget
+    }
 
+    public enum MainSearchRange {
+        Simple,
+        MinMax,
+        AroundTarget,
+        CreateTimeline,
+        TimelineLeap
+    }
+
+    public struct MainRNGSearchParams {
+        public MainSearchRange mainRange;
+        public int startFrame;
+        public int minFrame, maxFrame;
+        public bool considerDelay;  public int delay;
+        public int npcs;
+        public int ctimeline;
+        public int timeleap1, timeleap2;
+
+        public byte Modelnum => (byte)(npcs + 1);
+        public bool Raining;
     }
 
     public struct SearchParams {
@@ -37,5 +58,7 @@ namespace Gen7EggRNG.EggRM
         public bool useFilter;
         public bool checkOtherTSV;
         public int targetFrame;
+
+        public MainRNGSearchParams mainRNG;
     }
 }

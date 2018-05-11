@@ -18,8 +18,15 @@ namespace Gen7EggRNG.EggRM
         Accept
     }
 
+    /*public class G7MainEggData {
+
+    }*/
+
     public class G7EFrame
     {
+        private static readonly string[] blinkmarks = { "-", "★", "?", "? ★", "<?>" };
+
+
         public ResultE7 egg;
 
         public G7EFrame(ResultE7 result, int frame = -1, int eggnum = -1)
@@ -27,6 +34,16 @@ namespace Gen7EggRNG.EggRM
             egg = result;
             FrameNum = frame;
             EggNum = eggnum;
+        }
+
+        public G7EFrame(ResultME7 result, int frame, int time, byte blink) {
+            egg = ResultME7.Egg as ResultE7;
+            MainPSV = result.PSV;
+            MainShiny = result.Shiny;
+            FrameNum = frame;
+            realTime = time;
+            Blink = blink;
+            FrameDelayUsed = result.FrameDelayUsed;
         }
 
         public string GetNatureStr() {
@@ -54,10 +71,14 @@ namespace Gen7EggRNG.EggRM
             return inh;
         }
 
-        // DataSource Display Block
+        // Basic Data
         public int EggNum { get; private set; }
         public int FrameNum { get; private set; }
+        private int realTime = -1;
+        public int FrameDelayUsed;
+        public byte Blink;
 
+        // Egg Advances: including accept/reject, plus and # advances
         public string GetAdvance() {
             return "+" + egg.FramesUsed.ToString();
         }
@@ -91,5 +112,13 @@ namespace Gen7EggRNG.EggRM
         //public PRNGState _tinystate;
         public string TinyState => egg.Status.ToString();
 
+        // MainEggRNG
+        public int ShiftF => realTime > -1 ? realTime - 0 : 0; //realTime-standard
+        public string RealTime => realTime > -1 ? FuncUtil.Convert2timestr(realTime / 60.0) : string.Empty;
+        public string Mark => Blink < 5 ? blinkmarks[Blink] : Blink.ToString();
+        public uint MainPSV;
+        public bool MainShiny;
+
+        //public string Mark => Blink < 5 ? blinkmarks[Blink] : Blink.ToString();
     }
 }

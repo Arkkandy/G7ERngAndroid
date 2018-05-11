@@ -27,6 +27,8 @@ namespace Gen7EggRNG
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class MainActivity : Activity
     {
+        private byte npcModelNum = 5; // #TODO: NPC + 1;
+
         private FullSearchData uiSearchData = new FullSearchData();
         private FullSearchData currentSearchData = null;
         private List<FullSearchData> previousSearchData = new List<FullSearchData>();
@@ -67,6 +69,8 @@ namespace Gen7EggRNG
 
         TextView currentSeedDump;
         TextView userTSVDump;
+
+        LinearLayout mainEggRes;
 
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
@@ -110,6 +114,7 @@ namespace Gen7EggRNG
 
             mainLayout = (LinearLayout)FindViewById(Resource.Id.linearLayout1);
             resGuide = (LinearLayout)FindViewById(Resource.Id.resultGuideline);
+            mainEggRes = (LinearLayout)FindViewById(Resource.Id.mainEggStats);
 
             searchParamSpinner = (Spinner)FindViewById(Resource.Id.searchType);
             editTargetFrame = (EditText)FindViewById(Resource.Id.targetFrame);
@@ -121,6 +126,13 @@ namespace Gen7EggRNG
             // Data initialization
             uiSearchData.searchParameters.type = SearchType.NormalSearch;
             uiSearchData.searchParameters.range = SearchRange.Simple;
+            uiSearchData.searchParameters.mainRNG.considerDelay = false;
+            uiSearchData.searchParameters.mainRNG.delay = 0;
+            uiSearchData.searchParameters.mainRNG.ctimeline = 3600;
+            uiSearchData.searchParameters.mainRNG.npcs = 0;
+            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.MinMax;
+            uiSearchData.searchParameters.mainRNG.minFrame = 0;
+            uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.MaximumFramesPerSearch;
 
             LoadProfileData();
 
@@ -152,104 +164,189 @@ namespace Gen7EggRNG
 
                 dialog.SetTitle(Resources.GetString(Resource.String.search_settings));
 
+                LinearLayout simpleLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSSimple);
+                LinearLayout rangeLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSRange);
+                LinearLayout nearLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSNear);
+                LinearLayout delayLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSDelay);
+                LinearLayout npcLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSNPC);
+                LinearLayout cTimelineLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSCreateTimeline);
+                LinearLayout timeLeapLL = dialog.FindViewById<LinearLayout>(Resource.Id.diaSSTimeLeap);
+
                 RadioButton simpleSearchCheck = (RadioButton)dialog.FindViewById(Resource.Id.simpleSearch);
                 RadioButton rangeSearchCheck = (RadioButton)dialog.FindViewById(Resource.Id.rangeSearchCheck);
                 RadioButton targetSearchCheck = (RadioButton)dialog.FindViewById(Resource.Id.nearTarget);
-
-                if (uiSearchData.searchParameters.range == SearchRange.Simple)
-                {
-                    simpleSearchCheck.Checked = true;
-                }
-                else if (uiSearchData.searchParameters.range == SearchRange.MinMax)
-                {
-                    rangeSearchCheck.Checked = true;
-                }
-                else if (uiSearchData.searchParameters.range == SearchRange.AroundTarget) {
-                    targetSearchCheck.Checked = true;
-                }
-
-                simpleSearchCheck.CheckedChange += (sender, args) => {
-                    if (args.IsChecked == true)
-                    {
-                        rangeSearchCheck.Checked = false;
-                        targetSearchCheck.Checked = false;
-                        uiSearchData.searchParameters.range = SearchRange.Simple;
-                    }
-                };
-                rangeSearchCheck.CheckedChange += (sender, args) => {
-                    if (args.IsChecked == true)
-                    {
-                        simpleSearchCheck.Checked = false;
-                        targetSearchCheck.Checked = false;
-                        uiSearchData.searchParameters.range = SearchRange.MinMax;
-                    }
-                };
-                targetSearchCheck.CheckedChange += (sender, args) => {
-                    if (args.IsChecked == true)
-                    {
-                        simpleSearchCheck.Checked = false;
-                        rangeSearchCheck.Checked = false;
-                        uiSearchData.searchParameters.range = SearchRange.AroundTarget;
-                    }
-                };
+                CheckBox delayCheck = dialog.FindViewById<CheckBox>(Resource.Id.delayCheck);
+                RadioButton timeLeapRB = dialog.FindViewById<RadioButton>(Resource.Id.timelineLeapRB);
+                RadioButton cTimelineRB = dialog.FindViewById<RadioButton>(Resource.Id.createTimelineRB);
 
                 EditText minFrameEdit = (EditText)dialog.FindViewById(Resource.Id.minFrame);
                 EditText maxFrameEdit = (EditText)dialog.FindViewById(Resource.Id.maxFrame);
 
-                minFrameEdit.Text = minFrame.ToString();
-                maxFrameEdit.Text = maxFrame.ToString();
-
                 int lastRangeModified = 0;
-                dialog.DismissEvent += (sender, args) => {
-                    bool warn = false;
 
-                    int preMinFrame = 0;
-                    if (int.TryParse(minFrameEdit.Text, out preMinFrame))
-                    {
-
-                    }
-                    int preMaxFrame = 0;
-                    if (int.TryParse(maxFrameEdit.Text, out preMaxFrame))
-                    {
-                    }
-
-                    if (preMinFrame > SearchConstants.MaximumFramesPerSearch) {
-                        preMinFrame = SearchConstants.MaximumFramesPerSearch;
-                        warn = true;
-                    }
-                    if (preMaxFrame > SearchConstants.MaximumFramesPerSearch)
-                    {
-                        preMaxFrame = SearchConstants.MaximumFramesPerSearch;
-                        warn = true;
-                    }
-
-                    if (preMinFrame > preMaxFrame) {
-                        if (lastRangeModified == 1)
-                        {
-                            preMaxFrame = preMinFrame;
-                        }
-                        else if (lastRangeModified == 2)
-                        {
-                            preMinFrame = preMaxFrame;
-                        }
-                        else {
-                            preMinFrame = 0;
-                            preMaxFrame = uiSearchData.preferences.MaxResultValue();
-                        }
-                        warn = true;
-                    }
-
-                    if (warn) {
-                        string warningString = String.Format(Resources.GetString(Resource.String.search_range_warning), preMinFrame, preMaxFrame);
-                        Toast.MakeText(this, warningString, ToastLength.Short).Show();
-                        //Toast.MakeText(this, "Invalid values in range search.\nSetting range to [" + preMinFrame + " : " + preMaxFrame + "]", ToastLength.Short).Show();
-                    }
-
-                    minFrame = preMinFrame;
-                    maxFrame = preMaxFrame;
+                EditText nearFrameEdit = (EditText)dialog.FindViewById(Resource.Id.targetNeighbourhood);
+                nearFrameEdit.Text = aroundTargetFrame.ToString();
+                nearFrameEdit.TextChanged += (sender, args) => {
+                    int.TryParse(nearFrameEdit.Text, out aroundTargetFrame);
                 };
 
-                //minFrameEdit.
+                EditText delayET = dialog.FindViewById<EditText>(Resource.Id.delay);
+
+                EditText npcNumET = dialog.FindViewById<EditText>(Resource.Id.npcCount);
+
+                EditText cTimelineET = dialog.FindViewById<EditText>(Resource.Id.timelineParam);
+
+                
+
+                Button dialogOk = (Button)dialog.FindViewById(Resource.Id.diaSearchAccept);
+                dialogOk.Click += delegate
+                {
+                    // Save Data
+                    dialog.Dismiss();
+                };
+
+                Utility.SimpleRadioGroup searchGroup = new Utility.SimpleRadioGroup();
+
+
+                // Verify constraints
+                if (uiSearchData.searchParameters.type != SearchType.MainEggRNG)
+                {
+                    delayLL.Visibility = ViewStates.Gone;
+                    npcLL.Visibility = ViewStates.Gone;
+                    cTimelineLL.Visibility = ViewStates.Gone;
+                    timeLeapLL.Visibility = ViewStates.Gone;
+
+                    searchGroup.Add(simpleSearchCheck);
+                    searchGroup.Add(rangeSearchCheck);
+                    searchGroup.Add(targetSearchCheck);
+                    /*searchGroup.Add(cTimelineRB);
+                    searchGroup.Add(timeLeapRB);*/
+
+                    simpleSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+
+                            searchGroup.UncheckOthers(simpleSearchCheck);
+                            uiSearchData.searchParameters.range = SearchRange.Simple;
+                        }
+                    };
+                    rangeSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(rangeSearchCheck);
+                            uiSearchData.searchParameters.range = SearchRange.MinMax;
+                        }
+                    };
+                    targetSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(targetSearchCheck);
+                            uiSearchData.searchParameters.range = SearchRange.AroundTarget;
+                        }
+                    };
+
+                    // Initialize data
+                    if (uiSearchData.searchParameters.range == SearchRange.Simple)
+                    {
+                        simpleSearchCheck.Checked = true;
+                    }
+                    else if (uiSearchData.searchParameters.range == SearchRange.MinMax)
+                    {
+                        rangeSearchCheck.Checked = true;
+                    }
+                    else if (uiSearchData.searchParameters.range == SearchRange.AroundTarget)
+                    {
+                        targetSearchCheck.Checked = true;
+                    }
+
+                    minFrameEdit.Text = minFrame.ToString();
+                    maxFrameEdit.Text = maxFrame.ToString();
+                }
+                else {
+                    //searchGroup.Add(simpleSearchCheck);
+                    simpleSearchCheck.Visibility = ViewStates.Gone;
+                    timeLeapLL.Visibility = ViewStates.Gone;
+
+                    searchGroup.Add(rangeSearchCheck);
+                    searchGroup.Add(targetSearchCheck);
+                    searchGroup.Add(cTimelineRB);
+                    searchGroup.Add(timeLeapRB);
+
+                    delayCheck.CheckedChange += (sender, args) => {
+                        uiSearchData.searchParameters.mainRNG.considerDelay = args.IsChecked;
+                        delayET.Enabled = args.IsChecked;
+                    };
+
+                    delayET.Text = uiSearchData.searchParameters.mainRNG.delay.ToString();
+                    delayCheck.Checked = uiSearchData.searchParameters.mainRNG.considerDelay;
+
+                    npcNumET.Text = uiSearchData.searchParameters.mainRNG.npcs.ToString();
+
+                    simpleSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(simpleSearchCheck);
+                            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.Simple;
+                        }
+                    };
+                    rangeSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(rangeSearchCheck);
+                            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.MinMax;
+                        }
+                    };
+                    targetSearchCheck.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(targetSearchCheck);
+                            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.AroundTarget;
+                        }
+                    };
+
+                    //#TODO: Implement Timeline searches
+                    cTimelineRB.Enabled = false;
+                    cTimelineET.Enabled = false;
+                    /*cTimelineRB.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(cTimelineRB);
+                            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.CreateTimeline;
+                        }
+                    };
+                    timeLeapRB.CheckedChange += (sender, args) => {
+                        if (args.IsChecked == true)
+                        {
+                            searchGroup.UncheckOthers(timeLeapRB);
+                            uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.TimelineLeap;
+                        }
+                    };*/
+
+                    /*if (uiSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.Simple)
+                    {
+                        simpleSearchCheck.Checked = true;
+                    }*/
+                    if (uiSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.MinMax)
+                    {
+                        rangeSearchCheck.Checked = true;
+                    }
+                    else if (uiSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.AroundTarget)
+                    {
+                        targetSearchCheck.Checked = true;
+                    }
+                    else if (uiSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.CreateTimeline)
+                    {
+                        cTimelineRB.Checked = true;
+                    }
+                    else if (uiSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.TimelineLeap)
+                    {
+                        timeLeapRB.Checked = true;
+                    }
+
+                    minFrameEdit.Text = uiSearchData.searchParameters.mainRNG.minFrame.ToString();
+                    maxFrameEdit.Text = uiSearchData.searchParameters.mainRNG.maxFrame.ToString();
+                }
+
                 minFrameEdit.AfterTextChanged += (sender, args) =>
                 {
                     lastRangeModified = 1;
@@ -259,17 +356,100 @@ namespace Gen7EggRNG
                     lastRangeModified = 2;
                 };
 
-                EditText nearFrameEdit = (EditText)dialog.FindViewById(Resource.Id.targetNeighbourhood);
-                nearFrameEdit.Text = aroundTargetFrame.ToString();
-                nearFrameEdit.TextChanged += (sender, args) => {
-                    int.TryParse(nearFrameEdit.Text, out aroundTargetFrame);
-                };
+                dialog.DismissEvent += (sender, args) => {
+                    if (uiSearchData.searchParameters.type == SearchType.MainEggRNG)
+                    {
+                        int preMinFrame = 0;
+                        if (int.TryParse(minFrameEdit.Text, out preMinFrame))
+                        {
 
-                Button dialogOk = (Button)dialog.FindViewById(Resource.Id.diaSearchAccept);
-                dialogOk.Click += delegate
-                {
-                    // Save Data
-                    dialog.Dismiss();
+                        }
+                        int preMaxFrame = 0;
+                        if (int.TryParse(maxFrameEdit.Text, out preMaxFrame))
+                        {
+                        }
+                        if (preMinFrame > preMaxFrame) {
+                            int tmp = preMinFrame;
+                            preMinFrame = preMaxFrame;
+                            preMaxFrame = tmp;
+                        }
+                        int sFrame = GameVersionConversion.GetGameStartingFrame(uiSearchData.profile.gameVersion, false);
+                        preMinFrame = Math.Max(sFrame, preMinFrame);
+                        uiSearchData.searchParameters.mainRNG.minFrame = preMinFrame;
+
+                        //#TODO: Reinforce actual limits - #DEBUG for now just test
+                        //preMinFrame = Math.Min(preMinFrame, SearchConstants.MaximumFramesPerSearch);
+                        //preMinFrame = Math.Min(preMaxFrame, SearchConstants.MaximumFramesPerSearch);
+
+                        uiSearchData.searchParameters.mainRNG.minFrame = preMinFrame;
+                        uiSearchData.searchParameters.mainRNG.maxFrame = preMaxFrame;
+                    }
+                    else
+                    {
+                        bool warn = false;
+
+                        int preMinFrame = 0;
+                        if (int.TryParse(minFrameEdit.Text, out preMinFrame))
+                        {
+
+                        }
+                        int preMaxFrame = 0;
+                        if (int.TryParse(maxFrameEdit.Text, out preMaxFrame))
+                        {
+                        }
+
+                        if (preMinFrame > SearchConstants.MaximumFramesPerSearch)
+                        {
+                            preMinFrame = SearchConstants.MaximumFramesPerSearch;
+                            warn = true;
+                        }
+                        if (preMaxFrame > SearchConstants.MaximumFramesPerSearch)
+                        {
+                            preMaxFrame = SearchConstants.MaximumFramesPerSearch;
+                            warn = true;
+                        }
+
+                        if (preMinFrame > preMaxFrame)
+                        {
+                            if (lastRangeModified == 1)
+                            {
+                                preMaxFrame = preMinFrame;
+                            }
+                            else if (lastRangeModified == 2)
+                            {
+                                preMinFrame = preMaxFrame;
+                            }
+                            else
+                            {
+                                preMinFrame = 0;
+                                preMaxFrame = uiSearchData.preferences.MaxResultValue();
+                            }
+                            warn = true;
+                        }
+
+                        if (warn)
+                        {
+                            string warningString = String.Format(Resources.GetString(Resource.String.search_range_warning), preMinFrame, preMaxFrame);
+                            Toast.MakeText(this, warningString, ToastLength.Short).Show();
+                            //Toast.MakeText(this, "Invalid values in range search.\nSetting range to [" + preMinFrame + " : " + preMaxFrame + "]", ToastLength.Short).Show();
+                        }
+
+                        minFrame = preMinFrame;
+                        maxFrame = preMaxFrame;
+                    }
+
+                    if (npcLL.Enabled)
+                    {
+                        if (npcNumET.Text != string.Empty) {
+                            uiSearchData.searchParameters.mainRNG.npcs = int.Parse(npcNumET.Text);
+                        }
+                    }
+                    if (delayLL.Enabled) {
+                        if (delayET.Text != string.Empty)
+                        {
+                            uiSearchData.searchParameters.mainRNG.delay = int.Parse(delayET.Text);
+                        }
+                    }
                 };
 
                 dialog.Show();
@@ -303,6 +483,8 @@ namespace Gen7EggRNG
             {
                 SearchType stype = (SearchType)args.Position;
                 uiSearchData.searchParameters.type = stype;
+
+                VerifySearchConstraints(stype);
             };
             
             editTargetFrame.TextChanged += (sender, args) =>
@@ -358,6 +540,17 @@ namespace Gen7EggRNG
             LoadProfileData();
         }
 
+        protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+
+            if (resultCode == Result.Ok && requestCode == 1) {
+                if (data.HasExtra("SeedFrame")) {
+                    uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame(data.GetIntExtra("SeedFrame", 0));
+                }
+            }
+        }
+
 
         /*private void AddEntryToResults(LinearLayout resTab) {
             for (int i = 0; i < eggFrames.Count; ++i)
@@ -379,6 +572,7 @@ namespace Gen7EggRNG
         }*/
 
         private void PerformSearch() {
+            HideMainEggBar();
             resTab.Adapter = null;
             eggFrames.Clear();
             GC.Collect();
@@ -406,7 +600,8 @@ namespace Gen7EggRNG
             {
                 Search7_EggAcceptOnly();
             }
-            else if (currentSearchData.searchParameters.type == SearchType.EggAcceptPlus) {
+            else if (currentSearchData.searchParameters.type == SearchType.EggAcceptPlus)
+            {
                 Search7_EggAcceptPlus();
             }
             else if (currentSearchData.searchParameters.type == SearchType.ShortestPath)
@@ -418,6 +613,9 @@ namespace Gen7EggRNG
             {
                 //Toast.MakeText(this, "Fastest", ToastLength.Short).Show();
                 Search7_EggFastestSearch();
+            }
+            else if (currentSearchData.searchParameters.type == SearchType.MainEggRNG) {
+                Search7_MainEggRNG();
             }
 
             // IF Search succeeded
@@ -435,6 +633,7 @@ namespace Gen7EggRNG
         {
             if ( previousSearchData.Count == 0 ) { return; }
 
+            HideMainEggBar();
             resTab.Adapter = null;
             eggFrames.Clear();
             GC.Collect();
@@ -474,6 +673,11 @@ namespace Gen7EggRNG
                 //Toast.MakeText(this, "Fastest", ToastLength.Short).Show();
                 Search7_EggFastestSearch();
             }
+            else if (currentSearchData.searchParameters.type == SearchType.MainEggRNG)
+            {
+                // Assume previous search was verified to be correct for Main Egg RNG
+                Search7_MainEggRNG();
+            }
 
             // IF Search succeeded
             if (eggFrames.Count > 0)
@@ -490,17 +694,15 @@ namespace Gen7EggRNG
 
         private void AddEntryToResults(ListView resTab)
         {
-            ProfileData profData = new ProfileData();
-            // Temporary
-            profData.profileIndex = -1;
-            profData.currentSeed = new EggSeed(currentSearchData.profile.currentSeed);
-            profData.TSV = currentSearchData.profile.TSV;
-            profData.shinyCharm = currentSearchData.profile.shinyCharm;
-
             EggResultAdapter adapter = new EggResultAdapter(this, Android.Resource.Layout.SimpleListItem1, eggFrames.ToArray(), currentSearchData);
 
             resGuide.RemoveAllViews();
             adapter.InflateListGuideline(resGuide);
+
+            if (currentSearchData.searchParameters.type == SearchType.MainEggRNG) {
+                BuildMainEggResult(new G7EFrame(ResultME7.Egg as ResultE7, 0), adapter);
+                ShowMainEggBar();
+            }
 
             // Convert data to list
             resTab.Adapter = adapter;
@@ -764,7 +966,7 @@ namespace Gen7EggRNG
                     rejectcount++;
                 }
                 eggFrames.Add(Frame);
-                // Do not restrict shortest path
+                // Do not limit shortest path
             }
             string warningString = String.Format(Resources.GetString(Resource.String.search_shortestpath_sequence),
                 max-rejectcount, rejectcount, max);
@@ -927,6 +1129,82 @@ namespace Gen7EggRNG
             Search7_EggShortestPath();*/
         }
 
+        private void Search7_MainEggRNG() {
+            if (currentSearchData.profile.shinyCharm || currentSearchData.parents.isMasuda)
+            {
+                //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumTargetFrame), ToastLength.Short).Show();
+                Toast.MakeText(this, "Main Egg RNG requires NO Shiny Charm and NO Masuda Method.", ToastLength.Short).Show();
+                return;
+            }
+
+            // #DEBUG
+            bool blinkOnly = false;
+            bool safeOnly = false;
+
+            //#TODO: Range search modes
+            SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
+            int min = currentSearchData.searchParameters.mainRNG.minFrame;
+            int max = currentSearchData.searchParameters.mainRNG.maxFrame;// min + SearchConstants.MaximumFramesPerSearch;
+            //if (min > max)
+                //return;
+            // Blinkflag
+            FuncUtil.getblinkflaglist(min, max, sfmt, currentSearchData.searchParameters.mainRNG.Modelnum);
+            // Skip to min frame
+            for (int i = 0; i < min; i++)
+                sfmt.Next();
+            // Prepare
+            ModelStatus status = new ModelStatus(currentSearchData.searchParameters.mainRNG.Modelnum, sfmt);
+            ModelStatus stmp = new ModelStatus(currentSearchData.searchParameters.mainRNG.Modelnum, sfmt);
+            status.raining = stmp.raining = currentSearchData.searchParameters.mainRNG.Raining;
+
+            PrepareMainEggRNGData(sfmt);
+
+            int frameadvance;
+            int realtime = 0;
+            int frametime = 0;
+            // Start
+            for (int i = min; i <= max;)
+            {
+                do
+                {
+                    frameadvance = status.NextState();
+                    realtime++;
+                }
+                while (frameadvance == 0); // Keep the starting status of a longlife frame(for npc=0 case)
+                do
+                {
+                    RNGPool.CopyStatus(stmp);
+                    var result = RNGPool.Generate7() as Result7;
+
+                    RNGPool.AddNext(sfmt);
+
+                    frameadvance--;
+                    i++;
+                    if (i > max + 1)
+                        continue;
+                    byte blinkflag = FuncUtil.blinkflaglist[i - min - 1];
+                    if (blinkOnly && blinkflag < 4)
+                        continue;
+                    if (safeOnly && blinkflag >= 2)
+                        continue;
+                    if (currentSearchData.searchParameters.useFilter && !result.Shiny)
+                    {
+                        continue;
+                    }
+                    /*if (!filter.CheckResult(result))
+                        continue;*/
+                    eggFrames.Add(new G7EFrame(result as ResultME7, frame: i - 1, time: frametime * 2, blink: blinkflag));
+                }
+                while (frameadvance > 0);
+
+                if (eggFrames.Count > maxResults)
+                    return;
+                // Backup current status
+                status.CopyTo(stmp);
+                frametime = realtime;
+            }
+        }
+
         // Use this function to find one specific seed without keeping track of previous seeds
         private G7EFrame SilentSearch7_Egg(EggSeed startSeed, int frame) {
             var rng = new TinyMT(startSeed.GetSeedVector());
@@ -986,6 +1264,49 @@ namespace Gen7EggRNG
 
             setting.MarkItem();
             return setting;
+        }
+
+        private EggResult GenerateFirstEgg() {
+            var rng = new TinyMT(currentSearchData.profile.currentSeed.GetSeedVector());
+            RNGPool.igenerator = PrepareParentData();
+            RNGPool.CreateBuffer(rng, 100);
+
+            return RNGPool.GenerateEgg7() as EggResult;
+        }
+
+        private void PrepareMainEggRNGData(SFMT sfmt) {
+
+            bool IsUltra = GameVersionConversion.IsUltra(currentSearchData.profile.gameVersion);
+
+            //RNGPool.CreateBuffer(new TinyMT(currentSearchData.profile.currentSeed.GetSeedVector()), 50);
+            ResultME7.Egg = GenerateFirstEgg();
+
+            // Determine Shift/F for target frame
+            //int standard = FuncUtil.CalcFrame(0, 485, 5000, ?, ?, ?)[0] * 2;
+
+            RNGPool.igenerator = new MainEggRNG()
+            {
+                TSV = currentSearchData.profile.TSV,
+                ConsiderOtherTSV = currentSearchData.searchParameters.checkOtherTSV,
+                OtherTSVs = currentSearchData.otherTSVs.ToArray()
+            };
+
+            //#TODO: Use interface parameters
+            RNGPool.modelnumber = currentSearchData.searchParameters.mainRNG.Modelnum;
+            RNGPool.Considerdelay = currentSearchData.searchParameters.mainRNG.considerDelay;
+            RNGPool.DelayTime = (int)(currentSearchData.searchParameters.mainRNG.delay / 2) + 2;
+            RNGPool.raining = currentSearchData.searchParameters.mainRNG.Raining;
+            RNGPool.PreHoneyCorrection = 0;//(int)Correction.Value;
+            RNGPool.HoneyDelay = IsUltra ? 63 : 93;
+            RNGPool.ultrawild = false;//IsUltra && Method == 2;
+
+            int buffersize = 150;
+            // if timeline: buffersize += npcModelNum * 20;
+            if (RNGPool.Considerdelay)
+            {
+                buffersize += RNGPool.modelnumber * RNGPool.DelayTime;
+            }
+            RNGPool.CreateBuffer(sfmt, buffersize);
         }
 
 
@@ -1810,6 +2131,68 @@ namespace Gen7EggRNG
             }
 
             return wString;
+        }
+
+        private void HideMainEggBar() {
+            mainEggRes.RemoveAllViews();
+            mainEggRes.Visibility = ViewStates.Gone;
+        }
+        private void ShowMainEggBar() {
+            mainEggRes.Visibility = ViewStates.Visible;
+        }
+
+        private void BuildMainEggResult(G7EFrame frame, EggResultAdapter adapter) {
+            LayoutInflater layoutInflater = LayoutInflater.FromContext(this);
+            var view = layoutInflater.Inflate(Resource.Layout.ResultItemNormal, mainEggRes, true);
+
+            var holder = new ResultNormalHolder();
+            holder.reslayout = (LinearLayout)view.FindViewById(Resource.Id.resLayout);
+            holder.reslayout.SetGravity(GravityFlags.CenterVertical);
+            /*ViewGroup.LayoutParams lparams = holder.reslayout.LayoutParameters;
+            lparams.Height += rowExtraHeight;
+            holder.reslayout.LayoutParameters = lparams;*/
+            holder.frameView = (TextView)view.FindViewById(Resource.Id.resFrame);
+            holder.advView = (TextView)view.FindViewById(Resource.Id.resAdvance);
+            holder.genderView = (TextView)view.FindViewById(Resource.Id.resGender);
+            holder.natureView = (TextView)view.FindViewById(Resource.Id.resNature);
+            holder.abilityView = (TextView)view.FindViewById(Resource.Id.resAbility);
+            holder.ballView = (TextView)view.FindViewById(Resource.Id.resBall);
+            holder.hpView = (TextView)view.FindViewById(Resource.Id.resHP);
+            holder.atkView = (TextView)view.FindViewById(Resource.Id.resAtk);
+            holder.defView = (TextView)view.FindViewById(Resource.Id.resDef);
+            holder.spaView = (TextView)view.FindViewById(Resource.Id.resSpA);
+            holder.spdView = (TextView)view.FindViewById(Resource.Id.resSpD);
+            holder.speView = (TextView)view.FindViewById(Resource.Id.resSpe);
+            holder.hiddenpView = (TextView)view.FindViewById(Resource.Id.resHiddenP);
+            holder.tsvView = (TextView)view.FindViewById(Resource.Id.resTSV);
+
+            holder.genderView.SetTextSize(Android.Util.ComplexUnitType.Sp, 10);
+
+            adapter.FillNormalHolder(frame, holder);
+        }
+
+        private void VerifySearchConstraints(SearchType type)
+        {
+            if (type == SearchType.MainEggRNG) {
+                // Automatically Reset Search Parameters
+                uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame();
+                uiSearchData.searchParameters.mainRNG.considerDelay = true;
+                uiSearchData.searchParameters.mainRNG.delay = 38;
+                uiSearchData.searchParameters.mainRNG.npcs = 4;
+                uiSearchData.searchParameters.mainRNG.ctimeline = 3600;
+                uiSearchData.searchParameters.mainRNG.timeleap1 = 1;
+                uiSearchData.searchParameters.mainRNG.timeleap2 = 3;
+
+                // UI modifications
+            }
+        }
+
+        private int GetBestStartingFrame() {
+            return Math.Max(uiSearchData.profile.seedFrame, GameVersionConversion.GetGameStartingFrame(uiSearchData.profile.gameVersion, false));
+        }
+        private int GetBestStartingFrame(int frame)
+        {
+            return Math.Max(frame, GameVersionConversion.GetGameStartingFrame(uiSearchData.profile.gameVersion, false));
         }
 
         /*private void SetCurrentSeed(EggSeed seed) {

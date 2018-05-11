@@ -153,12 +153,12 @@ namespace Pk3DSRNGTool.Core
             phase = false;
         }
 
-        /*public static void CopyStatus(ModelStatus st)
+        public static void CopyStatus(ModelStatus st)
         {
             modelnumber = st.Modelnumber;
             remain_frame = (int[])st.remain_frame.Clone();
             phase = st.phase;
-        }*/
+        }
 
         public static void time_elapse7(int n)
         {

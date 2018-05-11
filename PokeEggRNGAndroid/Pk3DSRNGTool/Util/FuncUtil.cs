@@ -130,7 +130,7 @@ namespace Pk3DSRNGTool
 
         #region Misc
         public const int MAXFRAME = 1000000000;
-        /*public static int[] CalcFrame(uint seed, int min, int max, byte ModelNumber, bool fidget = false, bool raining = false)
+        public static int[] CalcFrame(uint seed, int min, int max, byte ModelNumber, bool fidget = false, bool raining = false)
         {
             if (min > max)
                 return CalcFrame(seed, max, min, ModelNumber, fidget, raining).Select(t => -t).ToArray();
@@ -171,7 +171,7 @@ namespace Pk3DSRNGTool
             }
             total_frame[0] = frametime;
             return total_frame;
-        }*/
+        }
 
         public static string Convert2timestr(double sec)
         {

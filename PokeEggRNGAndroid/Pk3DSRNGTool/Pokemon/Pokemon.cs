@@ -1,9 +1,31 @@
-﻿using System.Linq;
+﻿/*MIT License
+
+Copyright(c) 2017 wwwwwwzx
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.*/
+
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Pk3DSRNGTool
 {
-    public class Pokemon : IPKM
+    /*public class Pokemon : IPKM
     {
         public override byte Nature { get; set; } = 0xFF;
         public bool Gift { get; protected set; }
@@ -25,7 +47,7 @@ namespace Pk3DSRNGTool
         private static string[] speciestr => StringItem.speciestr;
         public override string ToString()
         {
-            /*if (this is PKMW6 pmw6 && pmw6.IsFishing)
+            if (this is PKMW6 pmw6 && pmw6.IsFishing)
             {
                 switch (pmw6.Type)
                 {
@@ -39,7 +61,7 @@ namespace Pk3DSRNGTool
             {
                 if (Species == 154) return "Johto Starters";
                 if (Species == 377) return "Legendary Titans";
-            }*/
+            }
             if (Egg) return speciestr[Species] + " (" + speciestr[0] + ")";
             if (Unstable) return speciestr[Species] + " (?)";
             switch (Species)
@@ -96,16 +118,12 @@ namespace Pk3DSRNGTool
             {
                 case 0:
                 case 1:
-                case 2:
-                case 3:
-                case 4: return NotImpled;
-                /*case 1:
                     return method == 0 ? PKM6.Species_XY : PKMW6.Species_XY;
                 case 2:
                 case 3:
                     return method == 0 ? PKM6.Species_ORAS : PKMW6.Species_ORAS;
                 case 4:
-                    return method == 0 ? PKM6.Species_VC : NotImpled;*/
+                    return method == 0 ? PKM6.Species_VC : NotImpled;
                 case 5:
                 case 6:
                     return method == 0 ? PKM7.Species_SM : PKMW7.Species_SM;
@@ -202,5 +220,5 @@ namespace Pk3DSRNGTool
 
         public readonly static HashSet<int> AlolanForms = new HashSet<int> { 019, 020, 027, 037, 050, 051, 052, 074, 075, 088, 103, };
         #endregion
-    }
+    }*/
 }

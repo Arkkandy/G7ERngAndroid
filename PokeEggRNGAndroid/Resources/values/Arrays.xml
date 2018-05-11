@@ -1,11 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
+  <string-array name="GameVersions">
+    <item>Sun</item>
+    <item>Moon</item>
+    <item>Ultra Sun</item>
+    <item>Ultra Moon</item>
+  </string-array>
   <string-array name="SearchType">
     <item>@string/search_frame</item>
     <item>@string/search_accept</item>
     <item>@string/search_acceptplus</item>
     <item>@string/search_shortest</item>
     <item>@string/search_least</item>
+    <item>Main Egg RNG</item>
   </string-array>
   <string-array name="GenderRatio">
     <item>@string/gender_ratio_same</item>

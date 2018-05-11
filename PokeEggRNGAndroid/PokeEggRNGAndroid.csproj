@@ -56,17 +56,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClockHandActivity.cs" />
+    <Compile Include="EggRM\GameVersionConversion.cs" />
+    <Compile Include="Pk3DSRNGTool\Core\StationaryRNG.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\ModelStatus.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\Stationary7.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\GameVersion.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\Pokemon.cs" />
+    <Compile Include="Pk3DSRNGTool\Util\SFMTSeedAPI.cs" />
     <Compile Include="Utility\DebugUtil.cs" />
     <Compile Include="Utility\EditInputUtil.cs" />
     <Compile Include="Utility\LocalThreadManager.cs" />
     <Compile Include="Utility\MathUtil.cs" />
     <Compile Include="Utility\NumberLimitFilter.cs" />
     <Compile Include="Utility\ProgressThreadPool.cs" />
+    <Compile Include="Utility\SimpleRadioGroup.cs" />
     <Compile Include="Utility\StringUtil.cs" />
     <Compile Include="Pk3DSRNGTool\Core\EggResult.cs" />
     <Compile Include="Pk3DSRNGTool\Core\EggRNG.cs" />
@@ -125,6 +135,7 @@
     <Compile Include="Pk3DSRNGTool\Util\Gen7EggPath.cs" />
     <Compile Include="Pk3DSRNGTool\Util\MagikarpCalc.cs" />
     <Compile Include="Pk3DSRNGTool\Util\TinySeedFinder.cs" />
+    <Compile Include="Utility\ToastWrapper.cs" />
     <Compile Include="Widgets\SpinnerCheckboxAdapter.cs" />
     <Compile Include="Widgets\SpinnerCheckboxContainer.cs" />
   </ItemGroup>
@@ -201,6 +212,13 @@
     <AndroidResource Include="Resources\layout\FilterTemplateDialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\ClockHandLayout.axml" />
+    <AndroidResource Include="Resources\layout\ResultItemMainEgg.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemGuideMainEgg.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -270,6 +288,57 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\mipmap-xxxhdpi\eggrng7icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_00.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_03.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_06.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_07.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_08.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_09.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Clock_15.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

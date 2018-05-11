@@ -107,6 +107,10 @@ namespace Gen7EggRNG.EggRM
             {
                 return GetViewLeastAdvances(position, convertView, parent);
             }
+            else if (searchData.searchParameters.type == SearchType.MainEggRNG)
+            {
+                return GetViewMainEggRNG(position, convertView, parent);
+            }
 
             return GetViewNormalSearch(position, convertView, parent);
         }
@@ -619,6 +623,69 @@ namespace Gen7EggRNG.EggRM
             return view;
         }
 
+        private View GetViewMainEggRNG(int position, View convertView, ViewGroup parent)
+        {
+            var view = convertView;
+
+            ResultMainEggHolder holder = null;
+            if (view == null)
+            {
+                LayoutInflater layoutInflater = LayoutInflater.FromContext(Context);
+                view = layoutInflater.Inflate(Resource.Layout.ResultItemMainEgg, parent, false);
+
+                holder = new ResultMainEggHolder();
+                holder.reslayout = (LinearLayout)view.FindViewById(Resource.Id.resmeLayout);
+                ViewGroup.LayoutParams lparams = holder.reslayout.LayoutParameters;
+                lparams.Height += rowExtraHeight;
+                holder.reslayout.LayoutParameters = lparams;
+                holder.frameView = (TextView)view.FindViewById(Resource.Id.resmeFrame);
+                holder.shiftView = (TextView)view.FindViewById(Resource.Id.resmeShift);
+                holder.markView = (TextView)view.FindViewById(Resource.Id.resmeMark);
+                holder.realtimeView = (TextView)view.FindViewById(Resource.Id.resmeRealtime);
+                holder.delayView = (TextView)view.FindViewById(Resource.Id.resmeDelay);
+                holder.psvView = (TextView)view.FindViewById(Resource.Id.resmePSV);
+
+                view.Tag = holder;
+            }
+            else
+            {
+                holder = (ResultMainEggHolder)view.Tag;
+            }
+
+            G7EFrame currentFrame = GetItem(position);
+
+            if (currentFrame != null)
+            {
+                holder.frameView.Text = currentFrame.FrameNum.ToString();
+                holder.shiftView.Text = currentFrame.ShiftF.ToString("+#;-#;0");
+                holder.markView.Text = currentFrame.Mark;
+                holder.realtimeView.Text = currentFrame.RealTime;
+                holder.delayView.Text = currentFrame.FrameDelayUsed.ToString("+#;-#;0");
+                holder.psvView.Text = currentFrame.MainPSV.ToString("0000");
+
+                // Color Shinies
+                if (currentFrame.MainShiny)
+                {
+                    if (currentFrame.MainPSV == (uint)searchData.profile.TSV)
+                    {
+                        holder.reslayout.SetBackgroundColor(shinyColor);
+                    }
+                    else
+                    {
+                        holder.reslayout.SetBackgroundColor(otherTsvColor);
+                    }
+                    //reslayout.SetTextColor(Android.Graphics.Color.Black);
+                }
+                else
+                {
+                    holder.reslayout.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                    //reslayout.SetTextColor(Android.Graphics.Color.White);
+                }
+            }
+
+            return view;
+        }
+
         private void ColorGender(TextView v, G7EFrame frame) {
             if (isRandomGender && searchData.preferences.allRandomGender && !searchData.parents.isNidoSpecies)
             {
@@ -705,8 +772,65 @@ namespace Gen7EggRNG.EggRM
             {
                 view = layoutInflater.Inflate(Resource.Layout.ResultItemGuideNormal, parent, true);
             }
+            else if (searchData.searchParameters.type == SearchType.MainEggRNG)
+            {
+                view = layoutInflater.Inflate(Resource.Layout.ResultItemGuideMainEgg, parent, true);
+            }
             else {
                 view = layoutInflater.Inflate(Resource.Layout.ResultItemGuidePlus, parent, true);
+            }
+        }
+
+
+        public void FillNormalHolder(G7EFrame currentFrame, ResultNormalHolder holder) {
+            ResultE7 er = currentFrame.egg;
+
+            holder.frameView.Text = currentFrame.FrameNum.ToString();
+            holder.advView.Text = currentFrame.GetAdvance();
+            // GENDER
+            holder.natureView.Text = currentFrame.GetNatureStr();
+            //holder.abilityView.Text = currentFrame.AbilityStr;
+            //holder.abilityView.Text = EggDataConversion.GetAbilityString(er.abilityRnum);
+            holder.ballView.Text = currentFrame.Ball;
+            holder.hpView.Text = currentFrame.HP.ToString();
+            holder.atkView.Text = currentFrame.Atk.ToString();
+            holder.defView.Text = currentFrame.Def.ToString();
+            holder.spaView.Text = currentFrame.SpA.ToString();
+            holder.spdView.Text = currentFrame.SpD.ToString();
+            holder.speView.Text = currentFrame.Spe.ToString();
+            holder.hiddenpView.Text = currentFrame.GetHiddenPowerStr();
+            holder.tsvView.Text = (shinyMethod != 0 ? currentFrame.PSV.ToString("0000") : "----");
+
+            // Color Shinies
+            if (er.Shiny)
+            {
+                if (er.PSV == (uint)searchData.profile.TSV)
+                {
+                    holder.reslayout.SetBackgroundColor(shinyColor);
+                }
+                else
+                {
+                    holder.reslayout.SetBackgroundColor(otherTsvColor);
+                }
+                //reslayout.SetTextColor(Android.Graphics.Color.Black);
+            }
+            else
+            {
+                holder.reslayout.SetBackgroundColor(Android.Graphics.Color.Transparent);
+                //reslayout.SetTextColor(Android.Graphics.Color.White);
+            }
+
+            // Color Gender
+            ColorGender(holder.genderView, currentFrame);
+
+            // Color Ability
+            ColorAbility(holder.abilityView, currentFrame);
+
+            // Color IVs
+            if (er != null)
+            {
+                TextView[] statViews = { holder.hpView, holder.atkView, holder.defView, holder.spaView, holder.spdView, holder.speView };
+                ColorIVs(statViews, currentFrame);
             }
         }
 
@@ -779,6 +903,16 @@ namespace Gen7EggRNG.EggRM
         public TextView speView;
         public TextView hiddenpView;
         public TextView tsvView;
+    }
+
+    public class ResultMainEggHolder : Java.Lang.Object {
+        public LinearLayout reslayout;
+        public TextView frameView;
+        public TextView shiftView;
+        public TextView markView;
+        public TextView realtimeView;
+        public TextView delayView;
+        public TextView psvView;
     }
 
     /*class EggResultAdapterViewHolder : Java.Lang.Object

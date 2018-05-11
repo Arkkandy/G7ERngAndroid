@@ -20,11 +20,17 @@ namespace Gen7EggRNG.EggRM
         public ushort TSV;
         public EggSeed currentSeed;
         public EggSeed checkpointSeed;
+        public GameVersionUI gameVersion;
+        public uint initialSeed;
+        public int seedFrame;
         public int profileIndex;
 
         public ProfileData() {
             currentSeed = new EggSeed();
             checkpointSeed = new EggSeed();
+            initialSeed = 0;
+            gameVersion = 0;
+            seedFrame = 0;
         }
 
         public ProfileData(ProfileData data) {
@@ -33,12 +39,15 @@ namespace Gen7EggRNG.EggRM
             TSV = data.TSV;
             currentSeed = new EggSeed(data.currentSeed);
             checkpointSeed = new EggSeed(data.checkpointSeed);
+            gameVersion = data.gameVersion;
+            initialSeed = data.initialSeed;
+            seedFrame = data.seedFrame;
             profileIndex = data.profileIndex;
         }
 
         public static bool AreDifferentProfiles(ProfileData a, ProfileData b) {
             return (a.profileIndex != b.profileIndex) && (a.profileTag != b.profileTag) &&
-                (a.shinyCharm != b.shinyCharm) && (a.TSV != b.TSV);
+                (a.shinyCharm != b.shinyCharm) && (a.TSV != b.TSV) && (a.gameVersion != b.gameVersion);
         }
 
         public static int GetNumProfiles(Context context)
@@ -75,6 +84,17 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.Commit();
         }
 
+        public static void SaveInitialSeed(Context context, ProfileData data) {
+            string profilePrefix = "P" + data.profileIndex.ToString();
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(context);
+            ISharedPreferencesEditor prefsEdit = prefs.Edit();
+
+            prefsEdit.PutString(profilePrefix + "InitialSeed", data.checkpointSeed.GetSeedToString());
+
+            prefsEdit.Commit();
+        }
+
         public static void SaveProfileData(Context context, ProfileData data) {
             string profilePrefix = "P" + data.profileIndex.ToString();
             //Toast.MakeText(context, "Saving profile: " + profilePrefix, ToastLength.Short).Show();
@@ -83,8 +103,11 @@ namespace Gen7EggRNG.EggRM
             ISharedPreferencesEditor prefsEdit = prefs.Edit();
 
             prefsEdit.PutString(profilePrefix + "Tag", data.profileTag);
+            prefsEdit.PutInt(profilePrefix + "GameVersion", (int)data.gameVersion);
             prefsEdit.PutString(profilePrefix+"CurrentSeed",data.currentSeed.GetSeedToString());
             prefsEdit.PutString(profilePrefix + "CheckpointSeed", data.checkpointSeed.GetSeedToString());
+            prefsEdit.PutString(profilePrefix + "InitialSeed", data.initialSeed.ToString("X"));
+            prefsEdit.PutInt(profilePrefix + "SeedFrame", data.seedFrame);
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", data.shinyCharm);
             prefsEdit.PutInt(profilePrefix + "TSV", data.TSV);
 
@@ -118,6 +141,9 @@ namespace Gen7EggRNG.EggRM
             data.checkpointSeed = new EggSeed();
             data.currentSeed.SetSeed(prefs.GetString(profilePrefix + "CurrentSeed", "01234567,89ABCDEF,01234567,89ABCDEF"));
             data.checkpointSeed.SetSeed(prefs.GetString(profilePrefix + "CheckpointSeed", "01234567,89ABCDEF,01234567,89ABCDEF"));
+            data.gameVersion = (GameVersionUI)prefs.GetInt(profilePrefix + "GameVersion", 0);
+            data.initialSeed = uint.Parse(prefs.GetString(profilePrefix + "InitialSeed", "00000000"), System.Globalization.NumberStyles.HexNumber);
+            data.seedFrame = prefs.GetInt(profilePrefix + "SeedFrame", 0);
 
             data.profileTag = prefs.GetString(profilePrefix + "Tag", "New Profile");
             data.shinyCharm = prefs.GetBoolean(profilePrefix + "ShinyCharm", false);
@@ -156,8 +182,11 @@ namespace Gen7EggRNG.EggRM
 
             string profilePrefix = "P" + numProfiles.ToString();
             prefsEdit.PutString(profilePrefix + "Tag", tag);
+            prefsEdit.PutInt(profilePrefix + "GameVersion", 0);
             prefsEdit.PutString(profilePrefix + "CurrentSeed", "01234567,89ABCDEF,01234567,89ABCDEF");
             prefsEdit.PutString(profilePrefix + "CheckpointSeed", "01234567,89ABCDEF,01234567,89ABCDEF");
+            prefsEdit.PutString(profilePrefix + "InitialSeed", "00000000");
+            prefsEdit.PutInt(profilePrefix + "SeedFrame", 0);
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", false);
             prefsEdit.PutInt(profilePrefix + "TSV", 0);
 
@@ -180,9 +209,12 @@ namespace Gen7EggRNG.EggRM
 
             string profilePrefix = "P" + numProfiles.ToString();
             prefsEdit.PutString(profilePrefix + "Tag", model.profileTag);
+            prefsEdit.PutInt(profilePrefix + "GameVersion", (int)model.gameVersion);
             prefsEdit.PutString(profilePrefix + "CurrentSeed", model.currentSeed.GetSeedToString());
             prefsEdit.PutString(profilePrefix + "CheckpointSeed", model.checkpointSeed.GetSeedToString());
+            prefsEdit.PutString(profilePrefix + "InitialSeed", "00000000");
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", model.shinyCharm);
+            prefsEdit.PutInt(profilePrefix + "SeedFrame", model.seedFrame);
             prefsEdit.PutInt(profilePrefix + "TSV", model.TSV);
 
             prefsEdit.Commit();
@@ -190,6 +222,7 @@ namespace Gen7EggRNG.EggRM
             return numProfiles;
         }
 
+        // Private: Simply delete profile entry
         private static void DeleteProfileEntry(Context context, int profileIndex) {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(context);
             ISharedPreferencesEditor prefsEdit = prefs.Edit();
@@ -198,13 +231,17 @@ namespace Gen7EggRNG.EggRM
 
             prefsEdit.Remove(profilePrefix + "CurrentSeed");
             prefsEdit.Remove(profilePrefix + "CheckpointSeed");
+            prefsEdit.Remove(profilePrefix + "InitialSeed");
+            prefsEdit.Remove(profilePrefix + "SeedFrame");
             prefsEdit.Remove(profilePrefix + "Tag");
+            prefsEdit.Remove(profilePrefix + "GameVersion");
             prefsEdit.Remove(profilePrefix + "ShinyCharm");
             prefsEdit.Remove(profilePrefix + "TSV");
 
             prefsEdit.Commit();
         }
 
+        // Delete profile and rearrange profile indices
         public static int DeleteProfile(Context context, int id) {
             int numProfiles = GetNumProfiles(context);
 
