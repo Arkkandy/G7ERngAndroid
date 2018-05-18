@@ -70,6 +70,8 @@
     <Compile Include="Pk3DSRNGTool\Pokemon\GameVersion.cs" />
     <Compile Include="Pk3DSRNGTool\Pokemon\Pokemon.cs" />
     <Compile Include="Pk3DSRNGTool\Util\SFMTSeedAPI.cs" />
+    <Compile Include="PreTimerDialog.cs" />
+    <Compile Include="TimeCalcDialog.cs" />
     <Compile Include="Utility\DebugUtil.cs" />
     <Compile Include="Utility\EditInputUtil.cs" />
     <Compile Include="Utility\LocalThreadManager.cs" />
@@ -219,6 +221,12 @@
     <AndroidResource Include="Resources\layout\ResultItemGuideMainEgg.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\TimeCalculator.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\AdjustPretimerDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -339,6 +347,14 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Clock_15.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\MainEggResultMenu.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\shinycharm.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

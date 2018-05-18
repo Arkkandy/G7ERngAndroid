@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+    <TextView
+        android:text="0F (0.00s)"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tcalcResult"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#ffffff" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:gravity="center">
+        <TextView
+            android:text="Start Frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:gravity="center" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tcalcStart"
+            android:text="0"
+            android:textSize="14sp"
+            android:imeOptions="actionDone|flagNoFullscreen" />
+        <TextView
+            android:text="Target Frame"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:gravity="center" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tcalcTarget"
+            android:text="0"
+            android:textSize="14sp"
+            android:imeOptions="actionDone|flagNoFullscreen" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:gravity="center">
+        <TextView
+            android:text="# NPCs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView3"
+            android:gravity="center" />
+        <EditText
+            android:inputType="number"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/tcalcNpcs"
+            android:textSize="14sp"
+            android:imeOptions="actionDone|flagNoFullscreen"
+            android:text="0" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout3">
+        <CheckBox
+            android:text="Fidget"
+            android:id="@+id/tcalcFidget"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp" />
+        <CheckBox
+            android:text="Raining"
+            android:id="@+id/tcalcRaining"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <Button
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tcalcDone"
+        android:layout_marginTop="20dp" />
+</LinearLayout>

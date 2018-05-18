@@ -8,19 +8,52 @@
     <FrameLayout
         android:minWidth="25px"
         android:minHeight="25px"
-        android:id="@+id/frameLayout1"
+        android:id="@+id/mainProf1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/profileDump"
+            android:text="Profile (Game)"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout4"
+            android:layout_gravity="right">
+            <ImageView
+                android:src="@drawable/shinycharm"
+                android:id="@+id/scDump"
+                android:scaleType="centerInside"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+            <TextView
+                android:text="TSV=0000"
+                android:id="@+id/tsvDump"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainProf2">
+        <TextView
+            android:text="Initial Seed: 00000000"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/iseedDump" />
         <TextView
             android:text="Current Seed: -,-,-,-"
             android:id="@+id/currenSeedDump"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <TextView
-            android:text="TSV=0000"
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/tsvDump"
             android:layout_gravity="right" />
     </FrameLayout>
     <LinearLayout
@@ -43,7 +76,7 @@
             <ImageButton
                 android:src="@android:drawable/ic_menu_revert"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:enabled="false"
                 android:id="@+id/mainPreviousButton" />
             <Button
@@ -75,7 +108,7 @@
             <ImageButton
                 android:src="@android:drawable/ic_menu_manage"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:id="@+id/buttonPreferences"
                 android:layout_marginLeft="20dp" />
         </LinearLayout>
@@ -133,6 +166,14 @@
                 android:layout_marginLeft="10dp" />
         </LinearLayout>
     </LinearLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainSearchProgress"
+        android:visibility="gone"
+        android:max="100"
+        android:progress="0" />
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"

@@ -106,7 +106,14 @@ namespace Gen7EggRNG.EggRM
             dAbility.Text = eggFrame.AbilityStr;
             dNature.Text = eggFrame.GetNatureStr();
             dBall.Text = eggFrame.Ball;
-            dPSV.Text = eggFrame.PSV.ToString("0000");
+            if (currentSearchData.searchParameters.type == SearchType.MainEggRNG)
+            {
+                dPSV.Text = eggFrame.MainPSV.ToString("0000");
+            }
+            else
+            {
+                dPSV.Text = (!currentSearchData.parents.isMasuda && !currentSearchData.profile.shinyCharm ? "----" : eggFrame.PSV.ToString("0000"));
+            }
             dSeed.Text = eggFrame.TinyState;
 
             // Set shiny status
@@ -310,7 +317,14 @@ namespace Gen7EggRNG.EggRM
             }
             else if (metaMode == 1)
             {
-                dSeed.Text = "PID: " + eggFrame.PID.ToString("X");
+                if (currentSearchData.searchParameters.type == SearchType.MainEggRNG)
+                {
+                    dSeed.Text = "PID: " + eggFrame.MainPID.ToString("X");
+                }
+                else
+                {
+                    dSeed.Text = "PID: " + (!currentSearchData.parents.isMasuda && !currentSearchData.profile.shinyCharm ? "----" : eggFrame.PID.ToString("X"));
+                }
             }
             else if (metaMode == 2)
             {

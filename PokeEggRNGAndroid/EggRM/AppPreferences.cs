@@ -22,6 +22,7 @@ namespace Gen7EggRNG.EggRM
         public bool autoSearch;
         public bool allRandomGender;
         public bool allAbility;
+        public bool showProfileData;
 
         public AppPreferences() {
 
@@ -35,6 +36,7 @@ namespace Gen7EggRNG.EggRM
             autoSearch = pref.autoSearch;
             allRandomGender = pref.allRandomGender;
             allAbility = pref.allAbility;
+            showProfileData = pref.showProfileData;
         }
 
         public static AppPreferences LoadPreferencesData(Context context)
@@ -50,6 +52,7 @@ namespace Gen7EggRNG.EggRM
             ap.autoSearch = prefs.GetBoolean("PrefsAutoSearch", false);
             ap.allRandomGender = prefs.GetBoolean("PrefsAllRandomGender", false);
             ap.allAbility = prefs.GetBoolean("PrefsAllAbility", false);
+            ap.showProfileData = prefs.GetBoolean("PrefsShowProfile", true);
             return ap;
         }
 
@@ -65,6 +68,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutBoolean("PrefsAutoSearch", data.autoSearch);
             prefsEdit.PutBoolean("PrefsAllRandomGender", data.allRandomGender);
             prefsEdit.PutBoolean("PrefsAllAbility", data.allAbility);
+            prefsEdit.PutBoolean("PrefsShowProfile", data.showProfileData);
 
             prefsEdit.Commit();
         }

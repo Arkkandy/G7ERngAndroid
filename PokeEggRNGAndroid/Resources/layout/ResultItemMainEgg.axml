@@ -23,7 +23,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/resmeMark"
-        android:layout_weight="0.4" />
+        android:layout_weight="0.4"
+        android:gravity="left|center_vertical" />
     <TextView
         android:text="Real Time"
         android:layout_weight="1"

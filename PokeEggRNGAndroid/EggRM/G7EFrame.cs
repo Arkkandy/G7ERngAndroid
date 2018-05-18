@@ -36,14 +36,17 @@ namespace Gen7EggRNG.EggRM
             EggNum = eggnum;
         }
 
-        public G7EFrame(ResultME7 result, int frame, int time, byte blink) {
+        public G7EFrame(ResultME7 result, int frame, int shiftStandard, int time, byte blink) {
             egg = ResultME7.Egg as ResultE7;
+            MainPID = result.PID;
             MainPSV = result.PSV;
             MainShiny = result.Shiny;
             FrameNum = frame;
             realTime = time;
             Blink = blink;
             FrameDelayUsed = result.FrameDelayUsed;
+
+            ShiftF = realTime - shiftStandard;
         }
 
         public string GetNatureStr() {
@@ -113,11 +116,12 @@ namespace Gen7EggRNG.EggRM
         public string TinyState => egg.Status.ToString();
 
         // MainEggRNG
-        public int ShiftF => realTime > -1 ? realTime - 0 : 0; //realTime-standard
+        public int ShiftF;// => realTime > -1 ? realTime - 0 : 0; //realTime-standard
         public string RealTime => realTime > -1 ? FuncUtil.Convert2timestr(realTime / 60.0) : string.Empty;
         public string Mark => Blink < 5 ? blinkmarks[Blink] : Blink.ToString();
         public uint MainPSV;
         public bool MainShiny;
+        public uint MainPID;
 
         //public string Mark => Blink < 5 ? blinkmarks[Blink] : Blink.ToString();
     }

@@ -44,21 +44,28 @@ namespace Gen7EggRNG.EggRM
         public int minFrame, maxFrame;
         public bool considerDelay;  public int delay;
         public int npcs;
-        public int ctimeline;
+        public int ctimelineTime;
         public int timeleap1, timeleap2;
 
+        public int ShiftStandard;
         public byte Modelnum => (byte)(npcs + 1);
         public bool Raining;
     }
 
+    public struct EggRNGSearchParams {
+        public SearchRange eggRange;
+        public bool checkOtherTSV;
+        public int minFrame, maxFrame;
+    }
+
     public struct SearchParams {
         public SearchType type;
-        public SearchRange range;
 
         public bool useFilter;
-        public bool checkOtherTSV;
         public int targetFrame;
+        public int aroundTarget;
 
+        public EggRNGSearchParams eggRNG;
         public MainRNGSearchParams mainRNG;
     }
 }

@@ -459,6 +459,10 @@ namespace Gen7EggRNG
                     Toast.MakeText(this, "ID Seed not fully implemented! Frame: " + frame + "  Crr?: " + correction, ToastLength.Short).Show();
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
+
+                if (data.HasExtra("SeedFrame")) {
+                    PrepareReturnIntent(data.GetIntExtra("SeedFrame", 0));
+                }
             }
         }
 
@@ -528,6 +532,7 @@ namespace Gen7EggRNG
         private void ChangeProfile(int profileId) {
             SaveProfile();
             LoadProfile(profileId);
+            PrepareReturnIntent(int.Parse(seedFrameView.Text));
         }
 
         private EggSeed GetCurrentSeedFromView() {
@@ -630,6 +635,8 @@ namespace Gen7EggRNG
                 }
                 LoadProfile(selectedProfileIndex);
                 UpdateSpinner(selectedProfileIndex);
+
+                PrepareReturnIntent(int.Parse(seedFrameView.Text));
             }
         }
 
@@ -652,6 +659,12 @@ namespace Gen7EggRNG
 
             // Save data
             ProfileData.SaveProfileData(this, pData);
+        }
+
+        private void PrepareReturnIntent(int frame) {
+            Intent returnIntent = new Intent();
+            returnIntent.PutExtra("SeedFrame", frame);
+            SetResult(Result.Ok, returnIntent);
         }
     }
 }

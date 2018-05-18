@@ -151,7 +151,8 @@
                     android:minWidth="30dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginRight="4dp"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:imeOptions="flagNoFullscreen|actionDone" />
                 <TextView
                     android:text="+4F"
                     android:layout_width="wrap_content"
@@ -200,7 +201,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/timelineParam"
                     android:textSize="12sp"
-                    android:text="3600" />
+                    android:text="3600"
+                    android:imeOptions="flagNoFullscreen|actionDone" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -221,7 +223,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/leap1"
                     android:textSize="12sp"
-                    android:text="1.0" />
+                    android:text="1.0"
+                    android:imeOptions="flagNoFullscreen|actionDone" />
                 <TextView
                     android:text="~"
                     android:layout_width="wrap_content"
@@ -236,7 +239,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/leap2"
                     android:textSize="12sp"
-                    android:text="3" />
+                    android:text="3"
+                    android:imeOptions="flagNoFullscreen|actionDone" />
             </LinearLayout>
             <Button
                 android:text="Ok"

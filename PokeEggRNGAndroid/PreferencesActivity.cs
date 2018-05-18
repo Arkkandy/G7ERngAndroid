@@ -26,6 +26,7 @@ namespace Gen7EggRNG
         CheckBox autoCheck;
         CheckBox genderCheck;
         CheckBox abilityCheck;
+        CheckBox showProfileCheck;
         ImageButton helpButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -61,6 +62,7 @@ namespace Gen7EggRNG
             autoCheck = (CheckBox)FindViewById(Resource.Id.prefsAuto);
             genderCheck = (CheckBox)FindViewById(Resource.Id.prefsGender);
             abilityCheck = (CheckBox)FindViewById(Resource.Id.prefsAbility);
+            showProfileCheck = (CheckBox)FindViewById(Resource.Id.prefsProfdata);
 
 
             shinyRowSpinner.ItemSelected += (sender, args) =>
@@ -105,6 +107,7 @@ namespace Gen7EggRNG
             autoCheck.Checked = prefs.autoSearch;
             genderCheck.Checked = prefs.allRandomGender;
             abilityCheck.Checked = prefs.allAbility;
+            showProfileCheck.Checked = prefs.showProfileData;
         }
 
         private void SavePrefs() {
@@ -118,6 +121,7 @@ namespace Gen7EggRNG
             prefs.autoSearch = autoCheck.Checked;
             prefs.allRandomGender = genderCheck.Checked;
             prefs.allAbility = abilityCheck.Checked;
+            prefs.showProfileData = showProfileCheck.Checked;
 
             EggRM.AppPreferences.SavePreferencesData(this, prefs);
         }

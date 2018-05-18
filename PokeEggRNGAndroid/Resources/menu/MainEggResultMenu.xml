@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_accept"
+           android:showAsAction="always"
+           android:title="@string/accept"/>
+    <item android:id="@+id/action_start"
+           android:showAsAction="always"
+           android:title="Set start frame"/>
+    <item android:id="@+id/action_target"
+         android:showAsAction="always"
+         android:title="@string/search_popup_targetframe"/>
+    <item android:id="@+id/action_around_frame"
+         android:showAsAction="always"
+         android:title="Search around frame"/>
+    <item android:id="@+id/action_timecalc"
+         android:showAsAction="always"
+         android:title="Time Finder"/>
+    <item android:id="@+id/action_pre_timer"
+         android:showAsAction="always"
+         android:title="Adjust Pre-Timer"/>
+    <item android:id="@+id/action_detailed"
+         android:showAsAction="always"
+         android:title="@string/search_popup_viewdetailed"/>
+</menu>
+
+<!-- Code to implement into Activity:
+
+Android.Widget.SearchView searchView;
+public override bool OnCreateOptionsMenu(IMenu menu)
+{
+  this.MenuInflater.Inflate(Resource.Menu.MainEggResultMenu, menu);
+
+  var searchItem = menu.FindItem(Resource.Id.action_search);
+
+  searchView = searchItem.ActionProvider.JavaCast<Android.Widget.SearchView>();
+
+  searchView.QueryTextSubmit += (sender, args) =>
+  {
+    Toast.MakeText(this, "You searched: " + args.Query, ToastLength.Short).Show();
+
+  };
+
+
+  return base.OnCreateOptionsMenu(menu);
+}
+
+-->

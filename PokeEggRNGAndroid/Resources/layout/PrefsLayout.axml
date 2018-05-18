@@ -165,6 +165,42 @@
                 p1:layout_marginLeft="10dp"
                 p1:layout_weight="1" />
         </LinearLayout>
+        <LinearLayout
+            p1:orientation="horizontal"
+            p1:minWidth="25px"
+            p1:minHeight="25px"
+            p1:layout_width="match_parent"
+            p1:layout_height="wrap_content"
+            p1:id="@+id/linearLayout9"
+            p1:gravity="center"
+            p1:layout_marginTop="10dp"
+            p1:layout_marginLeft="20dp"
+            p1:layout_marginRight="20dp">
+            <CheckBox
+                p1:text="Show Profile Data"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/prefsProfdata"
+                p1:layout_weight="1" />
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout10"
+                p1:layout_weight="1"
+                p1:layout_marginLeft="10dp" />
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="0dp"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout11"
+                p1:layout_weight="1"
+                p1:layout_marginLeft="10dp" />
+        </LinearLayout>
     </LinearLayout>
     <TextView
         p1:text="Andslg 2018"
