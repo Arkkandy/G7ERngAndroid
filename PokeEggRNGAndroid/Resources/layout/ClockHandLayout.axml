@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:id="@+id/linearLayout17">
             <TextView
-                android:text="Clock Hands"
+                android:text="@string/clock_ui_clockhands"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView5"
@@ -497,7 +497,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content">
                     <TextView
-                        android:text="Needle Settings"
+                        android:text="@string/clock_ui_needlesettings"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/needleSettingsTitle" />
@@ -515,7 +515,7 @@
                             android:layout_height="match_parent"
                             android:id="@+id/linearLayout6">
                             <RadioButton
-                                android:text="Start Position"
+                                android:text="@string/clock_ui_startposition"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/startPosition" />
@@ -527,7 +527,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
                                 <RadioButton
-                                    android:text="End Position"
+                                    android:text="@string/clock_ui_endposition"
                                     android:id="@+id/endPosition"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent" />
@@ -547,7 +547,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content">
                     <TextView
-                        android:text="Seed Type"
+                        android:text="@string/clock_ui_seedtype"
                         android:id="@+id/textView4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -572,12 +572,12 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/linearLayout16">
                                 <RadioButton
-                                    android:text="Initial Seed"
+                                    android:text="@string/clock_ui_initialseed"
                                     android:id="@+id/initialSeedCheck"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent" />
                                 <RadioButton
-                                    android:text="ID Seed"
+                                    android:text="@string/clock_ui_idseed"
                                     android:id="@+id/idSeedCheck"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -591,7 +591,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/linearLayout5">
                                 <RadioButton
-                                    android:text="QR Seed"
+                                    android:text="@string/clock_ui_qrseed"
                                     android:id="@+id/qrSeedCheck"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -604,9 +604,10 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:imeOptions="actionDone|flagNoFullscreen"
-                                    android:minWidth="30dp" />
+                                    android:minWidth="30dp"
+                                    android:maxLength="5" />
                                 <TextView
-                                    android:text="to"
+                                    android:text="@string/clock_ui_framesto"
                                     android:id="@+id/textView1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -619,7 +620,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:imeOptions="actionDone|flagNoFullscreen"
-                                    android:minWidth="30dp" />
+                                    android:minWidth="30dp"
+                                    android:maxLength="5" />
                             </LinearLayout>
                         </LinearLayout>
                     </ScrollView>
@@ -632,7 +634,7 @@
                 android:id="@+id/seedInput"
                 android:gravity="center">
                 <Button
-                    android:text="Request"
+                    android:text="@string/clock_ui_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/requestButton" />
@@ -657,7 +659,7 @@
                             android:gravity="center_vertical" />
                     </HorizontalScrollView>
                     <TextView
-                        android:text="Needle Count: 0"
+                        android:text="@string/clock_needle_count"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -678,7 +680,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:text="Results"
+                    android:text="@string/clock_ui_results"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/resultNote" />

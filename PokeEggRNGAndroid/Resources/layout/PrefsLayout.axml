@@ -67,7 +67,7 @@
                     p1:src="@android:drawable/ic_menu_help"
                     p1:id="@+id/prefsHelp"
                     p1:layout_width="wrap_content"
-                    p1:layout_height="match_parent" />
+                    p1:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -177,7 +177,7 @@
             p1:layout_marginLeft="20dp"
             p1:layout_marginRight="20dp">
             <CheckBox
-                p1:text="Show Profile Data"
+                p1:text="@string/setting_showprofile"
                 p1:layout_width="0dp"
                 p1:layout_height="match_parent"
                 p1:id="@+id/prefsProfdata"

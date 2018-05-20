@@ -12,28 +12,28 @@
         android:gravity="left|center_vertical"
         android:text="@string/search_guide_frame" />
     <TextView
-        android:text="Shift/F"
+        android:text="@string/search_guide_shiftf"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/resmeShift"
         android:gravity="left|center_vertical" />
     <TextView
-        android:text="Mark"
+        android:text="@string/search_guide_mark"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/resmeMark"
         android:layout_weight="0.4"
         android:gravity="left|center_vertical" />
     <TextView
-        android:text="Real Time"
+        android:text="@string/search_guide_realtime"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/resmeRealtime"
         android:gravity="left|center_vertical" />
     <TextView
-        android:text="Delay"
+        android:text="@string/search_guide_delay"
         android:layout_weight="0.4"
         android:layout_width="0dp"
         android:layout_height="match_parent"

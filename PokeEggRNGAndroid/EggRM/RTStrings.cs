@@ -19,7 +19,7 @@ namespace Gen7EggRNG.EggRM
         public readonly string[] genderSymbols = { "-", "♂", "♀" };
         public readonly string[] abilitySymbols = { "-", "1", "2", "H" };
 
-        public readonly string[] gameVersion = { "Sun", "Moon", "Ultra Sun", "Ultra Moon" };
+        public readonly string[] gameVersion;
 
         public readonly string[] natures;
         public readonly string[] hiddenpowers;
@@ -47,10 +47,13 @@ namespace Gen7EggRNG.EggRM
         public readonly string acceptplus_reject_count;
 
         public readonly string profileinfoseed;
+        public readonly string profileinfoiseed;
         public readonly string profileinfotsv;
 
         public RTStrings(Context context) {
             Resources rc = context.Resources;
+
+            gameVersion = rc.GetStringArray(Resource.Array.GameVersions);
 
             natures = rc.GetStringArray(Resource.Array.NatureIndexed);
             hiddenpowers = rc.GetStringArray(Resource.Array.HiddenPowerIndexed);
@@ -73,6 +76,7 @@ namespace Gen7EggRNG.EggRM
             acceptplus_reject_count = rc.GetString(Resource.String.search_acceptplus_rcount);
 
             profileinfoseed = rc.GetString(Resource.String.search_profileinfo_currentseed);
+            profileinfoiseed = rc.GetString(Resource.String.search_profileinfo_initialseed);
             profileinfotsv = rc.GetString(Resource.String.search_profileinfo_tsv);
         }
     }

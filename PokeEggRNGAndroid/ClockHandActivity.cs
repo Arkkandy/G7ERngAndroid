@@ -24,7 +24,7 @@ namespace Gen7EggRNG
     }
 
 
-    [Activity(Label = "Clock Hands Method",
+    [Activity(Label = "@string/activity_clockhands",
         ConfigurationChanges = Android.Content.PM.ConfigChanges.ScreenSize | Android.Content.PM.ConfigChanges.Orientation,
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class ClockHandActivity : Activity
@@ -268,7 +268,7 @@ namespace Gen7EggRNG
                     {                        
                         if (uiClockhands.Count < 8)
                         {
-                            toastMessage.ShowMessage("Initial Seed: Enter 8 or more clock hands.", ToastLength.Short);
+                            toastMessage.ShowMessage(Resources.GetString(Resource.String.clock_initial_fail), ToastLength.Short);
                             return;
                         }
                         isId = false;
@@ -277,7 +277,7 @@ namespace Gen7EggRNG
                     {
                         if (uiClockhands.Count < 9)
                         {
-                            toastMessage.ShowMessage("ID Seed: Enter 9 or more clock hands.", ToastLength.Short);
+                            toastMessage.ShowMessage(Resources.GetString(Resource.String.clock_id_fail), ToastLength.Short);
                             return;
                         }
                         isId = true;
@@ -285,7 +285,7 @@ namespace Gen7EggRNG
                     else if (uiSeedType == SeedType.QRFrame) {
                         if (uiClockhands.Count < 2)
                         {
-                            toastMessage.ShowMessage("QR Frame: Enter 2 or more clock hands.", ToastLength.Short);
+                            toastMessage.ShowMessage(Resources.GetString(Resource.String.clock_qr_fail), ToastLength.Short);
                             return;
                         }
                         //isId = false;
@@ -316,10 +316,10 @@ namespace Gen7EggRNG
             resultList.ItemLongClick += (sender, args) => {
                 if (resultType == SeedType.InitialSeed)
                 {
-                    PopupMenu menu = new PopupMenu(this, resultList.GetChildAt(args.Position), Android.Views.GravityFlags.Center);
+                    PopupMenu menu = new PopupMenu(this, resultList, Android.Views.GravityFlags.Center);
 
-                    //menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.search_popup_copyseed));
-                    menu.Menu.Add(Menu.None, 1, 1, "Set initial seed");
+                    //menu.Menu.Add(Menu.None, 1, 1, );
+                    menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.clock_popup_setseed));
 
                     menu.MenuItemClick += (s2, a2) =>
                     {
@@ -335,10 +335,10 @@ namespace Gen7EggRNG
                 }
                 if (resultType == SeedType.QRFrame)
                 {
-                    PopupMenu menu = new PopupMenu(this, resultList.GetChildAt(args.Position), Android.Views.GravityFlags.Center);
+                    PopupMenu menu = new PopupMenu(this, resultList, Android.Views.GravityFlags.Center);
 
                     //menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.search_popup_copyseed));
-                    menu.Menu.Add(Menu.None, 1, 1, "Use exit frame");
+                    menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.clock_popup_qrframe));
 
                     menu.MenuItemClick += (s2, a2) =>
                     {
@@ -353,10 +353,10 @@ namespace Gen7EggRNG
                 }
                 else if (resultType == SeedType.IDSeed)
                 {
-                    PopupMenu menu = new PopupMenu(this, resultList.GetChildAt(args.Position), Android.Views.GravityFlags.Center);
+                    PopupMenu menu = new PopupMenu(this, resultList, Android.Views.GravityFlags.Center);
 
                     //menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.search_popup_copyseed));
-                    menu.Menu.Add(Menu.None, 1, 1, "Set initial seed");
+                    menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.clock_popup_setseed));
 
                     menu.MenuItemClick += (s2, a2) =>
                     {
@@ -380,6 +380,8 @@ namespace Gen7EggRNG
             BuildTitle( seed: currentSeed.ToString("X") );
 
             qrMinEdit.Text = GameVersionConversion.GetGameStartingFrame(gameVersion, false).ToString();
+
+            UpdateInputView();
         }
 
         // Test needles
@@ -398,7 +400,7 @@ namespace Gen7EggRNG
 
                 if (result.Count > 0)
                 {
-                    results = result.ConvertAll(x => "QR Frame: " + x.qrFrame + " Exit Frame: " + x.exitFrame);
+                    results = result.ConvertAll(x => String.Format(Resources.GetString(Resource.String.clock_qr_result), x.qrFrame, x.exitFrame));
                     requestResults = result.ConvertAll(x => new CHResult(x.qrFrame, x.exitFrame));
                 }
             }
@@ -411,7 +413,7 @@ namespace Gen7EggRNG
                     
                     if (result == null)
                     {
-                        errorMessage = "Request error.";
+                        errorMessage = Resources.GetString(Resource.String.clock_request_error);
                     }
                     else
                     {
@@ -426,7 +428,7 @@ namespace Gen7EggRNG
                             else if (type == SeedType.IDSeed)
                             {
                                 requestResults = result.ConvertAll(x => new CHResult(uint.Parse(x.seed, System.Globalization.NumberStyles.HexNumber), x.add ));
-                                results = result.ConvertAll(x => x.seed.ToUpper() + " - Correction: " + x.add);
+                                results = result.ConvertAll(x => String.Format(Resources.GetString(Resource.String.clock_id_result), x.seed.ToUpper(), x.add));
                             }
                         }
                     }
@@ -446,7 +448,10 @@ namespace Gen7EggRNG
                 else {
                     if (results == null)
                     {
-                        resultInfo.Text = "Results: " + String.Join(",", needleString) + " [" + internalClockhands.Count + "]: No results";
+                        string resString = Resources.GetString(Resource.String.clock_results);
+                        resString += String.Join(",", needleString) + " [" + internalClockhands.Count + "] ";
+                        resString += Resources.GetString(Resource.String.clock_no_results);
+                        resultInfo.Text = resString;
                         resultList.Adapter = null;
                     }
                     else
@@ -465,12 +470,13 @@ namespace Gen7EggRNG
                             PrepareReturnIntent(0, resultType);
                         }
 
-                        resultInfo.Text = "Results: " + String.Join(",", needleString) + " [" + internalClockhands.Count + "]";
+                        resultInfo.Text = Resources.GetString(Resource.String.clock_results) +
+                            String.Join(",", needleString) + " [" + internalClockhands.Count + "]";
 
                         // #TODO - Correct starting frames
                         if (resultType != SeedType.QRFrame)
                         {
-                            resultInfo.Text += " - Starting frame = " + startFrame.ToString();
+                            resultInfo.Text += " " + String.Format(Resources.GetString(Resource.String.clock_result_startframe), startFrame);
                         }
 
                         var resultAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, results);
@@ -480,7 +486,6 @@ namespace Gen7EggRNG
 
                 SetActivityState(SeedReadState.Inputting);
             });
-
         }
 
         private void UpdateNumValues()
@@ -525,16 +530,17 @@ namespace Gen7EggRNG
         private void UpdateInputView()
         {
             inputView.Text = string.Join(",", uiClockhands);
-            needleCountView.Text = "Needle Count: " + uiClockhands.Count.ToString();
+            needleCountView.Text = Resources.GetString(Resource.String.clock_needle_count) + " " + uiClockhands.Count.ToString();
         }
 
         private void BuildTitle(string seed = "", int frame = 0) {
-            string ttl = "Clock Hands Method (" + GameVersionConversion.GetGameVersionName(gameVersion) + ")";
+
+            string ttl = Resources.GetString(Resource.String.activity_clockhands) + " (" + GameVersionConversion.GetGameVersionName(gameVersion) + ")";
             if (seed != string.Empty) {
                 ttl += " - " + seed;
             }
             if (frame != 0) {
-                ttl += " - Frame: " + frame;
+                ttl += " " + Resources.GetString(Resource.String.clock_title_frame) + " " + frame;
             }
             Title = ttl;
         }

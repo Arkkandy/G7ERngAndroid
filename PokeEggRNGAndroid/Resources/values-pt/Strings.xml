@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-  <!--ACTIVITY TITLES-->
+  <!--ACTIVITY TITLES - O jogo não foi traduzido para portugês, portanto dados relacionados com itens, naturezas, etc, que pertençam ao jogo não foram traduzidos do inglês.-->
   <string name="activity_filter">Editar Filtros</string>
   <string name="activity_parents">Editar Pais</string>
   <string name="activity_profile">Editar Perfis</string>
@@ -12,7 +12,13 @@
   <string name="activity_tinyseed">Pesquisa 8 Ovos Tiny</string>
   <string name="activity_seedrecovery">Recuperação de semente</string>
 
+  <string name="activity_clockhands">Ler Ponteiros de Relógio</string>
 
+  <!--GAME VERSION-->
+  <string name="game_sun">Sun</string>
+  <string name="game_moon">Moon</string>
+  <string name="game_usun">Ultra Sun</string>
+  <string name="game_umoon">Ultra Moon</string>
 
   <!--ACITIVITY DATA-->
   <string name="main_search_button">Procurar</string>
@@ -27,6 +33,7 @@
   <string name="search_acceptplus">Aceitar mais</string>
   <string name="search_shortest">Menor sequência</string>
   <string name="search_least"># de Avanços</string>
+  <string name="search_mainegg">Main RNG Ovos</string>
 
   <string name="search_settings">Opções de Procura</string>
   <string name="search_simple">Procura Simples</string>
@@ -34,13 +41,20 @@
   <string name="search_min">Min</string>
   <string name="search_max">Max</string>
   <string name="search_near">Proximidade</string>
-
+  <string name="search_considerdelay">Considerar Atraso</string>
+  <string name="search_numNPCs"># NPCs</string>
+  <string name="search_createtimeline">Criar linha temporal</string>
+  <string name="search_ctupto">Até</string>
+  <string name="search_ctseconds">s</string>
+  <string name="search_timeleap">Saltar linha temporal</string>
+  
   <string name="search_targetframe">Objectivo</string>
   <string name="search_checkfilter">Filtrar</string>
   <string name="search_checktsvs">+TSVs</string>
   
   <string name="search_profileinfo_currentseed">Semente atual:</string>
-
+  <string name="search_profileinfo_initialseed">Semente inicial:</string>
+  
   <string name="search_guide_egg">Ovo#</string>
   <string name="search_guide_frame">Frame</string>
   <string name="search_guide_advance">Avanço</string>
@@ -56,17 +70,26 @@
   <string name="search_guide_spe">Spe</string>
   <string name="search_guide_hiddenpower">Poder Esc.</string>
   <string name="search_guide_psv">PSV</string>
-
+  <string name="search_guide_shiftf">Shift/F</string>
+  <string name="search_guide_mark">Marca</string>
+  <string name="search_guide_realtime">Tempo real</string>
+  <string name="search_guide_delay">Atraso</string>
+  
   <string name="search_popup_copyseed">Copiar semente</string>
-  <string name="search_popup_currentseed">Definir como atual</string>
-  <string name="search_popup_targetframe">Definir como objectivo</string>
-  <string name="search_popup_shortestpath">Menor sequência</string>
-  <string name="search_popup_viewdetailed">Ver em detalhe</string>
-  <string name="search_popup_searchfrom">Procurar desde</string>
-  <string name="search_popup_searchnext">Procurar no seguinte</string>
-
+  <string name="search_popup_currentseed">Definir Como Atual</string>
+  <string name="search_popup_targetframe">Definir Como Objectivo</string>
+  <string name="search_popup_startframe">Definir Como Inicial</string>
+  <string name="search_popup_shortestpath">Menor Sequência</string>
+  <string name="search_popup_viewdetailed">Ver Em Detalhe</string>
+  <string name="search_popup_searchfrom">Procurar Daqui</string>
+  <string name="search_popup_searchnext">Procurar No Seguinte</string>
+  <string name="search_popup_searcharound">Procurar Vizinhança</string>
+  <string name="search_popup_timefinder">Calcular Tempo</string>
+  <string name="search_popup_adjustpretimer">Ajustar Pre-Temporizador</string>
+  
   <string name="detailed_copyspread">Copiar dados</string>
 
+  <!--NOMES DE ESTATISTICAS ENCURTADOS, UTILIZADOS EM PAIS E FILTROS-->
   <string name="hp_stat">HP</string>
   <string name="attack_stat">Atk</string>
   <string name="defense_stat">Def</string>
@@ -74,6 +97,7 @@
   <string name="specialdefense_stat">SpD</string>
   <string name="speed_stat">Spe</string>
 
+  <!--ACTIVIDADE DE FILTROS-->
   <string name="filter_clear">Limpar filtro</string>
   <string name="filter_remind">Shiny Remind</string>
   <string name="filter_shiny">Shiny Apenas</string>
@@ -87,7 +111,7 @@
   <string name="filter_templates_deleteno">Não</string>
   <string name="filter_templates_emptyname">Campo de texto vazio!</string>
 
-
+  <!--ACTIVIDADE DOS PAIS-->
   <string name="parents_ditto">É Ditto?</string>
   <string name="parents_samedex">Mesmo #Dex</string>
   <string name="parents_genderratio">Tipo de Sexo</string>
@@ -113,13 +137,14 @@
   <string name="parents_templates_deleteno">Não</string>
   <string name="parents_templates_emptyname">Campo de texto vazio!</string>
 
+  <!--ACTIVIDADE DE EDIÇÃO DE PERFIL-->
   <string name="profile_profile">Perfil</string>
   <string name="profile_checkcharm">Shiny Charm?</string>
   <string name="profile_tsv">TSV</string>
   <string name="profile_current">Semente atual</string>
-  <string name="profile_checkpoint">Semente checkpoint</string>
+  <string name="profile_checkpoint">Checkpoint</string>
   <string name="profile_find">Encontrar Semente</string>
-  <string name="profile_setcurrent">Retroceder ao checkpoint</string>
+  <string name="profile_setcurrent">Voltar ao checkpoint</string>
   <string name="profile_setcheckpoint">Guardar no checkpoint</string>
   <string name="profile_copycurrent">Copiar semente atual</string>
   <string name="profile_copycheckpoint">Copiar semente checkpoint</string>
@@ -182,6 +207,50 @@
   <string name="seed_recover">Recuperar</string>
   <string name="seed_search">Procurar</string>
 
+  <string name="profile_gameversion">Versão do Jogo</string>
+  <string name="profile_initialseed">Semente Inicial</string>
+  <string name="profile_frame">Frame: </string>
+
+  <string name="profile_clock_initial">Semente inicial definida a partir dos Ponteiros do Relógio.</string>
+  <string name="profile_clock_qr">Definindo frame inicial pela procura QR: {0}</string>
+  <string name="profile_clock_id">Semente inicial (para ID) definida. Correção: {0}</string>
+
+  <!--CLOCK HANDS ACTIVITY-->
+  <string name="clock_ui_clockhands">Ponteiros do Relógio</string>
+  <string name="clock_ui_needlesettings">Opções dos Ponteiros</string>
+  <string name="clock_ui_seedtype">Tipo de Semente</string>
+  <string name="clock_ui_startposition">Posição Inicial</string>
+  <string name="clock_ui_endposition">Posição Final</string>
+  <string name="clock_ui_initialseed">Sem. Inicial</string>
+  <string name="clock_ui_qrseed">Por QR</string>
+  <string name="clock_ui_idseed">Para ID</string>
+  <string name="clock_ui_framesto">até</string>
+
+  <string name="clock_ui_request">Pedir</string>
+  <string name="clock_ui_results">Resultados</string>
+
+  <string name="clock_initial_fail">Semente Inicial: Introduza 8 ou mais ponteiros.</string>
+  <string name="clock_id_fail">Semente ID: Introduza 9 ou mais ponteiros.</string>
+  <string name="clock_qr_fail">Frame QR: Introduza 2 ou mais ponteiros.</string>
+
+  <string name="clock_popup_setseed">Definir sem. inicial</string>
+  <string name="clock_popup_qrframe">Usar frame de saída</string>
+
+  <!--<string name="clock_initial_result"></string>-->
+  <string name="clock_qr_result">Frame QR: {0} Frame de saída: {1}</string>
+  <string name="clock_id_result">{0} Correção: {1}</string>
+
+  <string name="clock_request_error">Erro no pedido.</string>
+
+  <string name="clock_results">Resultados:</string>
+  <string name="clock_no_results">Nenhum resultado</string>
+  <string name="clock_result_startframe">Frame inicial {0}</string>
+
+  <string name="clock_needle_count">Número de Ponteiros:</string>
+
+  <string name="clock_title_frame">Frame:</string>
+
+  <!--ACTIVIDADE EXTRAS-->
   <string name="misc_tsv">Outros TSVs</string>
   <string name="misc_add">Adicionar TSV</string>
   <string name="misc_remove_tsv">Remover TSV {0}</string>
@@ -197,6 +266,7 @@
   <string name="misc_tsvadded">TSV {0} adicionado.</string>
   <string name="misc_emptysetname">Campo de texto vazio!</string>
 
+  <!--ACTIVIDADE PREFERENCIAS-->
   <string name="setting_resultheight">Altura das linhas</string>
   <string name="setting_maxresult">Limite de resultados</string>
   <string name="setting_shinycolor">Cor Shiny</string>
@@ -213,9 +283,11 @@
   <string name="setting_shinycolors_green">Verde</string>
   <string name="setting_shinycolors_orange">Laranja</string>
   <string name="setting_shinycolors_gray">Cinzento</string>
+  <string name="setting_showprofile">Ver barra de perfil</string>
   <string name="setting_helptitle">Ajuda da Aplicação</string>
-  <string name="setting_helpmessage">Gen 7 Android RNG Tool V1.0\n\nModos de Procura\n\n 1. Frame-A-Frame: Procurar até um certo número de resultados com limite máximo de 50.000 frames.\n\n 2. Aceitar Apenas: Sequência de ovos que pode obter apenas aceitando ovos.\n\n 3. Aceitar Mais: Sequência de ovos que pode obter aceitando X ovos e rejeitando até 4 ovos.\n\n 4. Menor Sequência: Veja a menor sequência de aceitações/rejeições de ovos para receber o ovo pretendido. Para facilmente acompanhar o progresso, pode clicar nas linhas dos resultados e marcar ovos já recebidos.\n\n 5. # Avanços: Veja uma previsão do número de aceitações/rejeições necessárias para receber cada ovo. É, efetivamente, uma previsão do número de ovos na Menor Sequência.\n\n Procura Automática: Quando clicar em \"Aceitar\" ou \"Rejeitar\" um ovo, e apenas se o ovo seguinte não estiver nos resultados, a aplicação irá automaticamente refazer a procura a partir desse ovo.\n\n Todos os Sexos: Mostrar todas as possibilidades de sexos para géneros aleatórios.\n\n Todas as Habilidades: Mostrar todas as habilidades possíveis com base na habilidade herdada.\n\nObrigado por utilizar esta ferramenta!</string>
+  <string name="setting_helpmessage">Gen 7 Android RNG - Ferramenta - V1.1b\n\nModos de Procura\n\n 1. Frame-A-Frame: Procurar até um certo número de resultados com limite máximo de 50.000 frames.\n\n 2. Aceitar Apenas: Sequência de ovos que pode obter apenas aceitando ovos.\n\n 3. Aceitar Mais: Sequência de ovos que pode obter aceitando X ovos e rejeitando até 4 ovos.\n\n 4. Menor Sequência: Veja a menor sequência de aceitações/rejeições de ovos para receber o ovo pretendido. Para facilmente acompanhar o progresso, pode clicar nas linhas dos resultados e marcar ovos já recebidos.\n\n 5. # Avanços: Veja uma previsão do número de aceitações/rejeições necessárias para receber cada ovo. É, efetivamente, uma previsão do número de ovos na Menor Sequência.\n\n 6. Main RNG Ovos: Ver os possíveis PID/PSV para um determinado ovo utilizando Main RNG sem Shiny Charm ou Método Masuda.\n\n Procura Automática: Quando clicar em \"Aceitar\" ou \"Rejeitar\" um ovo, e apenas se o ovo seguinte não estiver nos resultados, a aplicação irá automaticamente refazer a procura a partir desse ovo.\n\n Todos os Sexos: Mostrar todas as possibilidades de sexos para géneros aleatórios.\n\n Todas as Habilidades: Mostrar todas as habilidades possíveis com base na habilidade herdada.\n\n Mostrar Barra de Perfil: Ver informações do perfil no ecrã das procuras.\n\nObrigado por utilizar esta ferramenta!</string>
 
+  <!--TIPOS DE POKÉMON-->
   <string name="pokemon_type_bug">Bug</string>
   <string name="pokemon_type_dark">Dark</string>
   <string name="pokemon_type_dragon">Dragon</string>
@@ -235,6 +307,7 @@
   <string name="pokemon_type_steel">Steel</string>
   <string name="pokemon_type_water">Water</string>
 
+  <!--NATUREZAS DE POKÉMON-->
   <string name="pokemon_nature_adamant">Adamant</string>
   <string name="pokemon_nature_bashful">Bashful</string>
   <string name="pokemon_nature_bold">Bold</string>
@@ -261,6 +334,7 @@
   <string name="pokemon_nature_serious">Serious</string>
   <string name="pokemon_nature_timid">Timid</string>
 
+  <!--ITENS DO JOGO-->
   <string name="item_none">Nada</string>
   <string name="item_ev">Everstone</string>
   <string name="item_dk">DestinyKnot</string>
@@ -271,10 +345,12 @@
   <string name="item_pspdef">PowerSpD</string>
   <string name="item_pspeed">PowerSpe</string>
 
+  <!--HABILIDADES NOS SPINNERS-->
   <string name="ability_one">Tipo 1</string>
   <string name="ability_two">Tipo 2</string>
   <string name="ability_hidden">Secreta</string>
 
+  <!--RACIOS DE GÉNERO - SPINNER PAIS-->
   <string name="gender_ratio_same">1M/1F</string>
   <string name="gender_ratio_7m1f">7M/1F</string>
   <string name="gender_ratio_3m1f">3M/1F</string>
@@ -292,6 +368,7 @@
   <string name="search_shortestpath_highframe">Frame objectivo demasiado alta.\nValor máximo é: {0}</string>
   <string name="search_shortestpath_sequence">"Aceitar: {0} Rejeitar: {1}\nTotal de {2} ovos.</string>
   <string name="search_noframes">Não foram encontrados resultados.</string>
+  <string name="search_maineggcondition">Main RNG de Ovos requer a NÃO utilização de Shiny Charm NEM do Método Masuda.</string>
 
   <string name="search_popup_toast_acceptedegg">Ovo {0} aceite</string>
   <string name="search_popup_toast_acceptedframe">Frame {0} aceite</string>
@@ -327,14 +404,32 @@
   <string name="search_popup_searchfromnum">Procurar desde o Ovo# {0}</string>
 
   <string name="search_toast_shortpathcomplete">Menor sequência terminada.\nVoltando à procura normal.</string>
+  
+  <string name="search_toast_maineggaccept">Ovo aceite.\nDefinindo nova semente.</string>
+  <string name="search_toast_mainegg_timelinefail">Linha de tempo demasiado longa.\nO tempo máximo é de {0} segundos.</string>
 
+  <!--DIÁLOGO DE FRAME DETALHADA-->
   <string name="search_detailed_frame">Frame {0}</string>
   <string name="search_detailed_spreadcopied">Dados copiados.</string>
   <string name="search_detailed_gender">Sexo:</string>
   <string name="search_detailed_ball">Bola:</string>
-  <string name="search_detailed_ability">Habilidade:</string>
+  <string name="search_detailed_ability">Habili.:</string>
   <string name="search_detailed_nature">Natureza:</string>
   <string name="search_detailed_wurmple">Evolução do Wurmple:</string>
+
+  <!--TIME CALCULATOR-->
+  <string name="time_calc_title">Calculadora de Tempo</string>
+  <string name="time_calc_fidget">Fidget</string>
+  <string name="time_calc_raining">Chuva</string>
+  <string name="time_calc_startframe">Frame Inicial</string>
+  <string name="time_calc_targetframe">Frame Alvo</string>
+
+  <!--ADJUST PRE-TIMER-->
+  <string name="pre_timer_add">Adicionar ao Pre-Timer</string>
+  <string name="pre_timer_sub">Subtrair ao Pre-Timer</string>
+  <string name="pre_timer_none">Nenhum ajuste</string>
+  <string name="pre_timer_ontarget">Acertaste no alvo</string>
+  <string name="pre_timer_large">Valor elevado! Reveja a configuração!</string>
   
   <!--GENERAL STRINGS-->
   <string name="gender">Sexo</string>
@@ -359,5 +454,7 @@
 
   <string name="dustox">Dustox</string>
   <string name="beautifly">Beautifly</string>
+
+  <string name="shiny">Shiny</string>
 
 </resources>

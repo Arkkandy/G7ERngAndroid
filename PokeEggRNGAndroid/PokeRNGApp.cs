@@ -29,6 +29,9 @@ namespace Gen7EggRNG
         public override void OnConfigurationChanged(Configuration newConfig)
         {
             base.OnConfigurationChanged(newConfig);
+
+            // In case of locale change, update strings.
+            Strings = new RTStrings(Context);
             
         }
 

@@ -20,10 +20,13 @@ namespace Gen7EggRNG.EggRM
 
         public const int MaximumFramesPerSearch = 50000;
 
-        public const int MaximumTargetFrame = 25000;
+        public const int MaximumEggTargetFrame = 25000;
+        public const int MaximumMainTargetFrame = 99999;
 
         public const int ShortestPathHeuristicLow = 750; // Other params
         public const int ShortestPathHeuristicHigh = 1000; // MM + SC + DK
+
+        public const int MaximumTimelineTime = 3600;
 
         public const int MaximumHistory = 10;
     }

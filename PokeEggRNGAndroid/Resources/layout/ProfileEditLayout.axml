@@ -74,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
-                        android:text="Game Version"
+                        android:text="@string/profile_gameversion"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/textView6"
@@ -288,11 +288,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
                 <TextView
-                    android:text="Initial Seed"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/textView7"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:text="@string/profile_initialseed" />
                 <EditText
                     android:layout_width="96sp"
                     android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
                     android:typeface="monospace"
                     android:imeOptions="actionDone|flagNoFullscreen" />
                 <TextView
-                    android:text="Frame:"
+                    android:text="@string/profile_frame"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"

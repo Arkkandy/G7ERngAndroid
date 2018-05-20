@@ -37,15 +37,15 @@ namespace Gen7EggRNG
 
             if (adjustment > 0)
             {
-                SetTitle("Add to the Pre-Timer");
+                SetTitle(Context.Resources.GetString(Resource.String.pre_timer_add));
             }
             else if (adjustment < 0)
             {
-                SetTitle("Sub from the Pre-Timer");
+                SetTitle(Context.Resources.GetString(Resource.String.pre_timer_sub));
             }
             else {
-                SetTitle("No adjustment");
-                preTInfo.Text = "You hit your target";
+                SetTitle(Context.Resources.GetString(Resource.String.pre_timer_none));
+                preTInfo.Text = Context.Resources.GetString(Resource.String.pre_timer_ontarget);
             }
         }
     }

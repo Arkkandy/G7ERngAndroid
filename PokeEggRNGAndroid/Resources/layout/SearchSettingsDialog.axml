@@ -139,10 +139,10 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/diaSSDelay">
                 <CheckBox
-                    android:text="Consider Delay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/delayCheck" />
+                    android:id="@+id/delayCheck"
+                    android:text="@string/search_considerdelay" />
                 <EditText
                     android:inputType="number"
                     android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/diaSSNPC">
                 <TextView
-                    android:text="# NPCs"
+                    android:text="@string/search_numNPCs"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -190,11 +190,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/diaSSCreateTimeline">
                 <RadioButton
-                    android:text="Create Timeline/s"
+                    android:text="@string/search_createtimeline"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/createTimelineRB"
                     android:layout_marginRight="20dp" />
+                <TextView
+                    android:text="@string/search_ctupto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView7"
+                    android:gravity="center" />
                 <EditText
                     android:inputType="number"
                     android:layout_width="wrap_content"
@@ -203,6 +209,12 @@
                     android:textSize="12sp"
                     android:text="3600"
                     android:imeOptions="flagNoFullscreen|actionDone" />
+                <TextView
+                    android:text="@string/search_ctseconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView8"
+                    android:gravity="center" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -212,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/diaSSTimeLeap">
                 <RadioButton
-                    android:text="Timeline Leap"
+                    android:text="@string/search_timeleap"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/timelineLeapRB"

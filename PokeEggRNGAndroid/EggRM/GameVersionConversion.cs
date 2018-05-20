@@ -34,7 +34,8 @@ namespace Gen7EggRNG.EggRM
         }
 
         public static string GetGameVersionName(GameVersionUI gv) {
-            return gv == GameVersionUI.Sun ? "Sun" : gv == GameVersionUI.Moon ? "Moon" : gv == GameVersionUI.UltraSun ? "Ultra Sun" : "Ultra Moon";
+            return PokeRNGApp.Strings.gameVersion[(int)gv];
+            //return gv == GameVersionUI.Sun ? "Sun" : gv == GameVersionUI.Moon ? "Moon" : gv == GameVersionUI.UltraSun ? "Ultra Sun" : "Ultra Moon";
         }
     }
 }

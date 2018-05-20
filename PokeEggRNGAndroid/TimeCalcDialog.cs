@@ -43,8 +43,7 @@ namespace Gen7EggRNG
             rain = raining;
             fidget = fidgeting;
 
-            //SetTitle(Context.Resources.GetString(Resource.String.parents_templates_title));
-            SetTitle("Time Calculator");
+            SetTitle(Context.Resources.GetString(Resource.String.time_calc_title));
 
             SetContentView(Resource.Layout.TimeCalculator);
 

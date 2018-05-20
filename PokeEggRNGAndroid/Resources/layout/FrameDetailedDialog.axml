@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout4">
                 <TextView
-                    android:text="Gender: "
+                    android:text="@string/search_detailed_gender"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/textView1"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout5">
                 <TextView
-                    android:text="Ability: "
+                    android:text="@string/search_detailed_ability"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/textView2"
@@ -134,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout6">
                 <TextView
-                    android:text="Ball: "
+                    android:text="@string/search_detailed_ball"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/textView4"
@@ -156,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/linearLayout7">
                 <TextView
-                    android:text="Nature: "
+                    android:text="@string/search_detailed_nature"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/textView3"

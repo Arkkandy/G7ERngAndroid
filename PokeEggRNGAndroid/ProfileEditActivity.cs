@@ -27,7 +27,7 @@ namespace Gen7EggRNG
     {
         private const int NoProfileSelected = 0;
 
-        private bool changesWereMade = false;
+        //private bool changesWereMade = false;
         private bool userEditingProfile = false;
 
         string profileTag;
@@ -433,7 +433,8 @@ namespace Gen7EggRNG
                     SetInitialSeed(iseed);
                     seedFrameView.Text = frame.ToString();
                     SaveProfile();
-                    Toast.MakeText(this, "Set initial seed from Clock Hands. " + frame, ToastLength.Short).Show();
+                    //String.Format(Resources.GetString(Resource.String.clock_results), preMinFrame, preMaxFrame);
+                    Toast.MakeText(this, Resources.GetString(Resource.String.profile_clock_initial), ToastLength.Short).Show();
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
                 else if (type == 1) // QR Frame
@@ -441,7 +442,7 @@ namespace Gen7EggRNG
                     int frame = data.GetIntExtra("QRExit", 0);
                     seedFrameView.Text = frame.ToString();
                     SaveProfile();
-                    Toast.MakeText(this, "Setting start frame from QR Search." + frame, ToastLength.Short).Show();
+                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.profile_clock_qr), frame), ToastLength.Short).Show();
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
                 else if (type == 2) { // ID Seed
@@ -456,7 +457,7 @@ namespace Gen7EggRNG
                     SetInitialSeed(iseed);
 
                     SaveProfile();
-                    Toast.MakeText(this, "ID Seed not fully implemented! Frame: " + frame + "  Crr?: " + correction, ToastLength.Short).Show();
+                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.profile_clock_id), correction), ToastLength.Short).Show();
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
 

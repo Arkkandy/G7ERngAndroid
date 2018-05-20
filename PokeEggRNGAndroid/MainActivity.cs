@@ -372,6 +372,14 @@ namespace Gen7EggRNG
                         timeLeapRB.Checked = true;
                     }*/
 
+                    cTimelineET.TextChanged += (sender, args) =>
+                    {
+                        int.TryParse(args.Text.ToString(), out uiSearchData.searchParameters.mainRNG.ctimelineTime);
+                        if (uiSearchData.searchParameters.mainRNG.ctimelineTime == 0) {
+                            uiSearchData.searchParameters.mainRNG.ctimelineTime = 1;
+                        }
+                    };
+
                     minFrameEdit.Text = uiSearchData.searchParameters.mainRNG.minFrame.ToString();
                     maxFrameEdit.Text = uiSearchData.searchParameters.mainRNG.maxFrame.ToString();
                 }
@@ -996,9 +1004,9 @@ namespace Gen7EggRNG
         }
 
         private void Search7_EggShortestPath() {
-            if (currentSearchData.searchParameters.targetFrame > SearchConstants.MaximumTargetFrame)
+            if (currentSearchData.searchParameters.targetFrame > SearchConstants.MaximumEggTargetFrame)
             {
-                Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumTargetFrame), ToastLength.Short).Show();
+                Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumEggTargetFrame), ToastLength.Short).Show();
                 return;
             }
 
@@ -1046,7 +1054,6 @@ namespace Gen7EggRNG
                 return -1;
             }*/
 
-
             var rng = new TinyMT(currentSearchData.profile.currentSeed.GetSeedVector());
             int max = eggFrames[eggFrames.Count - 1].FrameNum;
 
@@ -1082,9 +1089,9 @@ namespace Gen7EggRNG
 
         private void Search7_EggFastSearch()
         {
-            if (currentSearchData.searchParameters.targetFrame > SearchConstants.MaximumTargetFrame)
+            if (currentSearchData.searchParameters.targetFrame > SearchConstants.MaximumEggTargetFrame)
             {
-                Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumTargetFrame), ToastLength.Short).Show();
+                Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumEggTargetFrame), ToastLength.Short).Show();
                 return;
             }
 
@@ -1196,8 +1203,7 @@ namespace Gen7EggRNG
         private void Search7_MainEggRNG() {
             if (currentSearchData.profile.shinyCharm || currentSearchData.parents.isMasuda)
             {
-                //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumTargetFrame), ToastLength.Short).Show();
-                Toast.MakeText(this, "Main Egg RNG requires NO Shiny Charm and NO Masuda Method.", ToastLength.Short).Show();
+                Toast.MakeText(this, Resources.GetString(Resource.String.search_maineggcondition), ToastLength.Short).Show();
                 return;
             }
 
@@ -1235,6 +1241,9 @@ namespace Gen7EggRNG
                 return;
             }
             // Search is still limited to max results
+            if (max > SearchConstants.MaximumMainTargetFrame) {
+                max = SearchConstants.MaximumMainTargetFrame;
+            }
 
             SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
 
@@ -1308,7 +1317,7 @@ namespace Gen7EggRNG
                 }
                 while (frameadvance > 0);
 
-                if (eggFrames.Count > maxResults)
+                if (eggFrames.Count >= maxResults)
                     return;
                 // Backup current status
                 status.CopyTo(stmp);
@@ -1318,6 +1327,13 @@ namespace Gen7EggRNG
 
         private void Search7_Timeline()
         {
+            if (currentSearchData.searchParameters.mainRNG.ctimelineTime > SearchConstants.MaximumTimelineTime)
+            {
+                Toast.MakeText(this, String.Format( Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short).Show();
+                return;
+            }
+
+
             SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
             int start_frame = (int)currentSearchData.searchParameters.mainRNG.minFrame;
             int targetframe = (int)currentSearchData.searchParameters.targetFrame;
@@ -1343,11 +1359,21 @@ namespace Gen7EggRNG
             PrepareMainEggRNGData(sfmt);
 
             int totaltime = currentSearchData.searchParameters.mainRNG.ctimelineTime * 30;
-            int frame = currentSearchData.searchParameters.mainRNG.minFrame;
+            int frame = start_frame;
             int frameadvance, Currentframe;
             //int FirstJumpFrame = int.MaxValue;//(int)JumpFrame.Value;
             //FirstJumpFrame = FirstJumpFrame >= start_frame && gen7fidgettimeline ? FirstJumpFrame : int.MaxValue;
             // Start
+
+            // Totaltime represents the number of game frames to be checked
+            // If NPC > 0 it actually encompasses more than "MaximumMainTargetFrame"
+            // Timeline search can be faster because it skips a lot of frames
+            // #TODO: More testing
+            if (totaltime > SearchConstants.MaximumTimelineTime) {
+                //uiSearchData.searchParameters.mainRNG.ctimelineTime = SearchConstants.MaximumTimelineTime;
+                totaltime = SearchConstants.MaximumTimelineTime;
+            }
+
             for (int i = 0; i <= totaltime; i++)
             {
                 Currentframe = frame;
@@ -1529,7 +1555,7 @@ namespace Gen7EggRNG
                 profileData2.Visibility = ViewStates.Visible;
                 profileTagDump.Text = uiSearchData.profile.profileTag + " (" + GameVersionConversion.GetGameVersionName(uiSearchData.profile.gameVersion) + ")";
                 currentSeedDump.Text = PokeRNGApp.Strings.profileinfoseed + " " + uiSearchData.profile.currentSeed.GetSeedToString();
-                iseedDump.Text = "Initial Seed: " + uiSearchData.profile.initialSeed.ToString("X").PadLeft(8, '0');
+                iseedDump.Text = Resources.GetString(Resource.String.search_profileinfo_initialseed) + " " + uiSearchData.profile.initialSeed.ToString("X").PadLeft(8, '0');
                 userTSVDump.Text = "TSV=" + uiSearchData.profile.TSV.ToString("0000");
                 shinyCharmDump.Visibility = (uiSearchData.profile.shinyCharm ? ViewStates.Visible : ViewStates.Invisible);
             }
@@ -2294,7 +2320,7 @@ namespace Gen7EggRNG
                     uiSearchData.profile.currentSeed = FindNextSeed(selectionSeed, advance);
                     SaveSeedData();
 
-                    Toast.MakeText(this, "Accepted egg. Setting new egg seed.", ToastLength.Short).Show();
+                    Toast.MakeText(this, Resources.GetString(Resource.String.search_toast_maineggaccept), ToastLength.Short).Show();
                 }
                 else if (arg1.Item.ItemId == Resource.Id.action_start)
                 {
@@ -2451,7 +2477,8 @@ namespace Gen7EggRNG
 
         private void VerifySearchConstraints(SearchType type)
         {
-            if (type == SearchType.MainEggRNG) {
+            if (type == SearchType.MainEggRNG)
+            {
                 // Automatically Reset Search Parameters
                 //uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame();
                 uiSearchData.searchParameters.mainRNG.considerDelay = true;
@@ -2462,6 +2489,10 @@ namespace Gen7EggRNG
                 uiSearchData.searchParameters.mainRNG.timeleap2 = 3;
 
                 // UI modifications
+                checkFilter.Text = Resources.GetString(Resource.String.shiny);
+            }
+            else {
+                checkFilter.Text = Resources.GetString(Resource.String.search_checkfilter);
             }
         }
 

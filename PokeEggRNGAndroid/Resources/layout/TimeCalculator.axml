@@ -23,7 +23,7 @@
         android:id="@+id/linearLayout1"
         android:gravity="center">
         <TextView
-            android:text="Start Frame"
+            android:text="@string/time_calc_startframe"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/textView1"
@@ -37,7 +37,7 @@
             android:textSize="14sp"
             android:imeOptions="actionDone|flagNoFullscreen" />
         <TextView
-            android:text="Target Frame"
+            android:text="@string/time_calc_targetframe"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/textView2"
@@ -60,7 +60,7 @@
         android:id="@+id/linearLayout2"
         android:gravity="center">
         <TextView
-            android:text="# NPCs"
+            android:text="@string/search_numNPCs"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/textView3"
@@ -82,19 +82,19 @@
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout3">
         <CheckBox
-            android:text="Fidget"
+            android:text="@string/time_calc_fidget"
             android:id="@+id/tcalcFidget"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="20dp" />
         <CheckBox
-            android:text="Raining"
+            android:text="@string/time_calc_raining"
             android:id="@+id/tcalcRaining"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
     </LinearLayout>
     <Button
-        android:text="Done"
+        android:text="@string/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tcalcDone"
