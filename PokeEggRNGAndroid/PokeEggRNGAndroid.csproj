@@ -55,6 +55,9 @@
     <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\netstandard2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml" />
@@ -63,7 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockHandActivity.cs" />
+    <Compile Include="EggRM\G7SFrame.cs" />
     <Compile Include="EggRM\GameVersionConversion.cs" />
+    <Compile Include="EggRM\PokeResultAdapter.cs" />
+    <Compile Include="EggRM\StationaryData.cs" />
     <Compile Include="Pk3DSRNGTool\Core\StationaryRNG.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\ModelStatus.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\Stationary7.cs" />
@@ -71,6 +77,7 @@
     <Compile Include="Pk3DSRNGTool\Pokemon\Pokemon.cs" />
     <Compile Include="Pk3DSRNGTool\Util\SFMTSeedAPI.cs" />
     <Compile Include="PreTimerDialog.cs" />
+    <Compile Include="StationaryEditActivity.cs" />
     <Compile Include="TimeCalcDialog.cs" />
     <Compile Include="Utility\DebugUtil.cs" />
     <Compile Include="Utility\EditInputUtil.cs" />
@@ -143,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
+    <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml">
       <SubType>Designer</SubType>
@@ -225,6 +233,15 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\AdjustPretimerDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PokemonDetailsLayout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemGuideStationary.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\ResultItemStationary.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

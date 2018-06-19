@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 
 using Android.App;
@@ -11,9 +12,16 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Gen7EggRNG.EggRM;
+using Newtonsoft.Json;
 
 namespace Gen7EggRNG
 {
+    public class TSVThread {
+        public int tsv;
+        public double postedTime;
+        public string url;
+    }
+
     [Activity(Label = "@string/activity_misc",
         ConfigurationChanges = Android.Content.PM.ConfigChanges.ScreenSize | Android.Content.PM.ConfigChanges.Orientation,
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
@@ -28,6 +36,11 @@ namespace Gen7EggRNG
         ImageButton tsvSetEdit;
 
         List<MiscTSVData> tsvData = new List<MiscTSVData>();
+        List<TSVThread> tsvSVEData = new List<TSVThread>();
+
+        Button sveFetchButton;
+        ListView sveList;
+        Button sveAddButton;
 
         bool modified = false;
 
@@ -46,6 +59,10 @@ namespace Gen7EggRNG
             tsvSetAdd = (ImageButton)FindViewById(Resource.Id.otherTSVAdd);
             tsvSetDelete = (ImageButton)FindViewById(Resource.Id.otherTSVDelete);
             tsvSetEdit = (ImageButton)FindViewById(Resource.Id.otherTSVEdit);
+
+            sveFetchButton = (Button)FindViewById(Resource.Id.miscGetSVE);
+            sveList = (ListView)FindViewById(Resource.Id.miscListSVE);
+            sveAddButton = (Button)FindViewById(Resource.Id.miscAddSVE);
 
             tsvAdd.Click += delegate {
                 Dialog dialog = new Dialog(this);
@@ -183,6 +200,26 @@ namespace Gen7EggRNG
                 etd.Show();
             };
 
+            sveFetchButton.Click += delegate {
+                sveList.Adapter = null;
+
+                var sveTSVs = FetchTSVsFromSVE();
+
+                tsvSVEData = sveTSVs;
+                var strs = tsvSVEData.ConvertAll<string>(tsv => tsv.tsv + " " + (int)((DateTime.UtcNow - UnixTimeStampToDateTime(tsv.postedTime)).TotalHours) + " hours ago ");
+
+                sveList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, strs);
+            };
+
+            sveAddButton.Click += delegate {
+                if (tsvSVEData.Count > 0) {
+                    AddTSVList(tsvSVEData.ConvertAll<int>(tsv => tsv.tsv));
+                    UpdateListTSVs();
+                    Toast.MakeText(this, "Added new TSVs from SVE.", ToastLength.Short).Show();
+                    //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.misc_tsvadded), tsv.ToString().PadLeft(4, '0')), ToastLength.Short).Show();
+                }
+            };
+
             LoadTSVs();
             //UpdateListTSVs();
         }
@@ -238,6 +275,17 @@ namespace Gen7EggRNG
             }*/
         }
 
+        private void AddTSVList(List<int> tsvs) {
+            for (int i = 0; i < tsvs.Count; ++i)
+            {
+                if (!tsvData[currentSelection].tsvs.Contains(tsvs[i]))
+                {
+                    tsvData[currentSelection].tsvs.Add(tsvs[i]);
+                    modified = true;
+                }
+            }
+        }
+
         private void UpdateListTSVs() {
             List<string> tsvStrings = tsvData[currentSelection].tsvs.ConvertAll(x => x.ToString().PadLeft(4,'0'));
             tsvView.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, tsvStrings);
@@ -254,6 +302,72 @@ namespace Gen7EggRNG
             MiscUtility.SaveTSVs(this, tsvData, currentSelection);
 
             //Toast.MakeText(this, "Saved TSV: " + tsvString, ToastLength.Long).Show();
+        }
+
+        private List<TSVThread> FetchTSVsFromSVE()
+        {
+            List<TSVThread> list = new List<TSVThread>();
+
+            try
+            {
+                var cli = new WebClient();
+                string sveNewContent = cli.DownloadString("https://www.reddit.com/r/SVExchange/new.json?sort=new&limit=50");
+
+                var xmlDoc = JsonConvert.DeserializeXmlNode(sveNewContent, "data");
+
+                var root = xmlDoc.DocumentElement;
+                var postGroup = root.SelectNodes("data/children");
+
+                for (int i = 0; i < postGroup.Count; ++i)
+                {
+                    var childData = postGroup[i].SelectSingleNode("data");
+                    if (childData != null)
+                    {
+                        var titleNode = childData.SelectSingleNode("title");
+                        var timeNode = childData.SelectSingleNode("created_utc");
+                        var urlNode = childData.SelectSingleNode("url");
+
+                        if (!IsStringTSV(titleNode.InnerText))
+                        {
+                            continue;
+                        }
+
+                        TSVThread newTSV = new TSVThread();
+                        newTSV.tsv = int.Parse(titleNode.InnerText);
+                        newTSV.postedTime = double.Parse(timeNode.InnerText);
+                        newTSV.url = urlNode.InnerText;
+
+                        list.Add(newTSV);
+                    }
+                }
+            }
+            catch ( Exception e) {
+                //e.Message;
+            }
+
+            return list;
+        }
+
+        private bool IsStringTSV(string s)
+        {
+            if (s.Length != 4)
+            {
+                return false;
+            }
+            int tsv = -1;
+            if (int.TryParse(s, out tsv) && (0 <= tsv && tsv <= 4095))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }

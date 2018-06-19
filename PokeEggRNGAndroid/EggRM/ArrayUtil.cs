@@ -32,5 +32,17 @@ namespace Gen7EggRNG.EggRM
             for (int i= 0; i )
                 return idc;
         }*/
+
+        // Reverse an array holding unique index references
+        // 7,5,8,1,6,2,3,0,4 => 7 3 5 6 8 1 4 0 2
+        public static int[] ReverseIndices( int[] arr) {
+            int[] newArr = new int[arr.Length];
+
+            for (int i = 0; i < arr.Length; ++i) {
+                newArr[arr[i]] = i;
+            }
+
+            return newArr;
+        }
     }
 }

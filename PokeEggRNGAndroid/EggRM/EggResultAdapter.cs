@@ -38,29 +38,12 @@ namespace Gen7EggRNG.EggRM
         private Android.Graphics.Color shinyColor;
         private Android.Graphics.Color otherTsvColor;
 
-        /*int indexGender_S = 12, indexGender_E = 13;
-        int indexAbility_S = 24, indexAbility_E = 25;
-        int[] indexIVs = new int[12];*/
-
         public EggResultAdapter(Context context, int layoutResource, G7EFrame[] values, FullSearchData searchData) : base(context, layoutResource, values) {
             eggFrames = values;
             this.searchData = searchData;
             this.isRandomGender = GenderConversion.IsRandomGender((GenderConversion.GenderType)searchData.parents.genderCode);
 
             shinyMethod = (searchData.parents.isMasuda ? 1 : 0) + (searchData.profile.shinyCharm ? 2 : 0);
-
-            // HP
-            /*indexIVs[0] = 37; indexIVs[1] = 39;
-            // Atk
-            indexIVs[2] = 40; indexIVs[3] = 42;
-            // Def
-            indexIVs[4] = 43; indexIVs[5] = 45;
-            // SpA
-            indexIVs[6] = 46; indexIVs[7] = 48;
-            // SpD
-            indexIVs[8] = 49; indexIVs[9] = 51;
-            // Spe
-            indexIVs[10] = 52; indexIVs[11] = 54;*/
 
             fadedGray = new Android.Graphics.Color(128, 128, 128, 32);
             acceptColor = new Android.Graphics.Color(0, 255, 0, 64);

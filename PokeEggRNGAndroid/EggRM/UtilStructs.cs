@@ -18,7 +18,13 @@ namespace Gen7EggRNG.EggRM
         public ParentData parents;
         public FilterData filter;
         public SearchParams searchParameters;
+        public StationaryData stationary;
         public List<int> otherTSVs;
+
+        /*public FullSearchData() {
+            preferences = new AppPreferences();
+            profile = new ProfileData();
+        }*/
 
         public FullSearchData Copy() {
             FullSearchData newData = new FullSearchData();
@@ -26,6 +32,7 @@ namespace Gen7EggRNG.EggRM
             newData.profile = new ProfileData(profile);
             newData.parents = parents;
             newData.filter = filter;
+            newData.stationary = new StationaryData(stationary);
             newData.searchParameters = searchParameters;
             newData.otherTSVs = new List<int>(otherTSVs);
 
@@ -111,6 +118,27 @@ namespace Gen7EggRNG.EggRM
         }
         public override string ToString() {
             return CreateString();
+        }
+    }
+
+    public class SFrameComparer : IComparer<G7SFrame>
+    {
+        int IComparer<G7SFrame>.Compare(G7SFrame x, G7SFrame y)
+        {
+            return (x.FrameNum + x.pokemon.FrameDelayUsed).CompareTo(y.FrameNum + y.pokemon.FrameDelayUsed);
+        }
+    }
+
+    public class SFrameNumComparer : IComparer<G7SFrame> {
+        int IComparer<G7SFrame>.Compare(G7SFrame x, G7SFrame y)
+        {
+            if (x.FrameNum != y.FrameNum)
+            {
+                return x.FrameNum.CompareTo(y.FrameNum);
+            }
+            else {
+                return y.FrameDelayUsed.CompareTo(x.FrameDelayUsed);
+            }
         }
     }
 }

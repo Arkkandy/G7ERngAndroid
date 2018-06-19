@@ -30,7 +30,8 @@
             android:minHeight="25px"
             android:id="@+id/miscTSVs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#282828" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -39,7 +40,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:id="@+id/linearLayout1"
-        android:layout_weight="3">
+        android:layout_weight="0.5">
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
@@ -49,19 +50,64 @@
             android:id="@+id/linearLayout2">
             <ImageButton
                 android:src="@android:drawable/ic_menu_edit"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/otherTSVEdit" />
             <ImageButton
                 android:src="@android:drawable/ic_menu_add"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/otherTSVAdd" />
             <ImageButton
                 android:src="@android:drawable/ic_menu_delete"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/otherTSVDelete" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout3"
+        android:layout_weight="2.5"
+        android:gravity="center_horizontal">
+        <Button
+            android:text="Get TSVs from r/SVExchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/miscGetSVE" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/linearLayout5">
+            <ListView
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/miscListSVE"
+                android:background="#282828"
+                android:layout_weight="2" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout4"
+                android:gravity="center|bottom">
+                <Button
+                    android:text="ADD ALL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/miscAddSVE" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

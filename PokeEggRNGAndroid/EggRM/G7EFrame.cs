@@ -24,7 +24,7 @@ namespace Gen7EggRNG.EggRM
 
     public class G7EFrame
     {
-        private static readonly string[] blinkmarks = { "-", "★", "?", "? ★", "<?>" };
+        public static readonly string[] blinkmarks = { "-", "★", "?", "? ★", "<?>" };
 
 
         public ResultE7 egg;

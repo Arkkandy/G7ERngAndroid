@@ -12,6 +12,7 @@ using Android.Widget;
 using Pk3DSRNGTool.Core;
 
 using Android.Preferences;
+using Pk3DSRNGTool;
 
 namespace Gen7EggRNG.EggRM
 {
@@ -53,7 +54,7 @@ namespace Gen7EggRNG.EggRM
                    VerifyShininess(egg);
         }
 
-        private bool VerifyIVs(EggResult res) {
+        private bool VerifyIVs(RNGResult res) {
             for (int i = 0; i < 6; ++i) {
                 if ( !(ivMin[i] <= res.IVs[i] && res.IVs[i] <= ivMax[i])) {
                     return false;
@@ -65,7 +66,7 @@ namespace Gen7EggRNG.EggRM
             return true;
         }
 
-        private bool VerifyGender(EggResult egg) {
+        private bool VerifyGender(RNGResult egg) {
             if ( gender == 0 ) { return true; }
             else if (egg.Gender == gender) {
                 return true;
@@ -79,7 +80,7 @@ namespace Gen7EggRNG.EggRM
             return false;
         }
 
-        private bool VerifyAbility(EggResult egg) {
+        private bool VerifyAbility(RNGResult egg) {
             if (ability == 0) { return true; }
             // 1 = Slot 1, 2 = Slot 2, 3 = Hidden
             else if (ability == egg.Ability) {
@@ -88,21 +89,21 @@ namespace Gen7EggRNG.EggRM
             return false;
         }
 
-        private bool VerifyHiddenPower(EggResult egg)
+        private bool VerifyHiddenPower(RNGResult egg)
         {
             if ((hiddenPowers.Count( i => i == true ) == 0 )) { return true; }
             //check if hidden power is contained in array
             return hiddenPowers[egg.hiddenpower];
         }
 
-        private bool VerifyNature(EggResult egg)
+        private bool VerifyNature(RNGResult egg)
         {
             if ((natures.Count(i => i == true) == 0)) { return true; }
             //check if nature is contained in array
             return natures[egg.Nature];
         }
 
-        private bool VerifyShininess(EggResult egg)
+        private bool VerifyShininess(RNGResult egg)
         {
             if (shinyOnly) {
                 return egg.Shiny;
@@ -117,6 +118,15 @@ namespace Gen7EggRNG.EggRM
                 return sv == tsv || (checkOther && otherTSV.Contains(sv));
             }
             return false;
+        }
+
+
+
+        public bool VerifyStationary(Result7 stationary) {
+            return VerifyIVs(stationary) && VerifyGender(stationary) &&
+                   VerifyAbility(stationary) &&
+                   VerifyHiddenPower(stationary) && VerifyNature(stationary) &&
+                   VerifyShininess(stationary);
         }
 
         /*private bool CheckRandomNumber(uint rn, int tsv, List<int> otherTSV)

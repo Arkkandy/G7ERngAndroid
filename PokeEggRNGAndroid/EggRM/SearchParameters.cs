@@ -20,7 +20,22 @@ namespace Gen7EggRNG.EggRM
         EggAcceptPlus,
         ShortestPath,
         LeastAdvances,
-        MainEggRNG
+        MainEggRNG,
+        Stationary
+    }
+
+    public static class SearchTypeUtil
+    {
+        public static bool IsStandardEggSearch(SearchType type)
+        {
+            return type == SearchType.NormalSearch || type == SearchType.EggAccept ||
+                type == SearchType.EggAcceptPlus || type == SearchType.ShortestPath ||
+                type == SearchType.LeastAdvances;
+        }
+
+        public static bool IsMainRNGSearch(SearchType type) {
+            return type == SearchType.MainEggRNG || type == SearchType.Stationary;
+        }
     }
 
     public enum SearchRange

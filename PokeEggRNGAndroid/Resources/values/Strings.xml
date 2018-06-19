@@ -35,6 +35,7 @@
   <string name="search_shortest">Shortest Path</string>
   <string name="search_least"># Advances</string>
   <string name="search_mainegg">Main Egg RNG</string>
+  <string name="search_stationary">Stationary</string>
   
   <string name="search_acceptplus_rcount">R&gt;</string>
 

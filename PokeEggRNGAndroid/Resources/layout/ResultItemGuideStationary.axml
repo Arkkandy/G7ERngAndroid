@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:id="@+id/resmeLayout">
+    <TextView
+        android:text="Frame"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp"
+        android:minWidth="50dp" />
+    <TextView
+        android:text="Shift/F"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp"
+        android:maxLines="1" />
+    <TextView
+        android:text="Mark"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Delay"
+        android:layout_width="33dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="HP"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Atk"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Def"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="SpA"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="SpD"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Spe"
+        android:layout_width="25dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="HP Type"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Nature"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Gender"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Ability"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp" />
+    <TextView
+        android:text="Real Time"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/textView1"
+        android:textSize="12sp"
+        android:gravity="center_horizontal" />
+</LinearLayout>

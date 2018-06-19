@@ -25,7 +25,7 @@ using System.Collections.Generic;
 
 namespace Pk3DSRNGTool
 {
-    /*public class Pokemon : IPKM
+    public class Pokemon : IPKM
     {
         public override byte Nature { get; set; } = 0xFF;
         public bool Gift { get; protected set; }
@@ -38,13 +38,13 @@ namespace Pk3DSRNGTool
 
         #region Generated Attribute
         public int SpecForm => Species + (Forme << 11);
-        public byte GenderRatio => (byte)(Gender > 0 ? 2 - 2 * Gender : info.Gender); // 1/2 => 0/254
-        public bool IsRandomGender => FuncUtil.IsRandomGender(GenderRatio);
-        public byte SettingGender => FuncUtil.getGenderRatio(GenderRatio);
+        //public byte GenderRatio => (byte)(Gender > 0 ? 2 - 2 * Gender : info.Gender); // 1/2 => 0/254
+        //public bool IsRandomGender => FuncUtil.IsRandomGender(GenderRatio);
+        //public byte SettingGender => FuncUtil.getGenderRatio(GenderRatio);
         public virtual bool AlwaysSync => Gift || Nature < 25;
-        public bool IV3 => info.EggGroups[0] == 0xF && (Version.Contains(GameVersion.XY) || !BabyMons.Contains(Species));
+        //public bool IV3 => info.EggGroups[0] == 0xF && (Version.Contains(GameVersion.XY) || !BabyMons.Contains(Species));
 
-        private static string[] speciestr => StringItem.speciestr;
+        /*private static string[] speciestr => StringItem.speciestr;
         public override string ToString()
         {
             if (this is PKMW6 pmw6 && pmw6.IsFishing)
@@ -76,9 +76,10 @@ namespace Pk3DSRNGTool
                     return speciestr[718] + "-50%";
                 default: return speciestr[Species];
             }
-        }
+        }*/
         #endregion
 
+        /*
         public class PokemonList
         {
             public string Text;
@@ -133,7 +134,7 @@ namespace Pk3DSRNGTool
                 default: return NotImpled;
             }
         }
-
+        */
         #region Formula
         public readonly static byte[] Reorder1 = { 1, 2, 5, 3, 4 };    // In-game index to Normal index
         public readonly static byte[] Reorder2 = { 0, 1, 2, 4, 5, 3 }; // Normal index to In-Game index
@@ -220,5 +221,5 @@ namespace Pk3DSRNGTool
 
         public readonly static HashSet<int> AlolanForms = new HashSet<int> { 019, 020, 027, 037, 050, 051, 052, 074, 075, 088, 103, };
         #endregion
-    }*/
+    }
 }
