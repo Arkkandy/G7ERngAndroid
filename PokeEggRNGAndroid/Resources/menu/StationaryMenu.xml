@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--For all properties see: http://developer.android.com/guide/topics/resources/menu-resource.html-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_target"
+         android:showAsAction="always"
+         android:title="@string/search_popup_targetframe"/>
+    <item android:id="@+id/action_around_frame"
+         android:showAsAction="always"
+         android:title="@string/search_popup_searcharound"/>
+    <item android:id="@+id/action_timecalc"
+         android:showAsAction="always"
+         android:title="@string/search_popup_timefinder"/>
+    <item android:id="@+id/action_pre_timer"
+         android:showAsAction="always"
+         android:title="@string/search_popup_adjustpretimer"/>
+    <item android:id="@+id/action_detailed"
+         android:showAsAction="always"
+         android:title="@string/search_popup_viewdetailed"/>
+</menu>

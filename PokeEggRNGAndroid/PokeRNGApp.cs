@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Util;
 using Gen7EggRNG.EggRM;
+using Pk3DSRNGTool;
 
 namespace Gen7EggRNG
 {
@@ -19,6 +20,13 @@ namespace Gen7EggRNG
     public class PokeRNGApp : Application
     {
         public static RTStrings Strings { get; private set; }
+        public static byte[] personal_ao;
+        public static byte[] personal_uu;
+
+        public static PersonalTable ORAS;
+        public static PersonalTable USUM;
+
+        public static string[] speciesStrings;
 
         private Locale locale = null;
 
@@ -40,6 +48,14 @@ namespace Gen7EggRNG
             base.OnCreate();
 
             Strings = new RTStrings(Context);
+
+            personal_ao = FileHelper.ReadFileBytes(Context.Assets, "personal_ao");
+            personal_uu = FileHelper.ReadFileBytes(Context.Assets, "personal_uu");
+
+            ORAS = new PersonalTable(personal_ao, GameVersion.ORAS);
+            USUM = new PersonalTable(personal_uu, GameVersion.USUM);
+
+            speciesStrings = Resources.GetStringArray(Resource.Array.Species);
         }
     }
 }

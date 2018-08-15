@@ -33,6 +33,9 @@ namespace Gen7EggRNG.EggRM
 
         public int nPerfects;
 
+        public bool blinkFOnly;
+        public bool safeFOnly;
+
         public FilterData() {
             ivMin = new int[6] {  0,  0,  0,  0,  0,  0 };
             ivMax = new int[6] { 31, 31, 31, 31, 31, 31 };
@@ -42,7 +45,7 @@ namespace Gen7EggRNG.EggRM
             hiddenPowers = Enumerable.Repeat(false, 16).ToArray();
             natures = Enumerable.Repeat(false, 25).ToArray();
 
-            shinyRemind = shinyOnly = false;
+            shinyRemind = shinyOnly = blinkFOnly = safeFOnly = false;
 
             nPerfects = 0;
         }
@@ -155,6 +158,9 @@ namespace Gen7EggRNG.EggRM
             fd.shinyOnly = prefs.GetBoolean("FilterShinyOnly", false);
             fd.shinyRemind = prefs.GetBoolean("FilterShinyRemind", false);
 
+            fd.blinkFOnly = prefs.GetBoolean("FilterBlinkF", false);
+            fd.safeFOnly = prefs.GetBoolean("FilterSafeF", false);
+
             fd.nPerfects = prefs.GetInt("FilterNPerfects", 0);
 
             return fd;
@@ -185,6 +191,9 @@ namespace Gen7EggRNG.EggRM
 
             prefsEdit.PutBoolean("FilterShinyOnly", data.shinyOnly);
             prefsEdit.PutBoolean("FilterShinyRemind", data.shinyRemind);
+
+            prefsEdit.PutBoolean("FilterBlinkF", data.blinkFOnly);
+            prefsEdit.PutBoolean("FilterSafeF", data.safeFOnly);
 
             prefsEdit.PutInt("FilterNPerfects", data.nPerfects);
 

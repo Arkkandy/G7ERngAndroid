@@ -38,16 +38,16 @@ namespace Pk3DSRNGTool
 
         #region Generated Attribute
         public int SpecForm => Species + (Forme << 11);
-        //public byte GenderRatio => (byte)(Gender > 0 ? 2 - 2 * Gender : info.Gender); // 1/2 => 0/254
-        //public bool IsRandomGender => FuncUtil.IsRandomGender(GenderRatio);
-        //public byte SettingGender => FuncUtil.getGenderRatio(GenderRatio);
+        public byte GenderRatio => (byte)(Gender > 0 ? 2 - 2 * Gender : info.Gender); // 1/2 => 0/254
+        public bool IsRandomGender => FuncUtil.IsRandomGender(GenderRatio);
+        public byte SettingGender => FuncUtil.getGenderRatio(GenderRatio);
         public virtual bool AlwaysSync => Gift || Nature < 25;
-        //public bool IV3 => info.EggGroups[0] == 0xF && (Version.Contains(GameVersion.XY) || !BabyMons.Contains(Species));
+        public bool IV3 => info.EggGroups[0] == 0xF && (Version.Contains(GameVersion.XY) || !BabyMons.Contains(Species));
 
-        /*private static string[] speciestr => StringItem.speciestr;
+        private static string[] speciestr => Gen7EggRNG.PokeRNGApp.speciesStrings;
         public override string ToString()
         {
-            if (this is PKMW6 pmw6 && pmw6.IsFishing)
+            /*if (this is PKMW6 pmw6 && pmw6.IsFishing)
             {
                 switch (pmw6.Type)
                 {
@@ -55,13 +55,13 @@ namespace Pk3DSRNGTool
                     case EncounterType.GoodRod: return "Good Rod";
                     case EncounterType.SuperRod: return "Super Rod";
                 }
-            }
+            }*/
             if (Conceptual) return "-";
-            if (this is PKM6 pm6 && pm6.Bank)
+            /*if (this is PKM6 pm6 && pm6.Bank)
             {
                 if (Species == 154) return "Johto Starters";
                 if (Species == 377) return "Legendary Titans";
-            }
+            }*/
             if (Egg) return speciestr[Species] + " (" + speciestr[0] + ")";
             if (Unstable) return speciestr[Species] + " (?)";
             switch (Species)
@@ -69,17 +69,17 @@ namespace Pk3DSRNGTool
                 case 025 when this is PKM7 pm7 && pm7.Gift:
                     return speciestr[025] + (pm7.OTTSV == null ? " (Surf)" : " (Movie)");
                 case 132 when Nature < 25:
-                    return speciestr[132] + " (" + StringItem.naturestr[Nature] + ")";
+                    return speciestr[132] + " (" + Gen7EggRNG.PokeRNGApp.Strings.natures[Nature] + ")";
                 case 718 when Forme == 1 || Forme == 2:
                     return speciestr[718] + "-10%";
                 case 718 when Forme == 3:
                     return speciestr[718] + "-50%";
                 default: return speciestr[Species];
             }
-        }*/
+        }
         #endregion
 
-        /*
+        
         public class PokemonList
         {
             public string Text;
@@ -87,7 +87,7 @@ namespace Pk3DSRNGTool
             public override string ToString() => Text;
         }
 
-        public static Pokemon[] getSpecFormList(int Gameversion, int groupidx, int method)
+        /*public static Pokemon[] getSpecFormList(int Gameversion, int groupidx, int method)
         {
             var list = getCategoryList(Gameversion, method)[groupidx].List;
             switch (Gameversion)
@@ -103,7 +103,7 @@ namespace Pk3DSRNGTool
                 case 8: return list.Where(s => s.Version.Contains(GameVersion.UM)).ToArray();
                 default: return new Pokemon[0];
             }
-        }
+        }*/
 
         public readonly static PokemonList[] NotImpled = {
             new PokemonList
@@ -113,7 +113,7 @@ namespace Pk3DSRNGTool
             },
         };
 
-        public static PokemonList[] getCategoryList(int Gameversion, int method)
+        /*public static PokemonList[] getCategoryList(int Gameversion, int method)
         {
             switch (Gameversion)
             {
@@ -133,8 +133,8 @@ namespace Pk3DSRNGTool
                     return method == 0 ? PKM7.Species_USUM : PKMW7.Species_USUM;
                 default: return NotImpled;
             }
-        }
-        */
+        }*/
+        
         #region Formula
         public readonly static byte[] Reorder1 = { 1, 2, 5, 3, 4 };    // In-game index to Normal index
         public readonly static byte[] Reorder2 = { 0, 1, 2, 4, 5, 3 }; // Normal index to In-Game index

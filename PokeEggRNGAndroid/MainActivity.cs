@@ -19,6 +19,7 @@ using Android.Graphics;
 using Android.Views.InputMethods;
 using Android.Text;
 using Android.Text.Style;
+using Gen7EggRNG.Util;
 
 namespace Gen7EggRNG
 {
@@ -35,6 +36,14 @@ namespace Gen7EggRNG
 
         private List<G7EFrame> eggFrames = new List<G7EFrame>();
         private List<G7SFrame> pokeFrames = new List<G7SFrame>();
+
+        // Instead of redoing a search, apply filters to the existing results
+        private bool IsSubFilterActive = false;
+        private List<G7EFrame> backupEggFrames = new List<G7EFrame>();
+        private List<G7SFrame> backupPokeFrames = new List<G7SFrame>();
+
+        private bool IsSearchActive = false;
+        private System.Threading.Thread searchThread = null;
 
         ImageButton previousButton;
         Button searchButton;
@@ -66,6 +75,8 @@ namespace Gen7EggRNG
 
         ProgressBar searchProgress;
 
+        ToastWrapper toastWrapper;
+
         bool updateFrame = false;
 
         public override bool DispatchTouchEvent(MotionEvent ev)
@@ -96,6 +107,8 @@ namespace Gen7EggRNG
 
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
+
+            toastWrapper = new ToastWrapper(this);
 
             // Fetch Widgets
             previousButton = (ImageButton)FindViewById(Resource.Id.mainPreviousButton);
@@ -168,7 +181,14 @@ namespace Gen7EggRNG
 
             previousButton.Enabled = false;
             previousButton.Click += delegate {
-                PerformPreviousSearch();
+                if (IsSearchActive)
+                {
+
+                }
+                else
+                {
+                    PerformPreviousSearch();
+                }
             };
 
             searchButton.Click += delegate {
@@ -181,7 +201,10 @@ namespace Gen7EggRNG
             parentsButton.Click += delegate {
                 if (uiSearchData.searchParameters.type == SearchType.Stationary)
                 {
-                    StartActivity(typeof(StationaryEditActivity));
+                    //StartActivity(typeof(StationaryEditActivity));
+                    Intent filterIntent = new Intent(this, typeof(StationaryEditActivity));
+                    filterIntent.PutExtra("GameVersion", (int)uiSearchData.profile.gameVersion);
+                    StartActivity(filterIntent);
                 }
                 else {
                     StartActivity(typeof(ParentEditActivity));
@@ -189,7 +212,74 @@ namespace Gen7EggRNG
             };
 
             filterButton.Click += delegate {
-                StartActivity(typeof(FilterEditActivity));
+                Intent filterIntent = new Intent(this, typeof(FilterEditActivity));
+                filterIntent.PutExtra("SearchType", (int)uiSearchData.searchParameters.type);
+                filterIntent.PutExtra("NumNPCs", uiSearchData.searchParameters.mainRNG.npcs);
+                StartActivity(filterIntent);
+                //StartActivity(typeof(FilterEditActivity));
+            };
+            filterButton.LongClick += delegate {
+                // Spawn popup menu (Apply sub filter / Remove sub filter)
+                PopupMenu menu = new PopupMenu(this, filterButton, Android.Views.GravityFlags.Center);
+                menu.Menu.Add(Menu.None, 1, 1, "Apply sub filter");
+                menu.Menu.Add(Menu.None, 2, 2, "Remove sub filter");
+
+                menu.MenuItemClick += (s1, arg1) =>
+                {
+                    if (arg1.Item.ItemId == 1)
+                    {
+                        if (SearchTypeUtil.IsStandardEggSearch(currentSearchData.searchParameters.type))
+                        {
+                            //Toast.MakeText(this, "Sub Filters Not Yet Implemented", ToastLength.Short).Show();
+                            if (!IsSubFilterActive)
+                            {
+                                backupEggFrames = eggFrames;
+                                eggFrames = null;
+                            }
+                            // => Filter frames
+                            eggFrames = backupEggFrames.FindAll(x => uiSearchData.filter.VerifyEgg(x.egg));
+                            resTab.Adapter = null;
+                            if (eggFrames.Count > 0)
+                            {
+                                AddEntryToResults(resTab);
+                            }
+                        }
+                        else {
+                            if (!IsSubFilterActive)
+                            {
+                                backupPokeFrames = pokeFrames;
+                                pokeFrames = null;
+                            }
+                            // => Filter frames
+                            pokeFrames = backupPokeFrames.FindAll(x => uiSearchData.filter.VerifyStationary(x.pokemon));
+                            resTab.Adapter = null;
+                            if (pokeFrames.Count > 0)
+                            {
+                                AddEntryToResults(resTab);
+                            }
+                        }
+                        IsSubFilterActive = true;
+                    }
+                    else if (arg1.Item.ItemId == 2) {
+                        if (IsSubFilterActive) {
+                            if (SearchTypeUtil.IsStandardEggSearch(currentSearchData.searchParameters.type))
+                            {
+                                eggFrames = backupEggFrames;
+                                backupEggFrames = null;
+                            }
+                            else
+                            {
+                                pokeFrames = backupPokeFrames;
+                                backupPokeFrames = null;
+                            }
+                            resTab.Adapter = null;
+                            AddEntryToResults(resTab);
+
+                            IsSubFilterActive = false;
+                        }
+                    }
+                };
+                menu.Show();
             };
 
             profileButton.Click += delegate {
@@ -310,11 +400,7 @@ namespace Gen7EggRNG
         }*/
 
         private void PerformSearch() {
-            HideMainEggBar();
-            resTab.Adapter = null;
-            eggFrames.Clear();
-            pokeFrames.Clear();
-            GC.Collect();
+            CleanupLastSearch();
 
             // History of search data
             if (currentSearchData != null) {
@@ -328,75 +414,45 @@ namespace Gen7EggRNG
                 previousButton.Enabled = true;
             }
 
-            //DisableUI();
+            // Grab data from UI and set it to Current Search
+            currentSearchData = uiSearchData.Copy();
 
-            //System.Threading.Thread thr = new System.Threading.Thread(() =>
-            //{
-                // Grab data from UI and set it to Current Search
-                currentSearchData = uiSearchData.Copy();
+            DisableUI();
 
-               if (currentSearchData.searchParameters.type == SearchType.NormalSearch)
-               {
-                   Search7_Egg();
-               }
-               else if (currentSearchData.searchParameters.type == SearchType.EggAccept)
-               {
-                   Search7_EggAcceptOnly();
-               }
-               else if (currentSearchData.searchParameters.type == SearchType.EggAcceptPlus)
-               {
-                   Search7_EggAcceptPlus();
-               }
-               else if (currentSearchData.searchParameters.type == SearchType.ShortestPath)
-               {
-                   Search7_EggShortestPath();
-                    //Search7_EggFastSearch();
-                }
-               else if (currentSearchData.searchParameters.type == SearchType.LeastAdvances)
-               {
-                    //Toast.MakeText(this, "Fastest", ToastLength.Short).Show();
-                    Search7_EggFastestSearch();
-               }
-               else if (currentSearchData.searchParameters.type == SearchType.MainEggRNG)
-               {
-                   Search7_MainEggRNG();
-               }
-               else if ( currentSearchData.searchParameters.type == SearchType.Stationary) {
-                    Search7_Stationary();
-                    /*Toast.MakeText(this, "Yo, we got: " + pokeFrames.Count + " frames.", ToastLength.Short).Show();
-                    pokeFrames.Clear();*/
-               }
+            searchProgress.Progress = 0;
+            searchProgress.Max = 100;
 
-               //searchProgress.Progress = 100;
+            searchThread = new System.Threading.Thread(() =>
+            {
+                DateTime startTime = DateTime.Now;
+                SelectCurrentSearch();
+                double secs = (DateTime.Now - startTime).TotalSeconds;
 
-               //RunOnUiThread(delegate
-               //{
-                   // IF Search succeeded
-                   if (eggFrames.Count > 0 || pokeFrames.Count > 0)
-                   {
-                       AddEntryToResults(resTab);
-                   }
-                   else
-                   {
-                       currentSearchData = null;
-                   }
-                   RNGPool.Clear();
+                RunOnUiThread(delegate
+                {
+                    Toast.MakeText(this, "Search completed in " + secs + "s.", ToastLength.Long).Show();
 
-                   //EnableUI();
-               //});
-           //});
-           //thr.Start();
+                    // IF Search succeeded
+                    if (eggFrames.Count > 0 || pokeFrames.Count > 0)
+                    {
+                        AddEntryToResults(resTab);
+                    }
+                    else
+                    {
+                        currentSearchData = null;
+                    }
+                    RNGPool.Clear();
+
+                    EnableUI();
+                });
+            });
+            searchThread.Start();
         }
 
         private void PerformPreviousSearch()
         {
             if ( previousSearchData.Count == 0 ) { return; }
-
-            HideMainEggBar();
-            resTab.Adapter = null;
-            eggFrames.Clear();
-            pokeFrames.Clear();
-            GC.Collect();
+            CleanupLastSearch();
 
             // History of search data
             /*if (currentSearchData != null) {
@@ -411,6 +467,51 @@ namespace Gen7EggRNG
                 previousButton.Enabled = false;
             }
 
+            SelectCurrentSearch();
+
+            // IF Search succeeded then show results
+            if (eggFrames.Count > 0 || pokeFrames.Count > 0)
+            {
+                AddEntryToResults(resTab);
+            }
+            // Otherwise show warning for no results
+            else
+            {
+                string warningString = Resources.GetString(Resource.String.search_noframes);
+                Toast.MakeText(this, warningString, ToastLength.Short).Show();
+            }
+            RNGPool.Clear();
+        }
+
+        void CleanupLastSearch() {
+            HideMainEggBar();
+            resTab.Adapter = null;
+
+            eggFrames.Clear();
+            backupEggFrames = null;
+
+            pokeFrames.Clear();
+            backupPokeFrames = null;
+
+            IsSubFilterActive = false;
+            GC.Collect();
+        }
+
+        void CancelSearch() {
+            if (IsSearchActive) {
+                searchThread.Abort();
+            }
+        }
+
+        void SelectCurrentSearch() {
+            // Clean last search data
+            /*HideMainEggBar();
+            resTab.Adapter = null;
+            eggFrames.Clear();
+            pokeFrames.Clear();
+            GC.Collect();*/
+
+            // Select search to be performed
             if (currentSearchData.searchParameters.type == SearchType.NormalSearch)
             {
                 Search7_Egg();
@@ -442,17 +543,6 @@ namespace Gen7EggRNG
             {
                 Search7_Stationary();
             }
-
-            // IF Search succeeded
-            if (eggFrames.Count > 0 || pokeFrames.Count > 0)
-            {
-                AddEntryToResults(resTab);
-            }
-            else {
-                string warningString = Resources.GetString(Resource.String.search_noframes);
-                Toast.MakeText(this, warningString, ToastLength.Short).Show();
-            }
-            RNGPool.Clear();
         }
 
 
@@ -466,6 +556,18 @@ namespace Gen7EggRNG
                 adapter.InflateListGuideline(resGuide);
 
                 resTab.Adapter = adapter;
+
+                // If using "Near Target" search, put target frame in view
+                if (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.AroundTarget)
+                {
+                    int index = pokeFrames.FindIndex(frame => frame.FrameNum == currentSearchData.searchParameters.targetFrame);
+
+                    if (index > -1)
+                    {
+                        resTab.SetSelection(index);
+                    }
+                }
+
                 //Toast.MakeText(this, "Stationary adapter disabled: " + pokeFrames.Count, ToastLength.Short).Show();
             }
             else
@@ -516,7 +618,7 @@ namespace Gen7EggRNG
             if (currentSearchData.searchParameters.eggRNG.eggRange == SearchRange.Simple)
             {
                 min = 0;
-                max = SearchConstants.MaximumFramesPerSearch;
+                max = SearchConstants.MaximumFramesSimpleSearch;
             }
             else if (currentSearchData.searchParameters.eggRNG.eggRange == SearchRange.MinMax)
             {
@@ -528,16 +630,25 @@ namespace Gen7EggRNG
                 max = Math.Min(currentSearchData.searchParameters.targetFrame + currentSearchData.searchParameters.aroundTarget, SearchConstants.MaximumFramesPerSearch);
             }
 
-                // Advance
-                for (int i = 0; i < min; i++)
+            // Advance
+            for (int i = 0; i < min; i++)
                 rng.Next();
             // Prepare
             //getsetting(rng);
             RNGPool.igenerator = PrepareParentData();
             RNGPool.CreateBuffer(rng, 100);
+
+            int searchEstimate = CreateProgressEstimate(max - min);
+
             // Start
             for (int i = min; i <= max; i++, RNGPool.AddNext(rng))
             {
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)max));
+                }
+
                 var result = RNGPool.GenerateEgg7() as ResultE7;
                 result.hiddenpower = (byte)HiddenPower.GetHiddenPowerValue(result.IVs);
                 if (currentSearchData.searchParameters.useFilter && (!currentSearchData.filter.VerifyEgg(result) && !currentSearchData.filter.VerifyRemind(result, currentSearchData.profile.TSV, currentSearchData.searchParameters.eggRNG.checkOtherTSV, currentSearchData.otherTSVs)))
@@ -581,9 +692,18 @@ namespace Gen7EggRNG
             //getsetting(rng);
             RNGPool.igenerator = PrepareParentData();
             RNGPool.CreateBuffer(rng, 100);
+
+            int searchEstimate = CreateProgressEstimate(max - min);
+
             // Start
             for (int i = min; i <= max; i++, RNGPool.AddNext(rng))
             {
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)max));
+                }
+
                 var result = RNGPool.GenerateEgg7() as ResultE7;
                 result.hiddenpower = (byte)HiddenPower.GetHiddenPowerValue(result.IVs);
                 if (currentSearchData.searchParameters.useFilter && (!currentSearchData.filter.VerifyEgg(result) && !currentSearchData.filter.VerifyRemind(result, currentSearchData.profile.TSV, currentSearchData.searchParameters.eggRNG.checkOtherTSV, currentSearchData.otherTSVs)))
@@ -620,8 +740,19 @@ namespace Gen7EggRNG
             // Start
             int frameCount = 0;
             int eggCount = 1;
+
+            int searchEstimate = CreateProgressEstimate(max);
+            int searchEst2 = searchEstimate;
+
             while (frameCount < max)
             {
+                // Estimate progress using bar
+                if (frameCount >= searchEst2)
+                {
+                    searchEst2 += searchEstimate;
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)frameCount / (float)max));
+                }
+
                 var result = RNGPool.GenerateEgg7() as ResultE7;
                 result.hiddenpower = (byte)HiddenPower.GetHiddenPowerValue(result.IVs);
                 if (!currentSearchData.searchParameters.useFilter || (currentSearchData.searchParameters.useFilter && (currentSearchData.filter.VerifyEgg(result) || currentSearchData.filter.VerifyRemind(result, currentSearchData.profile.TSV, currentSearchData.searchParameters.eggRNG.checkOtherTSV, currentSearchData.otherTSVs))))
@@ -646,7 +777,6 @@ namespace Gen7EggRNG
             }
         }
 
-
         private void Search7_EggAcceptPlus()
         {
             var rng = new TinyMT(currentSearchData.profile.currentSeed.GetSeedVector());
@@ -667,8 +797,18 @@ namespace Gen7EggRNG
             int advance = 0;
             int eggCount = 1;
 
-            while( frameCount < max)
+            int searchEstimate = CreateProgressEstimate(max);
+            int searchEst2 = searchEstimate;
+
+            while ( frameCount < max)
             {
+                // Estimate progress using bar
+                if (frameCount >= searchEst2 )
+                {
+                    searchEst2 += searchEstimate;
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)frameCount / (float)max));
+                }
+
                 var result = RNGPool.GenerateEgg7() as ResultE7;
                 int eggnum = 0;
                 int framenum = frameCount;
@@ -726,7 +866,8 @@ namespace Gen7EggRNG
         private void Search7_EggShortestPath() {
             if (currentSearchData.searchParameters.targetFrame > SearchConstants.MaximumEggTargetFrame)
             {
-                Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumEggTargetFrame), ToastLength.Short).Show();
+                ShowPopupMessageBGT(String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumEggTargetFrame), ToastLength.Short);
+                //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_shortestpath_highframe), SearchConstants.MaximumEggTargetFrame), ToastLength.Short).Show();
                 return;
             }
 
@@ -744,8 +885,16 @@ namespace Gen7EggRNG
             
             var FrameIndexList = Gen7EggPath.Calc(ResultsList.ConvertAll(egg => egg.FramesUsed).ToArray());
             max = FrameIndexList.Count;
+
+            //int searchEstimate = CreateProgressEstimate(max);
             for (int i = 0; i < max; i++)
             {
+                // Estimate progress using bar
+                /*if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * (float)i / (float)max);
+                }*/
+
                 int index = FrameIndexList[i];
                 var result = ResultsList[index];
                 result.hiddenpower = (byte)HiddenPower.GetHiddenPowerValue(result.IVs);
@@ -762,7 +911,8 @@ namespace Gen7EggRNG
             }
             string warningString = String.Format(Resources.GetString(Resource.String.search_shortestpath_sequence),
                 max-rejectcount, rejectcount, max);
-            Toast.MakeText(this, warningString, ToastLength.Short).Show();
+            ShowPopupMessageBGT(warningString, ToastLength.Short);
+            //Toast.MakeText(this, warningString, ToastLength.Short).Show();
             //Toast.MakeText(this, "Accept: " + (max - rejectcount) + "  Reject: " + rejectcount + "\nTotal of " + max + " eggs.", ToastLength.Long).Show();
             //Egg_Instruction.Text = getEggListString(max - rejectcount - 1, rejectcount, true);
         }
@@ -791,8 +941,17 @@ namespace Gen7EggRNG
 
             int min = int.MaxValue;
             int index = -1;
+
+            int searchEstimate = Math.Max(eggFrames.Count / 50, 2);
+
             for (int i = 0; i < eggFrames.Count; ++i)
             {
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * ((float)i / (float)eggFrames.Count));
+                }
+
                 int numEggs = Gen7EggPath.CountNodes(resArray, eggFrames[i].FrameNum+1);
                 eggFrames[i].AdvanceInfo = "#="+numEggs.ToString();
                 if (numEggs < min) {
@@ -881,7 +1040,7 @@ namespace Gen7EggRNG
         private void Search7_EggFastestSearch() {
             //1. Perform filtered search
             //Search7_Egg();
-            Search7_EggCustom(maxResults,5000); // Max Results, Max Frames
+            Search7_EggCustom(SearchConstants.ResultLimitLow,5000); // Max Results, Max Frames
             //Toast.MakeText(this, "Done Custom", ToastLength.Short).Show();
 
             if (eggFrames.Count == 0)
@@ -923,13 +1082,10 @@ namespace Gen7EggRNG
         private void Search7_MainEggRNG() {
             if (currentSearchData.profile.shinyCharm || currentSearchData.parents.isMasuda)
             {
-                Toast.MakeText(this, Resources.GetString(Resource.String.search_maineggcondition), ToastLength.Short).Show();
+                ShowPopupMessageBGT(Resources.GetString(Resource.String.search_maineggcondition), ToastLength.Short);
+                //Toast.MakeText(this, Resources.GetString(Resource.String.search_maineggcondition), ToastLength.Short).Show();
                 return;
             }
-
-            // #DEBUG
-            bool blinkOnly = false;
-            bool safeOnly = false;
 
             //#TODO: Range search modes
             int min = currentSearchData.searchParameters.mainRNG.minFrame;
@@ -957,7 +1113,7 @@ namespace Gen7EggRNG
                 int setrow = currentSearchData.searchParameters.targetFrame - min;
             }
             else if (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.CreateTimeline) {
-                Search7_Timeline();
+                Search7_METimeline();
                 return;
             }
             // Search is still limited to max results
@@ -992,13 +1148,18 @@ namespace Gen7EggRNG
             int frameadvance;
             int realtime = 0;
             int frametime = 0;
+
+            int searchEstimate = CreateProgressEstimate(max - min);
+
             // Start
             for (; i <= max;)
             {
-                //if (i % 5000 == 0)
-                //{
-                //    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)max));
-                //}
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)max));
+                }
+
                 do
                 {
                     frameadvance = status.NextState();
@@ -1020,10 +1181,16 @@ namespace Gen7EggRNG
                     if (min+1 <= i && i <= max+1)
                     {
                         byte blinkflag = FuncUtil.blinkflaglist[i - min - 1];
-                        if (blinkOnly && blinkflag < 4)
-                            continue;
-                        if (safeOnly && blinkflag >= 2)
-                            continue;
+                        if (currentSearchData.searchParameters.mainRNG.Modelnum == 1)
+                        {
+                            if (currentSearchData.filter.blinkFOnly && blinkflag < 4)
+                                continue;
+                        }
+                        else
+                        {
+                            if (currentSearchData.filter.safeFOnly && blinkflag >= 2)
+                                continue;
+                        }
                         if (currentSearchData.searchParameters.useFilter && !result.Shiny)
                         {
                             continue;
@@ -1045,11 +1212,12 @@ namespace Gen7EggRNG
             }
         }
 
-        private void Search7_Timeline()
+        private void Search7_METimeline()
         {
             if (currentSearchData.searchParameters.mainRNG.ctimelineTime > SearchConstants.MaximumTimelineTime)
             {
-                Toast.MakeText(this, String.Format( Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short).Show();
+                ShowPopupMessageBGT(String.Format(Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short);
+                //Toast.MakeText(this, String.Format( Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short).Show();
                 return;
             }
 
@@ -1094,8 +1262,15 @@ namespace Gen7EggRNG
                 totaltime = SearchConstants.MaximumTimelineTime;
             }
 
+            int searchEstimate = CreateProgressEstimate(totaltime);
             for (int i = 0; i <= totaltime; i++)
             {
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)totaltime));
+                }
+
                 Currentframe = frame;
 
                 RNGPool.CopyStatus(status);
@@ -1131,9 +1306,6 @@ namespace Gen7EggRNG
         }
 
         private void Search7_Stationary() {
-            // #DEBUG
-            bool blinkOnly = false;
-            bool safeOnly = false;
 
             //#TODO: Range search modes
             int min = currentSearchData.searchParameters.mainRNG.minFrame;
@@ -1165,7 +1337,7 @@ namespace Gen7EggRNG
             }
             else if (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.CreateTimeline)
             {
-                //Search7_Timeline();
+                Search7_StationaryTimeline();
                 return;
             }
             // Search is still limited to max results
@@ -1202,15 +1374,20 @@ namespace Gen7EggRNG
             int realtime = 0;
             int frametime = 0;
 
+
             if (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.MinMax)
             {
+                int searchEstimate = CreateProgressEstimate(max - min);
+
                 // Start
                 for (; i <= max;)
                 {
-                    //if (i % 5000 == 0)
-                    //{
-                    //    searchProgress.Progress = (int)(100.0f * Math.Max(((float)eggFrames.Count / (float)maxResults), (float)i / (float)max));
-                    //}
+                    // Estimate progress using bar
+                    if (i % searchEstimate == 0)
+                    {
+                        searchProgress.Progress = (int)(100.0f * Math.Max(((float)pokeFrames.Count / (float)maxResults), (float)i / (float)max));
+                    }
+
                     do
                     {
                         frameadvance = status.NextState();
@@ -1230,10 +1407,16 @@ namespace Gen7EggRNG
                             continue;
 
                         byte blinkflag = FuncUtil.blinkflaglist[i - min - 1];
-                        if (blinkOnly && blinkflag < 4)
-                            continue;
-                        if (safeOnly && blinkflag >= 2)
-                            continue;
+                        if (currentSearchData.searchParameters.mainRNG.Modelnum == 1)
+                        {
+                            if (currentSearchData.filter.blinkFOnly && blinkflag < 4)
+                                continue;
+                        }
+                        else
+                        {
+                            if (currentSearchData.filter.safeFOnly && blinkflag >= 2)
+                                continue;
+                        }
                         if (currentSearchData.searchParameters.useFilter && !currentSearchData.filter.VerifyStationary(result))
                         {
                             continue;
@@ -1299,7 +1482,7 @@ namespace Gen7EggRNG
                     st7.AssumeSynced = currentSearchData.filter.natures[currentSearchData.stationary.synchronizeNature];
 
                 uint EC;
-                uint EClast = EClist[EClist.Count-1];
+                uint EClast = EClist[EClist.Count - 1];
                 int Nframe = -1;
                 ulong rand = 0;
                 do
@@ -1328,10 +1511,106 @@ namespace Gen7EggRNG
                     }
                 }
                 while (EC != EClast);
+
+                // Apply filter to frames
+                pokeFrames = pokeFrames.FindAll(x => currentSearchData.filter.VerifyStationary( x.pokemon ));
             }
 
             RNGResult.IsPokemon = true;
             pokeFrames.Sort( new SFrameNumComparer());
+        }
+
+        private void Search7_StationaryTimeline() {
+            if (currentSearchData.searchParameters.mainRNG.ctimelineTime > SearchConstants.MaximumTimelineTime)
+            {
+                ShowPopupMessageBGT(String.Format(Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short);
+                //Toast.MakeText(this, String.Format( Resources.GetString(Resource.String.search_toast_mainegg_timelinefail), SearchConstants.MaximumTimelineTime), ToastLength.Short).Show();
+                return;
+            }
+
+
+            SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
+            int start_frame = (int)currentSearchData.searchParameters.mainRNG.minFrame;
+            int targetframe = (int)currentSearchData.searchParameters.targetFrame;
+            FuncUtil.getblinkflaglist(start_frame, start_frame, sfmt, currentSearchData.searchParameters.mainRNG.Modelnum);
+
+            // Advance
+            for (int i = 0; i < start_frame; i++)
+                sfmt.Next();
+            // Prepare
+            ModelStatus status = new ModelStatus(currentSearchData.searchParameters.mainRNG.Modelnum, sfmt);
+            status.IsBoy = true;//Boy.Checked;
+            status.raining = false;//Raining.Checked;
+
+            currentSearchData.searchParameters.mainRNG.ShiftStandard =
+                FuncUtil.CalcFrame(seed: currentSearchData.profile.initialSeed,
+                    min: currentSearchData.searchParameters.mainRNG.minFrame,
+                    max: currentSearchData.searchParameters.targetFrame,
+                    ModelNumber: currentSearchData.searchParameters.mainRNG.Modelnum,
+                    raining: currentSearchData.stationary.raining,
+                    fidget: false//gen7fidgettimeline
+                )[0] * 2;
+            
+            PrepareStationaryRNGData(sfmt);
+
+            int totaltime = currentSearchData.searchParameters.mainRNG.ctimelineTime * 30;
+            int frame = start_frame;
+            int frameadvance, Currentframe;
+            //int FirstJumpFrame = int.MaxValue;//(int)JumpFrame.Value;
+            //FirstJumpFrame = FirstJumpFrame >= start_frame && gen7fidgettimeline ? FirstJumpFrame : int.MaxValue;
+            // Start
+
+            // Totaltime represents the number of game frames to be checked
+            // If NPC > 0 it actually encompasses more than "MaximumMainTargetFrame"
+            // Timeline search can be faster because it skips a lot of frames
+            // #TODO: More testing
+            if (totaltime > SearchConstants.MaximumTimelineTime)
+            {
+                //uiSearchData.searchParameters.mainRNG.ctimelineTime = SearchConstants.MaximumTimelineTime;
+                totaltime = SearchConstants.MaximumTimelineTime;
+            }
+
+            int searchEstimate = CreateProgressEstimate(totaltime);
+            for (int i = 0; i <= totaltime; i++)
+            {
+                // Estimate progress using bar
+                if (i % searchEstimate == 0)
+                {
+                    searchProgress.Progress = (int)(100.0f * Math.Max(((float)pokeFrames.Count / (float)maxResults), (float)i / (float)totaltime));
+                }
+
+                Currentframe = frame;
+
+                RNGPool.CopyStatus(status);
+
+                Result7 result = RNGPool.Generate7() as Result7;
+
+                byte Jumpflag = (byte)(status.fidget_cd == 1 ? 1 : 0);
+                frameadvance = status.NextState();
+                frame += frameadvance;
+                for (int j = 0; j < frameadvance; j++)
+                    RNGPool.AddNext(sfmt);
+
+                if (Currentframe <= targetframe && targetframe < frame)
+                    currentSearchData.searchParameters.mainRNG.ShiftStandard = i * 2;
+
+                if (currentSearchData.searchParameters.useFilter && !currentSearchData.filter.VerifyStationary(result))
+                {
+                    continue;
+                }
+
+                pokeFrames.Add(new G7SFrame(result, frame: Currentframe,
+                            shiftStandard: currentSearchData.searchParameters.mainRNG.ShiftStandard,
+                            time: i * 2, blink: Jumpflag));
+                //new Frame(result, frame: Currentframe, time: i * 2, blink: Jumpflag));
+
+                if (pokeFrames.Count >= maxResults)
+                    break;
+            }
+            if (pokeFrames.Count > 0 && pokeFrames[0].FrameNum == currentSearchData.searchParameters.mainRNG.minFrame)
+            {
+                pokeFrames[0].Blink = FuncUtil.blinkflaglist[0];
+            }
         }
 
         // Use this function to find one specific seed without keeping track of previous seeds
@@ -1441,7 +1720,18 @@ namespace Gen7EggRNG
             //int standard = FuncUtil.CalcFrame(0, 485, 5000, ?, ?, ?)[0] * 2;
 
             Stationary7 stRNG = new Stationary7();
-            stRNG.Synchro_Stat = (byte)(!currentSearchData.stationary.synchronizer ? 255 : currentSearchData.stationary.synchronizeNature); // No sync
+            /*if ( currentSearchData.stationary.syncable )
+            {
+
+            }*/
+            if (currentSearchData.stationary.syncable)
+            {
+                stRNG.Synchro_Stat = (byte)(!currentSearchData.stationary.synchronizer ? 255 : currentSearchData.stationary.synchronizeNature); // No sync
+            }
+            else {
+                stRNG.Synchro_Stat = 255;
+                //stRNG.S
+            }
             stRNG.TSV = currentSearchData.profile.TSV;
             stRNG.Level = (byte)currentSearchData.stationary.level;
             stRNG.ShinyCharm = currentSearchData.profile.shinyCharm;
@@ -1453,10 +1743,10 @@ namespace Gen7EggRNG
             stRNG.AlwaysSync = currentSearchData.stationary.alwaysSync;
             stRNG.IsShinyLocked = currentSearchData.stationary.shinyLocked;
             stRNG.IVs = new int[] { -1, -1, -1, -1, -1, -1 };
-            stRNG.Ability = (byte)(currentSearchData.stationary.abilityLocked? 0 : currentSearchData.stationary.ability);
+            stRNG.Ability = (byte)(!currentSearchData.stationary.abilityLocked? 0 : currentSearchData.stationary.ability);
             stRNG.SetValue();
 
-            stRNG.blinkwhensync = currentSearchData.stationary.BlinkWhenSync;
+            //stRNG.blinkwhensync = currentSearchData.stationary.BlinkWhenSync;
 
             RNGPool.igenerator = stRNG;
 
@@ -1466,6 +1756,7 @@ namespace Gen7EggRNG
             //Toast.MakeText(this, currentSearchData.searchParameters.mainRNG.Modelnum.ToString(), ToastLength.Short).Show();
             RNGPool.modelnumber = currentSearchData.searchParameters.mainRNG.Modelnum;
             RNGPool.Considerdelay = currentSearchData.searchParameters.mainRNG.considerDelay;
+            RNGPool.DelayType = (byte)currentSearchData.stationary.delayType;
             RNGPool.DelayTime = (int)(currentSearchData.searchParameters.mainRNG.delay / 2) + 2;
             RNGPool.raining = currentSearchData.searchParameters.mainRNG.Raining;
             RNGPool.PreHoneyCorrection = 0;//(int)Correction.Value;
@@ -1478,10 +1769,12 @@ namespace Gen7EggRNG
             {
                 buffersize += RNGPool.modelnumber * RNGPool.DelayTime;
             }
+            //if (currentSearchData.stationary.delayType == 4 && ((int)currentSearchData.stationary.defaultDelay & 1) == 1)
+            if (currentSearchData.stationary.delayType == 4 && ((int)currentSearchData.searchParameters.mainRNG.delay & 1) == 1)
+                RNGPool.DelayType = 6;
             if (currentSearchData.stationary.delayType > 0)
             {
                 buffersize += 3 * RNGPool.DelayTime;
-                RNGPool.DelayType = (byte)currentSearchData.stationary.delayType;
             }
 
             RNGPool.CreateBuffer(sfmt, buffersize);
@@ -1574,6 +1867,10 @@ namespace Gen7EggRNG
             else if (currentSearchData.searchParameters.type == SearchType.MainEggRNG)
             {
                 PrepareMainEggMenu(menu, frameIndex);
+            }
+            else if (currentSearchData.searchParameters.type == SearchType.Stationary)
+            {
+                PrepareStationaryMenu(menu, frameIndex);
             }
         }
 
@@ -2039,9 +2336,9 @@ namespace Gen7EggRNG
 
                     G7EFrame targetFrameObj = null;
                     bool isTargetRej = false;
-                    bool isOutOfSearch = false;
+                    //bool isOutOfSearch = false;
                     int targetIndex = -1;
-                    if (targetFrame > eggFrames[eggFrames.Count - 1].FrameNum) { isOutOfSearch = true; }
+                    if (targetFrame > eggFrames[eggFrames.Count - 1].FrameNum) { /*isOutOfSearch = true;*/ }
                     else
                     {
                         for (int n = frameIndex + 1; n < eggFrames.Count; ++n)
@@ -2357,11 +2654,76 @@ namespace Gen7EggRNG
             };
         }
 
+        public void PrepareStationaryMenu(PopupMenu menu, int frameIndex)
+        {
+            menu.Inflate(Resource.Menu.StationaryMenu);
+
+            menu.MenuItemClick += (s1, arg1) =>
+            {
+                if (arg1.Item.ItemId == Resource.Id.action_target)
+                {
+                    editTargetFrame.Text = pokeFrames[frameIndex].FrameNum.ToString();
+                }
+                else if (arg1.Item.ItemId == Resource.Id.action_around_frame)
+                {
+                    // Set Target Frame (Set both UI and internal data, because UI is updated later)
+                    uiSearchData.searchParameters.targetFrame = pokeFrames[frameIndex].FrameNum;
+                    editTargetFrame.Text = pokeFrames[frameIndex].FrameNum.ToString();
+
+                    // Show search type in UI - #TODO: Losing data from changing UI search!
+                    uiSearchData.searchParameters.type = SearchType.Stationary;
+                    searchParamSpinner.SetSelection((int)SearchType.MainEggRNG);
+
+                    // Copy mainRNG search parameters from current search
+                    // to make sure any changes made by the user in the UI do not
+                    // influence the results for this search
+                    uiSearchData.searchParameters.mainRNG = currentSearchData.searchParameters.mainRNG;
+
+                    uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.AroundTarget;
+
+                    PerformSearch();
+                }
+                else if (arg1.Item.ItemId == Resource.Id.action_timecalc)
+                {
+                    TimeCalcDialog tcdialog = new TimeCalcDialog(this);
+                    tcdialog.Initialize(currentSearchData.profile.initialSeed, currentSearchData.searchParameters.mainRNG.minFrame,
+                        pokeFrames[frameIndex].FrameNum, currentSearchData.searchParameters.mainRNG.npcs,
+                        currentSearchData.searchParameters.mainRNG.Raining,
+                        false //currentSearchData.stationary.Fidget
+                        );
+
+                    tcdialog.Show();
+                }
+                else if (arg1.Item.ItemId == Resource.Id.action_pre_timer)
+                {
+                    int adjustment = (int)Math.Round(pokeFrames[frameIndex].ShiftF / -60.0 * 1000);
+
+                    PreTimerDialog ptdialog = new PreTimerDialog(this);
+                    ptdialog.Initialize(adjustment);
+
+                    ptdialog.Show();
+                }
+                else if (arg1.Item.ItemId == Resource.Id.action_detailed)
+                {
+                    SpawnDetailedDialog(pokeFrames[frameIndex]);
+                    //Toast.MakeText(this, "Detailed frame not yet available.", ToastLength.Short).Show();
+                }
+            };
+        }
+
         private void SpawnDetailedDialog(G7EFrame eggFrame) {
             DetailedFrame detailDialog = new DetailedFrame(eggFrame, currentSearchData, this);
             detailDialog.Initialize();
             detailDialog.Show();
         }
+
+        private void SpawnDetailedDialog(G7SFrame pokeFrame)
+        {
+            DetailedFrameS detailDialog = new DetailedFrameS(pokeFrame, currentSearchData, this);
+            detailDialog.Initialize();
+            detailDialog.Show();
+        }
+
 
 
         // Presence (0 = In Search, 1 = Filtered, 2 = Out of search)
@@ -2959,6 +3321,14 @@ namespace Gen7EggRNG
             checkOtherTSV.Enabled = true;
 
             searchProgress.Visibility = ViewStates.Gone;
+        }
+
+        private int CreateProgressEstimate(int framesToBeProcessed) {
+            return Math.Max((int)(framesToBeProcessed / 100.0), 2500);
+        }
+
+        private void ShowPopupMessageBGT(string msg, ToastLength tlength = ToastLength.Short) {
+            RunOnUiThread(delegate { toastWrapper.ShowMessage(msg, tlength); });
         }
     }
 }

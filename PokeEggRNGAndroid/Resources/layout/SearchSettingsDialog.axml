@@ -61,13 +61,13 @@
                         android:gravity="center" />
                     <EditText
                         android:inputType="number"
-                        android:layout_width="40dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/minFrame"
                         android:text="0"
                         android:textSize="12sp"
                         android:imeOptions="flagNoFullscreen|actionDone"
-                        android:maxLength="5" />
+                        android:maxLength="7" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="horizontal"
@@ -85,13 +85,13 @@
                         android:id="@+id/textView5" />
                     <EditText
                         android:inputType="number"
-                        android:layout_width="40dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/maxFrame"
                         android:text="10000"
                         android:textSize="12sp"
                         android:imeOptions="flagNoFullscreen|actionDone"
-                        android:maxLength="5" />
+                        android:maxLength="7" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

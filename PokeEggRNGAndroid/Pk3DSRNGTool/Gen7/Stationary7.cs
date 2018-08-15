@@ -1,26 +1,4 @@
-﻿/*MIT License
-
-Copyright(c) 2017 wwwwwwzx
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.*/
-
-using System.Linq;
+﻿using System.Linq;
 using Pk3DSRNGTool.Core;
 
 namespace Pk3DSRNGTool
@@ -30,8 +8,7 @@ namespace Pk3DSRNGTool
         private static ulong getrand => RNGPool.getrand64;
         private static void time_elapse(int n) => RNGPool.time_elapse7(n);
         private static void Advance(int n) => RNGPool.Advance(n);
-
-        public bool blinkwhensync;
+        
         private bool IsPelago;
         public byte PelagoShift;
         public bool Trade;
@@ -43,8 +20,7 @@ namespace Pk3DSRNGTool
             if (AssumeSynced != null)
                 return (bool)AssumeSynced;
             bool sync = getrand % 100 >= 50;
-            if (blinkwhensync)
-                time_elapse(3);
+            time_elapse(3);
             return sync || PostNatureLock;
         }
 
@@ -143,7 +119,7 @@ namespace Pk3DSRNGTool
         }
 
 
-        /*public override void UseTemplate(Pokemon PM)
+        public override void UseTemplate(Pokemon PM)
         {
             base.UseTemplate(PM);
             var pm7 = PM as PKM7;
@@ -153,8 +129,7 @@ namespace Pk3DSRNGTool
                 AlwaysSync = false;
                 PIDroll_count = ShinyCharm ? 3 : 1;
             }
-            blinkwhensync = !AlwaysSync && !pm7.NoBlink;
-            Ability = Ability == 0 && blinkwhensync ? (byte)1 : Ability;
+            Ability = Ability == 0 && !AlwaysSync ? (byte)1 : Ability;
             if (pm7.Ability == 0xFF) // Outlier
                 Ability = 0;
             if (pm7.IsPelago)
@@ -167,7 +142,7 @@ namespace Pk3DSRNGTool
             if (pm7.iv3)
                 PerfectIVCount = 3;
             RNGPool.DelayType = pm7.DelayType;
-        }*/
+        }
     }
 
     public class MainEggRNG : StationaryRNG

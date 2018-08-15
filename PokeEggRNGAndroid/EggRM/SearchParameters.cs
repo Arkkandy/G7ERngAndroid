@@ -36,6 +36,10 @@ namespace Gen7EggRNG.EggRM
         public static bool IsMainRNGSearch(SearchType type) {
             return type == SearchType.MainEggRNG || type == SearchType.Stationary;
         }
+
+        public static bool IsEggRNG(SearchType type) {
+            return type != SearchType.Stationary;
+        }
     }
 
     public enum SearchRange

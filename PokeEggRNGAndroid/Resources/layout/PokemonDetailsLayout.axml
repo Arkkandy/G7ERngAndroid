@@ -102,7 +102,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttHP"
                         android:textSize="14sp"
@@ -125,7 +125,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttAtk"
                         android:textSize="14sp"
@@ -148,7 +148,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttDef"
                         android:textSize="14sp"
@@ -171,7 +171,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttSpA"
                         android:textSize="14sp"
@@ -194,7 +194,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttSpD"
                         android:textSize="14sp"
@@ -217,7 +217,7 @@
                     android:layout_marginRight="10dp">
                     <EditText
                         android:inputType="number"
-                        android:layout_width="match_parent"
+                        android:layout_width="36dp"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttSpe"
                         android:textSize="14sp"
@@ -263,9 +263,24 @@
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayout20"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <CheckBox
+                        android:text="Syncable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/sttSyncable" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/linearLayout5"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:gravity="center">
                     <CheckBox
                         android:text="Synchronizer"
@@ -282,25 +297,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttAlwaysSync" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:minWidth="25px"
-                    android:minHeight="25px"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/linearLayout10"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                    <CheckBox
-                        android:text="Ability Locked"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/sttAbilityLocked" />
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/sttAbility" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -329,21 +325,6 @@
                     android:orientation="horizontal"
                     android:minWidth="25px"
                     android:minHeight="25px"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/linearLayout12"
-                    android:gravity="center"
-                    android:layout_weight="1">
-                    <CheckBox
-                        android:text="Shiny Locked"
-                        android:id="@+id/sttShinyLock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" />
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:minWidth="25px"
-                    android:minHeight="25px"
                     android:id="@+id/linearLayout13"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -354,6 +335,54 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttRaining" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linearLayout10"
+                    android:layout_weight="1"
+                    android:gravity="center">
+                    <CheckBox
+                        android:text="Ability Locked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sttAbilityLocked" />
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/sttAbility" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout21">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayout12"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <CheckBox
+                        android:text="Shiny Locked"
+                        android:id="@+id/sttShinyLock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                    <CheckBox
+                        android:text="Forced Shiny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/sttForceShiny"
+                        android:layout_marginLeft="20dp" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

@@ -14,7 +14,7 @@ using Pk3DSRNGTool.Core;
 
 namespace Gen7EggRNG.EggRM
 {
-    class G7SFrame
+    public class G7SFrame
     {
         public Result7 pokemon;
 
@@ -51,7 +51,7 @@ namespace Gen7EggRNG.EggRM
         public int ShiftF;
         public string RealTime => realTime > -1 ? FuncUtil.Convert2timestr(realTime / 60.0) : string.Empty;
         public string Mark => Blink < 5 ? G7EFrame.blinkmarks[Blink] : Blink.ToString();
-        public ulong Rand64;
+        public ulong Rand64 => pokemon.RandNum;
 
         public uint EC => pokemon.EC;
 
@@ -61,6 +61,11 @@ namespace Gen7EggRNG.EggRM
         public int SpA => pokemon.IVs[3];
         public int SpD => pokemon.IVs[4];
         public int Spe => pokemon.IVs[5];
+
+        public int[] GetStats(int[] baseStats) {
+            return Pokemon.getStats(pokemon.IVs, pokemon.Nature, pokemon.Level, baseStats);
+            //pokemon.Stats = Pokemon.getStats(pokemon.IVs, pokemon.Nature, pokemon.Level, baseStats);
+        }
 
         public string AbilityStr => PokeRNGApp.Strings.abilitySymbols[pokemon.Ability];
     }

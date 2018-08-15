@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:text="Lv. 100"
+            android:id="@+id/detailsLevel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
+        <TextView
+            android:text="Gender"
+            android:id="@+id/detailsGender"
+            android:gravity="left|center_vertical"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/detailsLevel"
+            android:layout_marginLeft="10dp"
+            android:layout_centerInParent="true" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/linearLayout10"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+            <TextView
+                android:text="+105"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/detailsDelay" />
+            <TextView
+                android:text="Mark"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/detailsMark"
+                android:layout_marginLeft="10dp" />
+        </LinearLayout>
+        <ImageView
+            android:src="@drawable/star"
+            android:id="@+id/detailsIsShiny"
+            android:backgroundTint="#00000000"
+            android:foregroundTint="#00000000"
+            android:tint="#ffff0000"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_alignParentRight="true" />
+    </RelativeLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsStatsGroup"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:clickable="true">
+        <TextView
+            android:text="31 31 31 31 31 31"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsIV"
+            android:gravity="center"
+            android:typeface="monospace"
+            android:textSize="16sp" />
+        <TextView
+            android:text="Fighting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsHP"
+            android:gravity="center_horizontal" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsExtras"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/linearLayout9"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/linearLayout5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:text="@string/search_detailed_ability"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView2"
+                    android:layout_weight="1"
+                    android:gravity="right" />
+                <TextView
+                    android:text="Ability"
+                    android:id="@+id/detailsAbility"
+                    android:gravity="left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/linearLayout7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:text="@string/search_detailed_nature"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/textView3"
+                    android:layout_weight="1"
+                    android:gravity="right" />
+                <TextView
+                    android:text="Nature"
+                    android:id="@+id/detailsNature"
+                    android:gravity="left"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:text="2111"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsPSV"
+        android:gravity="center"
+        android:typeface="monospace"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:text="00000000,00000000,00000000,00000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsSeed"
+        android:gravity="center"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:typeface="monospace"
+        android:textSize="12sp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout8"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsDone"
+            android:textSize="12sp"
+            android:text="@string/done" />
+        <Button
+            android:text="@string/detailed_copyspread"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/detailsCopySpread"
+            android:layout_marginLeft="20dp" />
+    </LinearLayout>
+</LinearLayout>

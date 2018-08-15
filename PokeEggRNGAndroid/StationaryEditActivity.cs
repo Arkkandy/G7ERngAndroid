@@ -7,6 +7,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
 using Android.Views.InputMethods;
@@ -15,7 +16,9 @@ using Gen7EggRNG.EggRM;
 
 namespace Gen7EggRNG
 {
-    [Activity(Label = "Edit Stationary Data")]
+    [Activity(Label = "Edit Stationary Data",
+        ConfigurationChanges = Android.Content.PM.ConfigChanges.ScreenSize | Android.Content.PM.ConfigChanges.Orientation,
+        ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class StationaryEditActivity : Activity
     {
         Spinner categorySpinner;
@@ -32,6 +35,7 @@ namespace Gen7EggRNG
 
         Spinner genderRatioSpinner;
 
+        CheckBox syncableCB;
         CheckBox synchronizerCB;
         Spinner syncNatureSpinner;
         CheckBox alwaysSyncCB;
@@ -41,6 +45,7 @@ namespace Gen7EggRNG
 
         CheckBox fixed3IVCB;
         CheckBox shinyLockCB;
+        CheckBox isForcedShinyCB;
         CheckBox rainingCB;
 
         EditText recDelayET;
@@ -52,6 +57,15 @@ namespace Gen7EggRNG
 
         int[] natureIndices;
         int[] reverseNatureIndices;
+
+        Pk3DSRNGTool.Pokemon.PokemonList[] speciesList;
+        Pk3DSRNGTool.GameVersion realVersion;
+        GameVersionUI gversion;
+
+        List<int> realSubIndices;
+
+        bool initA = true;
+        bool initB = true;
 
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
@@ -79,6 +93,18 @@ namespace Gen7EggRNG
 
             SetContentView(Resource.Layout.PokemonDetailsLayout);
 
+            // Get game version
+            gversion = (GameVersionUI)Intent.GetIntExtra("GameVersion", 0);
+            if (GameVersionConversion.IsUltra(gversion))
+            {
+                speciesList = Pk3DSRNGTool.PKM7.Species_USUM;
+                realVersion = gversion == GameVersionUI.UltraSun ? Pk3DSRNGTool.GameVersion.US : Pk3DSRNGTool.GameVersion.UM;
+            }
+            else {
+                speciesList = Pk3DSRNGTool.PKM7.Species_SM;
+                realVersion = gversion == GameVersionUI.Sun ? Pk3DSRNGTool.GameVersion.SN : Pk3DSRNGTool.GameVersion.MN;
+            }
+
             // Fetch widgets
             categorySpinner = FindViewById<Spinner>(Resource.Id.sttCategory);
             subPokeSpinner = FindViewById<Spinner>(Resource.Id.sttSubPokemon);
@@ -94,6 +120,7 @@ namespace Gen7EggRNG
 
             genderRatioSpinner = FindViewById<Spinner>(Resource.Id.sttGender);
 
+            syncableCB = FindViewById<CheckBox>(Resource.Id.sttSyncable);
             synchronizerCB = FindViewById<CheckBox>(Resource.Id.sttSync);
             syncNatureSpinner = FindViewById<Spinner>(Resource.Id.sttSyncNature);
             alwaysSyncCB = FindViewById<CheckBox>(Resource.Id.sttAlwaysSync);
@@ -103,6 +130,7 @@ namespace Gen7EggRNG
 
             fixed3IVCB = FindViewById<CheckBox>(Resource.Id.sttFixed3IV);
             shinyLockCB = FindViewById<CheckBox>(Resource.Id.sttShinyLock);
+            isForcedShinyCB = FindViewById<CheckBox>(Resource.Id.sttForceShiny);
             rainingCB = FindViewById<CheckBox>(Resource.Id.sttRaining);
 
             recDelayET = FindViewById<EditText>(Resource.Id.sttDelay);
@@ -111,15 +139,43 @@ namespace Gen7EggRNG
             delayTypeET = FindViewById<EditText>(Resource.Id.sttDelayType);
             noBlinkCB = FindViewById<CheckBox>(Resource.Id.sttNoBlink);
 
-            // Setup widgets
+            // ------- Setup widgets
 
+            // Load Category Spinner
+            string[] majorArray = Array.ConvertAll(speciesList, x => x.Text);
             categorySpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
-                new string[] { "Custom" });
-            subPokeSpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
-                new string[] { "Custom" });
+                majorArray);
+            // Load Sub (Pokemon) Spinner
+            LoadSubSpinner(0);
 
             abilitySpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
                 new string[] { PokeRNGApp.Strings.abilitySymbols[1], PokeRNGApp.Strings.abilitySymbols[2], PokeRNGApp.Strings.abilitySymbols[3] });
+
+            syncableCB.CheckedChange += (sender, args) =>
+            {
+                if (args.IsChecked == true)
+                {
+                    synchronizerCB.Checked = false;
+                    synchronizerCB.Enabled = true;
+                    syncNatureSpinner.Enabled = true;
+                }
+                else {
+                    synchronizerCB.Enabled = false;
+                    syncNatureSpinner.Enabled = false;
+                }
+            };
+
+            shinyLockCB.CheckedChange += (sender, args) => {
+                if (args.IsChecked)
+                {
+                    isForcedShinyCB.Enabled = true;
+                    isForcedShinyCB.Visibility = ViewStates.Visible;
+                }
+                else {
+                    isForcedShinyCB.Enabled = false;
+                    isForcedShinyCB.Visibility = ViewStates.Invisible;
+                }
+            };
 
             // Gender - In XML
 
@@ -129,22 +185,39 @@ namespace Gen7EggRNG
             reverseNatureIndices = ArrayUtil.ReverseIndices(natureIndices);
             syncNatureSpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, natures );
 
+            // Create spinner handlers ONLY after setting them up so as to not overwrite data accidentally
+            categorySpinner.ItemSelected += (sender, args) => {
+                if ( initA ) { initA = false; }
+                else {
+                    int listIndex = args.Position;
+                    LoadSubSpinner(listIndex);
+                    subPokeSpinner.SetSelection(0);
+                }
+            };
+            subPokeSpinner.ItemSelected += (sender, args) => {
+                if (initB) { initB = false; }
+                else
+                {
+                    int listIndex = categorySpinner.SelectedItemPosition;
+                    int pokeIndex = realSubIndices[args.Position];
+                    SetupPokemonData(speciesList[listIndex].List[pokeIndex]);
+                }
+            };
+
             // Load data
             LoadStationaryData();
+
+            //subPokeSpinner.SetSelection(0);
         }
 
         protected override void OnPause()
         {
             base.OnPause();
             SaveStationaryData();
+            //SaveSelection();
         }
 
-        private void LoadStationaryData() {
-            StationaryData data = StationaryData.LoadStationaryData(this);
-
-            categorySpinner.SetSelection(0);
-            subPokeSpinner.SetSelection(0);
-
+        private void WriteDataToInterface(StationaryData data) {
             levelET.Text = data.level.ToString();
 
             bsHPET.Text = data.baseStats[0].ToString();
@@ -156,15 +229,28 @@ namespace Gen7EggRNG
 
             genderRatioSpinner.SetSelection(data.genderType);
 
-            synchronizerCB.Checked = data.synchronizer;
+            syncableCB.Checked = data.syncable;
+            if (data.syncable)
+            {
+                synchronizerCB.Checked = data.synchronizer;
+                alwaysSyncCB.Checked = data.alwaysSync;
+                synchronizerCB.Enabled = true;
+                syncNatureSpinner.Enabled = true;
+            }
+            else {
+                alwaysSyncCB.Checked = false;
+                synchronizerCB.Enabled = false;
+                synchronizerCB.Checked = false;
+                syncNatureSpinner.Enabled = true;
+            }
             syncNatureSpinner.SetSelection(reverseNatureIndices[data.synchronizeNature]);
-            alwaysSyncCB.Checked = data.alwaysSync;
 
             abilityLockCB.Checked = data.abilityLocked;
             abilitySpinner.SetSelection(data.ability - 1);
 
             fixed3IVCB.Checked = data.fixed3IVs;
             shinyLockCB.Checked = data.shinyLocked;
+            isForcedShinyCB.Checked = data.isForcedShiny;
             rainingCB.Checked = data.raining;
 
             recDelayET.Text = data.defaultDelay.ToString();
@@ -174,12 +260,69 @@ namespace Gen7EggRNG
             noBlinkCB.Checked = data.noBlink;
         }
 
+        private void LoadStationaryData() {
+            StationaryData data = StationaryData.LoadStationaryData(this);
+
+            LoadSelection(data);
+
+            WriteDataToInterface(data);
+        }
+
+        private void LoadSelection(StationaryData data) {
+
+            int mainIndex = data.uiMainIndex;
+            int subIndex = data.uiSubIndex;
+
+            if (gversion == (GameVersionUI)data.version)
+            {
+                // Check if indices are ok
+                if (mainIndex < speciesList.Length)
+                {
+                    if (subIndex >= speciesList[mainIndex].List.Length)
+                    {
+                        subIndex = 0;
+                    }
+                }
+                else
+                {
+                    mainIndex = 0;
+                    subIndex = 0;
+                }
+            }
+            else {
+                mainIndex = 0;
+                subIndex = 0;
+            }
+
+            LoadSubSpinner(mainIndex);
+            categorySpinner.SetSelection(mainIndex);
+
+            FetchSubPokemon(mainIndex,subIndex);
+            subPokeSpinner.SetSelection(subIndex);
+
+        }
+
+        /*private void SaveSelection() {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor prefsEdit = prefs.Edit();
+
+            prefsEdit.PutInt("SttActivityMainSpinner", categorySpinner.SelectedItemPosition );
+            prefsEdit.PutInt("SttActivitySubSpinner", subPokeSpinner.SelectedItemPosition );
+
+            prefsEdit.Commit();
+        }*/
+
         private void SaveStationaryData()
         {
             StationaryData data = new StationaryData();
 
             //data.category
             //data.subPoke
+            data.version = (int)gversion;
+            data.uiMainIndex = categorySpinner.SelectedItemPosition;
+            data.uiSubIndex = subPokeSpinner.SelectedItemPosition;
+            data.mainIndex = categorySpinner.SelectedItemPosition;
+            data.subIndex = realSubIndices[subPokeSpinner.SelectedItemPosition];
 
             data.level = int.Parse(levelET.Text);
 
@@ -192,6 +335,7 @@ namespace Gen7EggRNG
 
             data.genderType = genderRatioSpinner.SelectedItemPosition;
 
+            data.syncable = syncableCB.Checked;
             data.synchronizer = synchronizerCB.Checked;
             data.synchronizeNature = natureIndices[syncNatureSpinner.SelectedItemPosition];
             data.alwaysSync = alwaysSyncCB.Checked;
@@ -201,6 +345,7 @@ namespace Gen7EggRNG
 
             data.fixed3IVs = fixed3IVCB.Checked;
             data.shinyLocked = shinyLockCB.Checked;
+            data.isForcedShiny = isForcedShinyCB.Checked;
             data.raining = rainingCB.Checked;
 
             data.defaultDelay = int.Parse(recDelayET.Text);
@@ -210,6 +355,39 @@ namespace Gen7EggRNG
             data.noBlink = noBlinkCB.Checked;
 
             StationaryData.SaveStationaryData(this, data);
+        }
+
+        private void LoadSubSpinner(int index) {
+            int listIndex = index;
+            int totalIndices = speciesList[listIndex].List.Length;
+
+            realSubIndices = new List<int>();
+            List<string> spinnerStrings = new List<string>();
+            for (int i = 0; i < totalIndices; ++i) {
+                if (speciesList[listIndex].List[i].Version == Pk3DSRNGTool.GameVersion.Gen7 || speciesList[listIndex].List[i].Version == realVersion) {
+                    realSubIndices.Add(i);
+                    spinnerStrings.Add(speciesList[listIndex].List[i].ToString());
+                }
+            }
+
+            /*subPokeSpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
+                Array.ConvertAll(speciesList[listIndex].List, x => x.ToString()));*/
+            subPokeSpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
+                spinnerStrings);
+            //subPokeSpinner.SetSelection(0);
+        }
+        private void FetchSubPokemon(int mainIndex, int subIndex) {
+            int listIndex = mainIndex;
+            int pokeIndex = subIndex;
+            SetupPokemonData(speciesList[listIndex].List[pokeIndex]);
+        }
+
+        private void SetupPokemonData(Pk3DSRNGTool.Pokemon pkm) {
+            var pkm7 = (pkm as Pk3DSRNGTool.PKM7);
+
+            StationaryData data = StationaryLoadHelper.LoadDataFromTemplate(pkm7);
+
+            WriteDataToInterface(data);
         }
     }
 }

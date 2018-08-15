@@ -66,14 +66,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockHandActivity.cs" />
+    <Compile Include="EggRM\DetailedFrameS.cs" />
+    <Compile Include="EggRM\FileHelper.cs" />
     <Compile Include="EggRM\G7SFrame.cs" />
     <Compile Include="EggRM\GameVersionConversion.cs" />
     <Compile Include="EggRM\PokeResultAdapter.cs" />
     <Compile Include="EggRM\StationaryData.cs" />
     <Compile Include="Pk3DSRNGTool\Core\StationaryRNG.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\ModelStatus.cs" />
+    <Compile Include="Pk3DSRNGTool\Gen7\PKM7.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\Stationary7.cs" />
     <Compile Include="Pk3DSRNGTool\Pokemon\GameVersion.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\PersonalInfo.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\PersonalInfoORAS.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\PersonalInfoUSUM.cs" />
+    <Compile Include="Pk3DSRNGTool\Pokemon\PersonalTable.cs" />
     <Compile Include="Pk3DSRNGTool\Pokemon\Pokemon.cs" />
     <Compile Include="Pk3DSRNGTool\Util\SFMTSeedAPI.cs" />
     <Compile Include="PreTimerDialog.cs" />
@@ -149,6 +156,8 @@
     <Compile Include="Widgets\SpinnerCheckboxContainer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\personal_ao" />
+    <AndroidAsset Include="Assets\personal_uu" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
@@ -242,6 +251,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ResultItemStationary.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FrameDetailedSDialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -372,6 +384,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\shinycharm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\menu\StationaryMenu.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Species.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

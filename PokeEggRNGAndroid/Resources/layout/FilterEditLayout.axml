@@ -11,8 +11,9 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:id="@+id/linearLayout14"
-        android:layout_weight="5">
+        android:id="@+id/filterIVsLayout"
+        android:layout_weight="5"
+        android:visibility="gone">
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
@@ -278,6 +279,264 @@
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:id="@+id/filterStatsLayout"
+        android:layout_weight="5">
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:id="@+id/linearLayout7"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout8"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/hp_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterHPSText" />
+                <SeekBar
+                    android:id="@+id/filterHPSMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterHPSMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="160 - 175"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterHPSView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout9"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/attack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterAtkSText" />
+                <SeekBar
+                    android:id="@+id/filterAtkSMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterAtkSMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="105 - 120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterAtkSView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout10"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/defense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterDefSText" />
+                <SeekBar
+                    android:id="@+id/filterDefSMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterDefSMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="105 - 120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterDefSView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout11"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/specialattack_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterSpASText" />
+                <SeekBar
+                    android:id="@+id/filterSpASMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterSpASMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="105 - 120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterSpASView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout12"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/specialdefense_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterSpDSText" />
+                <SeekBar
+                    android:id="@+id/filterSpDSMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterSpDSMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="105 - 120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterSpDSView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/linearLayout13"
+                android:layout_weight="1"
+                android:gravity="center">
+                <TextView
+                    android:text="@string/speed_stat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/filterSpeSText" />
+                <SeekBar
+                    android:id="@+id/filterSpeSMin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="0" />
+                <SeekBar
+                    android:id="@+id/filterSpeSMax"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:max="31"
+                    android:progress="31" />
+                <TextView
+                    android:text="105 - 120"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/filterSpeSView"
+                    android:layout_weight="1"
+                    android:gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout15"
+            android:layout_weight="1">
+            <Button
+                android:text="Reset"
+                android:id="@+id/filterIVResetButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:text="Enter"
+                android:id="@+id/filterIV3031"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:text="Base Stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button1" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/filterSpinnerLayout"
         android:layout_weight="1.5">
         <LinearLayout
@@ -399,6 +658,20 @@
             android:layout_height="match_parent"
             android:id="@+id/filterShinyRemind"
             android:layout_marginLeft="20dp" />
+        <CheckBox
+            android:text="Safe F Only"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/filterSafeF"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone" />
+        <CheckBox
+            android:text="Blink F Only"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/filterBlinkF"
+            android:layout_marginLeft="20dp"
+            android:visibility="gone" />
         <CheckBox
             android:text="@string/filter_shiny"
             android:layout_width="wrap_content"

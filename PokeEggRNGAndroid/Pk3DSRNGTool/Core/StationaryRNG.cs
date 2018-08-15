@@ -28,7 +28,7 @@
         public virtual void Delay() { }
         public abstract RNGResult Generate();
 
-        /*public virtual void UseTemplate(Pokemon PM)
+        public virtual void UseTemplate(Pokemon PM)
         {
             AlwaysSync = PM.AlwaysSync;
             IV3 = PM.IV3 && !PM.Egg;
@@ -42,6 +42,6 @@
             if (PM.Nature < 25)
                 Synchro_Stat = PM.Nature;
             SetValue();
-        }*/
+        }
     }
 }

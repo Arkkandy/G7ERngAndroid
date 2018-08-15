@@ -53,6 +53,20 @@ namespace Gen7EggRNG.EggRM
             return "";
         }
 
+        public static GenderType ConvertByteToGenderType(byte genderRatio) {
+            switch (genderRatio)
+            {
+                case 0x7F: return GenderType.SameRatio;
+                case 0x1F: return GenderType.M7to1F;
+                case 0x3F: return GenderType.M3to1F;
+                case 0xBF: return GenderType.M1to3F;
+                case 0xE1: return GenderType.M1to7F;
+                case 0xFF: return GenderType.Genderless;
+                case 0x00: return GenderType.MOnly;
+                default: /*case 0xFE*/ return GenderType.FOnly;
+            }
+        }
+
         // Use the GenderType enum with this function
         public static bool IsRandomGender(GenderType gt)
         {

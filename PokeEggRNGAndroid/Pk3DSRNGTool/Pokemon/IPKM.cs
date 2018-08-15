@@ -20,11 +20,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
+using Gen7EggRNG;
+
 namespace Pk3DSRNGTool
 {
     public abstract class IPKM
     {
-        //public virtual GameVersion Version { get; protected set; } = GameVersion.Any;
+        public virtual GameVersion Version { get; protected set; } = GameVersion.Any;
         public short Species;
         public byte Forme;
 
@@ -35,6 +37,6 @@ namespace Pk3DSRNGTool
         public int[] IVs;
         public byte Level;
 
-        //public PKHeX.Core.PersonalInfo info => (GameVersion.Gen6.Contains(Version) ? PersonalTable.ORAS : PersonalTable.USUM).getFormeEntry(Species, Forme);
+        public PKHeX.Core.PersonalInfo info => (GameVersion.Gen6.Contains(Version) ? PokeRNGApp.ORAS : PokeRNGApp.USUM).getFormeEntry(Species, Forme);
     }
 }
