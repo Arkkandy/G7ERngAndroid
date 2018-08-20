@@ -389,6 +389,43 @@ namespace Gen7EggRNG
                 }
             };
 
+            seedFrameView.Click += delegate {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.SetTitle("Start Frame");
+                builder.SetPositiveButton("Reset",
+                    (sender, args) =>
+                    {
+                        seedFrameView.Text = "0";
+                    }
+                    );
+                builder.SetNegativeButton("Set",
+                    (sender, args) =>
+                    {
+                        EnterNumberDialog end = new EnterNumberDialog(this);
+
+                        end.SetTitle("Set Start Frame");
+                        //end.SetDefaultText(Resources.GetString(Resource.String.profile_defaultprofile));
+                        end.SetButtonText(PokeRNGApp.Strings.option_ok, PokeRNGApp.Strings.option_cancel);
+                        end.SetEmptyFieldMessage(Resources.GetString(Resource.String.profile_editnameempty));
+
+                        end.InitializeDialog(
+                            x =>
+                            {
+                                seedFrameView.Text = x.ToString();
+                            },
+                            delegate
+                            {
+
+                            }
+                        );
+
+                        end.Show();
+                    }
+                    );
+
+                builder.Create().Show();
+            };
+
             //Gen7EggRNG.AndroidUtil.DebugUtil.DumpSharedPreferences(this);
         }
 

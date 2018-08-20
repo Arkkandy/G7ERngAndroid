@@ -10,6 +10,7 @@ using Android.OS;
 using Android.Preferences;
 using Android.Runtime;
 using Android.Views;
+using Android.Webkit;
 using Android.Widget;
 using Gen7EggRNG.EggRM;
 using Newtonsoft.Json;
@@ -20,6 +21,12 @@ namespace Gen7EggRNG
         public int tsv;
         public double postedTime;
         public string url;
+        public string author;
+        public string postcontent;
+
+        public int HoursSincePosted() {
+            return (int)((DateTime.UtcNow - CalcUtil.UnixTimeStampToDateTime(postedTime)).TotalHours);
+        }
     }
 
     [Activity(Label = "@string/activity_misc",
@@ -206,9 +213,7 @@ namespace Gen7EggRNG
                 var sveTSVs = FetchTSVsFromSVE();
 
                 tsvSVEData = sveTSVs;
-                var strs = tsvSVEData.ConvertAll<string>(tsv => tsv.tsv + " " + (int)((DateTime.UtcNow - UnixTimeStampToDateTime(tsv.postedTime)).TotalHours) + " hours ago ");
-
-                sveList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, strs);
+                RemakeSVEList();
             };
 
             sveAddButton.Click += delegate {
@@ -218,6 +223,52 @@ namespace Gen7EggRNG
                     Toast.MakeText(this, "Added new TSVs from SVE.", ToastLength.Short).Show();
                     //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.misc_tsvadded), tsv.ToString().PadLeft(4, '0')), ToastLength.Short).Show();
                 }
+            };
+
+            sveList.ItemClick += (sender, args) =>
+            {
+                PopupMenu menu = new PopupMenu(this, args.Parent, Android.Views.GravityFlags.Center);
+
+                menu.Menu.Add(Menu.None, 1, 1, "Open URL");
+                menu.Menu.Add(Menu.None, 2, 2, "More Details");
+                menu.Menu.Add(Menu.None, 3, 3, "Exclude TSV");
+
+                menu.MenuItemClick += (s1, arg1) =>
+                {
+                    TSVThread tt = tsvSVEData[args.Position];
+
+                    if (arg1.Item.ItemId == 1)
+                    {
+                        var uri = Android.Net.Uri.Parse(tt.url);
+                        var intent = new Intent(Intent.ActionView, uri);
+                        StartActivity(intent);
+                    }
+                    else if (arg1.Item.ItemId == 2)
+                    {
+                        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+                        adb.SetTitle("TSV: " + tt.tsv.ToString("0000") + " - by " + tt.author);
+                        adb.SetMessage(tt.HoursSincePosted() + " hours ago\n" + tt.postcontent);
+
+                        adb.SetPositiveButton("Done",
+                            (s2, args2) =>
+                            {
+
+                            }
+                        );
+
+                        adb.Create().Show();
+                    }
+                    else if (arg1.Item.ItemId == 3)
+                    {
+                        tsvSVEData.RemoveAt(args.Position);
+                        RemakeSVEList();
+                        /*if (sveList.Count > 0)
+                        {
+                            sveList.SetSelection(Math.Min(args.Position, sveList.Count - 1));
+                        }*/
+                    }
+                };
+                menu.Show();
             };
 
             LoadTSVs();
@@ -323,9 +374,17 @@ namespace Gen7EggRNG
                     var childData = postGroup[i].SelectSingleNode("data");
                     if (childData != null)
                     {
+                        // Check if "TSV (Gen 7)" post
+                        var flairNode = childData.SelectSingleNode("link_flair_text");
+                        if (flairNode.InnerText != "TSV (Gen 7)") continue;
+
                         var titleNode = childData.SelectSingleNode("title");
                         var timeNode = childData.SelectSingleNode("created_utc");
                         var urlNode = childData.SelectSingleNode("url");
+
+                        var authorNode = childData.SelectSingleNode("author");
+                        //var authorFlairNode = childData.SelectSingleNode("author_flair_text");
+                        var selfTextNode = childData.SelectSingleNode("selftext");
 
                         if (!IsStringTSV(titleNode.InnerText))
                         {
@@ -336,6 +395,8 @@ namespace Gen7EggRNG
                         newTSV.tsv = int.Parse(titleNode.InnerText);
                         newTSV.postedTime = double.Parse(timeNode.InnerText);
                         newTSV.url = urlNode.InnerText;
+                        newTSV.author = authorNode.InnerText;
+                        newTSV.postcontent = selfTextNode.InnerText;
 
                         list.Add(newTSV);
                     }
@@ -363,11 +424,10 @@ namespace Gen7EggRNG
             return false;
         }
 
-        private DateTime UnixTimeStampToDateTime(double unixTimeStamp)
-        {
-            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
-            return dtDateTime;
+        private void RemakeSVEList() {
+            var strs = tsvSVEData.ConvertAll<string>(tsv => tsv.tsv.ToString("0000") + ": " + tsv.HoursSincePosted() + " hours ago - by " + tsv.author);
+
+            sveList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, strs);
         }
     }
 }

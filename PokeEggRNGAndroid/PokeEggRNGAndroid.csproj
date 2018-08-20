@@ -66,12 +66,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockHandActivity.cs" />
+    <Compile Include="EggRM\CalcUtil.cs" />
     <Compile Include="EggRM\DetailedFrameS.cs" />
     <Compile Include="EggRM\FileHelper.cs" />
     <Compile Include="EggRM\G7SFrame.cs" />
     <Compile Include="EggRM\GameVersionConversion.cs" />
     <Compile Include="EggRM\PokeResultAdapter.cs" />
+    <Compile Include="EggRM\PokeStatsUtil.cs" />
     <Compile Include="EggRM\StationaryData.cs" />
+    <Compile Include="EnterNumberDialog.cs" />
     <Compile Include="Pk3DSRNGTool\Core\StationaryRNG.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\ModelStatus.cs" />
     <Compile Include="Pk3DSRNGTool\Gen7\PKM7.cs" />

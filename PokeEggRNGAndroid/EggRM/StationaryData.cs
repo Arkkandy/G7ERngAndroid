@@ -233,7 +233,7 @@ namespace Gen7EggRNG.EggRM
             data.defaultNPC = pkm.NPC;
 
             data.delayType = pkm.DelayType;
-            data.fixed3IVs = pkm.IV3;
+            data.fixed3IVs = pkm.IV3 || pkm.Totem || pkm.UltraWormhole;
             //data.noBlink = pkm7.NoBlink;
             data.raining = pkm.Raining;
             data.shinyLocked = pkm.ShinyLocked;
@@ -254,6 +254,7 @@ namespace Gen7EggRNG.EggRM
                 //data.synchronizeNature
 
             }//data.synchronizer
+            if ( pkm.IsPelago ) { data.syncable = false; }
 
             return data;
         }

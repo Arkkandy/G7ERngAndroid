@@ -161,7 +161,7 @@ namespace Gen7EggRNG.EggRM
                 }
 
                 // Synchronize
-                if (currentFrame.pokemon.Synchronize)
+                if (searchData.stationary.syncable && currentFrame.pokemon.Synchronize)
                 {
                     holder.natureView.SetTextColor(ColorValues.PerfectIVColor);
                     //holder.natureView.SetTypeface(holder.natureView.Typeface, Android.Graphics.TypefaceStyle.Bold);

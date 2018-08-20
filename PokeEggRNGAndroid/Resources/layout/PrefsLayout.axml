@@ -182,13 +182,11 @@
                 p1:layout_height="match_parent"
                 p1:id="@+id/prefsProfdata"
                 p1:layout_weight="1" />
-            <LinearLayout
-                p1:orientation="horizontal"
-                p1:minWidth="25px"
-                p1:minHeight="25px"
+            <CheckBox
+                p1:text="Use Target Frame only around target"
                 p1:layout_width="0dp"
                 p1:layout_height="match_parent"
-                p1:id="@+id/linearLayout10"
+                p1:id="@+id/prefsTarget"
                 p1:layout_weight="1"
                 p1:layout_marginLeft="10dp" />
             <LinearLayout

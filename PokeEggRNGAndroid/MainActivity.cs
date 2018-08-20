@@ -28,6 +28,13 @@ namespace Gen7EggRNG
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class MainActivity : Activity
     {        
+        private enum MainActivityResultType
+        {
+            ResultProfileReturn = 1,
+            ResultStationaryReturn = 2
+        }
+
+
         private FullSearchData uiSearchData = new FullSearchData();
         private FullSearchData currentSearchData = null;
         private List<FullSearchData> previousSearchData = new List<FullSearchData>();
@@ -161,7 +168,7 @@ namespace Gen7EggRNG
             uiSearchData.searchParameters.mainRNG.npcs = 0;
             uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.MinMax;
             uiSearchData.searchParameters.mainRNG.minFrame = uiSearchData.profile.seedFrame;
-            uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.MaximumFramesPerSearch;
+            uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.DefaultMaxFrames;
             uiSearchData.searchParameters.mainRNG.startFrame = 0;
 
             VerifySearchConstraints(uiSearchData.searchParameters.type);
@@ -204,7 +211,7 @@ namespace Gen7EggRNG
                     //StartActivity(typeof(StationaryEditActivity));
                     Intent filterIntent = new Intent(this, typeof(StationaryEditActivity));
                     filterIntent.PutExtra("GameVersion", (int)uiSearchData.profile.gameVersion);
-                    StartActivity(filterIntent);
+                    StartActivityForResult(filterIntent, (int)MainActivityResultType.ResultStationaryReturn);
                 }
                 else {
                     StartActivity(typeof(ParentEditActivity));
@@ -215,7 +222,17 @@ namespace Gen7EggRNG
                 Intent filterIntent = new Intent(this, typeof(FilterEditActivity));
                 filterIntent.PutExtra("SearchType", (int)uiSearchData.searchParameters.type);
                 filterIntent.PutExtra("NumNPCs", uiSearchData.searchParameters.mainRNG.npcs);
-                StartActivity(filterIntent);
+                filterIntent.PutExtra("StatMode", IsUsingStats());
+                if (IsUsingStats()) {
+                    if (uiSearchData.searchParameters.type == SearchType.Stationary)
+                    {
+                        filterIntent.PutExtra("Level", uiSearchData.stationary.level);
+                        filterIntent.PutExtra("BaseStats", uiSearchData.stationary.baseStats);
+                    }
+                    // Future Proof -> SearchType.Event
+                    // Future Proof -> SearchType.Wild
+                }
+                StartActivityForResult(filterIntent, (int)MainActivityResultType.ResultStationaryReturn );
                 //StartActivity(typeof(FilterEditActivity));
             };
             filterButton.LongClick += delegate {
@@ -251,7 +268,13 @@ namespace Gen7EggRNG
                                 pokeFrames = null;
                             }
                             // => Filter frames
-                            pokeFrames = backupPokeFrames.FindAll(x => uiSearchData.filter.VerifyStationary(x.pokemon));
+                            if (uiSearchData.searchParameters.eggRNG.checkOtherTSV)
+                            {
+                                pokeFrames = backupPokeFrames.FindAll(x => uiSearchData.filter.VerifyStationaryStats(x.pokemon));
+                            }
+                            else {
+                                pokeFrames = backupPokeFrames.FindAll(x => uiSearchData.filter.VerifyStationary(x.pokemon));
+                            }
                             resTab.Adapter = null;
                             if (pokeFrames.Count > 0)
                             {
@@ -283,7 +306,7 @@ namespace Gen7EggRNG
             };
 
             profileButton.Click += delegate {
-                StartActivityForResult(typeof(ProfileEditActivity),1);
+                StartActivityForResult(typeof(ProfileEditActivity), (int)MainActivityResultType.ResultProfileReturn);
             };
 
             miscButton.Click += delegate {
@@ -356,7 +379,7 @@ namespace Gen7EggRNG
             };
         }
 
-
+        private bool updateStationary = false;
         protected override void OnResume()
         {
             base.OnResume();
@@ -365,16 +388,30 @@ namespace Gen7EggRNG
                 uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame(uiSearchData.profile.seedFrame);
                 updateFrame = false;
             }
+            if (updateStationary) {
+                uiSearchData.searchParameters.mainRNG.delay = uiSearchData.stationary.defaultDelay;
+                uiSearchData.searchParameters.mainRNG.npcs = uiSearchData.stationary.defaultNPC;
+                uiSearchData.searchParameters.mainRNG.Raining = uiSearchData.stationary.raining;
+                updateStationary = false;
+            }
         }
 
         protected override void OnActivityResult(int requestCode, [GeneratedEnum] Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
 
-            if (resultCode == Result.Ok && requestCode == 1) {
-                if (data.HasExtra("SeedFrame")) {
+            if (resultCode == Result.Ok && requestCode == (int)MainActivityResultType.ResultProfileReturn)
+            {
+                if (data.HasExtra("SeedFrame"))
+                {
                     //uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame(data.GetIntExtra("SeedFrame", 0));
                     updateFrame = true;
+                }
+            }
+            else if (resultCode == Result.Ok && requestCode == (int)MainActivityResultType.ResultStationaryReturn) {
+                if (data.GetBooleanExtra("UpdateDelay", false))
+                {
+                    updateStationary = true;
                 }
             }
         }
@@ -401,6 +438,7 @@ namespace Gen7EggRNG
 
         private void PerformSearch() {
             CleanupLastSearch();
+            IsSearchActive = true;
 
             // History of search data
             if (currentSearchData != null) {
@@ -419,8 +457,8 @@ namespace Gen7EggRNG
 
             DisableUI();
 
-            searchProgress.Progress = 0;
-            searchProgress.Max = 100;
+            //searchProgress.Progress = 0;
+            //searchProgress.Max = 100;
 
             searchThread = new System.Threading.Thread(() =>
             {
@@ -444,6 +482,7 @@ namespace Gen7EggRNG
                     RNGPool.Clear();
 
                     EnableUI();
+                    IsSearchActive = false;
                 });
             });
             searchThread.Start();
@@ -453,6 +492,7 @@ namespace Gen7EggRNG
         {
             if ( previousSearchData.Count == 0 ) { return; }
             CleanupLastSearch();
+            IsSearchActive = true;
 
             // History of search data
             /*if (currentSearchData != null) {
@@ -467,20 +507,38 @@ namespace Gen7EggRNG
                 previousButton.Enabled = false;
             }
 
-            SelectCurrentSearch();
+            DisableUI();
 
-            // IF Search succeeded then show results
-            if (eggFrames.Count > 0 || pokeFrames.Count > 0)
+            //searchProgress.Progress = 0;
+            //searchProgress.Max = 100;
+
+            searchThread = new System.Threading.Thread(() =>
             {
-                AddEntryToResults(resTab);
-            }
-            // Otherwise show warning for no results
-            else
-            {
-                string warningString = Resources.GetString(Resource.String.search_noframes);
-                Toast.MakeText(this, warningString, ToastLength.Short).Show();
-            }
-            RNGPool.Clear();
+                DateTime startTime = DateTime.Now;
+                SelectCurrentSearch();
+                double secs = (DateTime.Now - startTime).TotalSeconds;
+
+                RunOnUiThread(delegate
+                {
+                    Toast.MakeText(this, "Search completed in " + secs + "s.", ToastLength.Long).Show();
+
+                    // IF Search succeeded then show results
+                    if (eggFrames.Count > 0 || pokeFrames.Count > 0)
+                    {
+                        AddEntryToResults(resTab);
+                    }
+                    // Otherwise show warning for no results
+                    else
+                    {
+                        string warningString = Resources.GetString(Resource.String.search_noframes);
+                        Toast.MakeText(this, warningString, ToastLength.Short).Show();
+                    }
+                    RNGPool.Clear();
+                    EnableUI();
+                    IsSearchActive = false;
+                });
+            });
+            searchThread.Start();
         }
 
         void CleanupLastSearch() {
@@ -550,7 +608,7 @@ namespace Gen7EggRNG
         {
             if (currentSearchData.searchParameters.type == SearchType.Stationary)
             {
-                PokeResultAdapter adapter = new PokeResultAdapter(this, Android.Resource.Layout.SimpleListItem1, pokeFrames.ToArray(), currentSearchData, currentSearchData.searchParameters.eggRNG.checkOtherTSV);
+                PokeResultAdapter adapter = new PokeResultAdapter(this, Android.Resource.Layout.SimpleListItem1, pokeFrames.ToArray(), currentSearchData, uiSearchData.searchParameters.eggRNG.checkOtherTSV);
 
                 resGuide.RemoveAllViews();
                 adapter.InflateListGuideline(resGuide);
@@ -883,6 +941,8 @@ namespace Gen7EggRNG
             for (int i = 0; i <= max; i++, RNGPool.AddNext(rng))
                 ResultsList.Add(RNGPool.GenerateEgg7() as ResultE7);
             
+            // All of the hardwork happens in the following line, thus it would be really messy to use the progress bar
+            // Luckily, given the 50.000 frame limit for egg searches, the shortest path shouldn't take long anyway
             var FrameIndexList = Gen7EggPath.Calc(ResultsList.ConvertAll(egg => egg.FramesUsed).ToArray());
             max = FrameIndexList.Count;
 
@@ -1348,10 +1408,14 @@ namespace Gen7EggRNG
 
             SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
 
+            int tgFrame = (currentSearchData.preferences.targetOnlyAround ?
+                    (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.AroundTarget ? currentSearchData.searchParameters.targetFrame : startF) :
+                    currentSearchData.searchParameters.targetFrame);
+
             int[] targetFrameTime = FuncUtil.CalcFrame(seed: currentSearchData.profile.initialSeed,
                 //min: (int)(AroundTarget.Checked && TargetFrame.Value - 100 < Frame_min.Value ? TargetFrame.Value - 100 : Frame_min.Value),
                 min: startF,
-                max: currentSearchData.searchParameters.targetFrame,
+                max: tgFrame,
                 ModelNumber: currentSearchData.searchParameters.mainRNG.Modelnum,
                 raining: currentSearchData.searchParameters.mainRNG.Raining,
                 fidget: false); //#TODO: Add figet check
@@ -1417,7 +1481,11 @@ namespace Gen7EggRNG
                             if (currentSearchData.filter.safeFOnly && blinkflag >= 2)
                                 continue;
                         }
-                        if (currentSearchData.searchParameters.useFilter && !currentSearchData.filter.VerifyStationary(result))
+                        //if (result.Stats == null)
+                        //{
+                            result.Stats = Pokemon.getStats(result.IVs, result.Nature, result.Level, currentSearchData.stationary.baseStats);
+                        //}
+                        if (currentSearchData.searchParameters.useFilter && (currentSearchData.searchParameters.eggRNG.checkOtherTSV ? !currentSearchData.filter.VerifyStationaryStats(result) : !currentSearchData.filter.VerifyStationary(result)))
                         {
                             continue;
                         }
@@ -1450,6 +1518,7 @@ namespace Gen7EggRNG
                             RNGPool.CopyStatus(stmp);
                             var result = RNGPool.Generate7();
                             byte blinkflag = FuncUtil.blinkflaglist[i - min];
+                            result.Stats = Pokemon.getStats(result.IVs, result.Nature, result.Level, currentSearchData.stationary.baseStats);
                             pokeFrames.Add(new G7SFrame(result as Result7, frame: i,
                                 shiftStandard: currentSearchData.searchParameters.mainRNG.ShiftStandard,
                                 time: frametime * 2, blink: blinkflag));
@@ -1505,6 +1574,7 @@ namespace Gen7EggRNG
                     else if (Nframe > -1)
                     {
                         result.RandNum = rand;
+                        result.Stats = Pokemon.getStats(result.IVs, result.Nature, result.Level, currentSearchData.stationary.baseStats);
                         pokeFrames.Add(new G7SFrame(result, frame: Nframe,
                             shiftStandard: currentSearchData.searchParameters.mainRNG.ShiftStandard,
                             time: frametime, blink: 4));
@@ -1513,7 +1583,13 @@ namespace Gen7EggRNG
                 while (EC != EClast);
 
                 // Apply filter to frames
-                pokeFrames = pokeFrames.FindAll(x => currentSearchData.filter.VerifyStationary( x.pokemon ));
+                if (currentSearchData.searchParameters.useFilter)
+                {
+                    if (currentSearchData.searchParameters.eggRNG.checkOtherTSV)
+                        pokeFrames = pokeFrames.FindAll(x => currentSearchData.filter.VerifyStationaryStats(x.pokemon));
+                    else
+                        pokeFrames = pokeFrames.FindAll(x => currentSearchData.filter.VerifyStationary(x.pokemon));
+                }
             }
 
             RNGResult.IsPokemon = true;
@@ -1530,8 +1606,8 @@ namespace Gen7EggRNG
 
 
             SFMT sfmt = new SFMT(currentSearchData.profile.initialSeed);
-            int start_frame = (int)currentSearchData.searchParameters.mainRNG.minFrame;
-            int targetframe = (int)currentSearchData.searchParameters.targetFrame;
+            int start_frame = currentSearchData.searchParameters.mainRNG.minFrame;
+            int targetframe = currentSearchData.searchParameters.targetFrame;
             FuncUtil.getblinkflaglist(start_frame, start_frame, sfmt, currentSearchData.searchParameters.mainRNG.Modelnum);
 
             // Advance
@@ -1542,10 +1618,14 @@ namespace Gen7EggRNG
             status.IsBoy = true;//Boy.Checked;
             status.raining = false;//Raining.Checked;
 
+            int tgFrame = (currentSearchData.preferences.targetOnlyAround ?
+                (currentSearchData.searchParameters.mainRNG.mainRange == MainSearchRange.AroundTarget ? targetframe : start_frame) :
+                currentSearchData.searchParameters.targetFrame);
+
             currentSearchData.searchParameters.mainRNG.ShiftStandard =
                 FuncUtil.CalcFrame(seed: currentSearchData.profile.initialSeed,
-                    min: currentSearchData.searchParameters.mainRNG.minFrame,
-                    max: currentSearchData.searchParameters.targetFrame,
+                    min: start_frame,
+                    max: tgFrame,
                     ModelNumber: currentSearchData.searchParameters.mainRNG.Modelnum,
                     raining: currentSearchData.stationary.raining,
                     fidget: false//gen7fidgettimeline
@@ -1594,7 +1674,9 @@ namespace Gen7EggRNG
                 if (Currentframe <= targetframe && targetframe < frame)
                     currentSearchData.searchParameters.mainRNG.ShiftStandard = i * 2;
 
-                if (currentSearchData.searchParameters.useFilter && !currentSearchData.filter.VerifyStationary(result))
+                result.Stats = Pokemon.getStats(result.IVs, result.Nature, result.Level, currentSearchData.stationary.baseStats);
+
+                if (currentSearchData.searchParameters.useFilter && (currentSearchData.searchParameters.eggRNG.checkOtherTSV ? !currentSearchData.filter.VerifyStationaryStats(result) : !currentSearchData.filter.VerifyStationary(result)))
                 {
                     continue;
                 }
@@ -1732,17 +1814,29 @@ namespace Gen7EggRNG
                 stRNG.Synchro_Stat = 255;
                 //stRNG.S
             }
+
             stRNG.TSV = currentSearchData.profile.TSV;
-            stRNG.Level = (byte)currentSearchData.stationary.level;
             stRNG.ShinyCharm = currentSearchData.profile.shinyCharm;
-            stRNG.IsForcedShiny = false;
+            stRNG.AlwaysSync = currentSearchData.stationary.alwaysSync;
+            // Set template from pokemon
+            if (GameVersionConversion.IsUltra(currentSearchData.profile.gameVersion))
+            {
+                stRNG.UseTemplate(PKM7.Species_USUM[currentSearchData.stationary.mainIndex].List[currentSearchData.stationary.subIndex]);
+            }
+            else
+            {
+                stRNG.UseTemplate(PKM7.Species_SM[currentSearchData.stationary.mainIndex].List[currentSearchData.stationary.subIndex]);
+            }
+
+            // Overwrite with user data
+            stRNG.Level = (byte)currentSearchData.stationary.level;
+            stRNG.IsForcedShiny = currentSearchData.stationary.isForcedShiny;
             stRNG.IV3 = currentSearchData.stationary.fixed3IVs;
             int gender = GenderConversion.ConvertGenderIndexToByte(currentSearchData.stationary.genderType);
             stRNG.Gender = FuncUtil.getGenderRatio(gender);
             stRNG.RandomGender = FuncUtil.IsRandomGender(gender);
-            stRNG.AlwaysSync = currentSearchData.stationary.alwaysSync;
             stRNG.IsShinyLocked = currentSearchData.stationary.shinyLocked;
-            stRNG.IVs = new int[] { -1, -1, -1, -1, -1, -1 };
+            //stRNG.IVs = new int[] { -1, -1, -1, -1, -1, -1 };
             stRNG.Ability = (byte)(!currentSearchData.stationary.abilityLocked? 0 : currentSearchData.stationary.ability);
             stRNG.SetValue();
 
@@ -1809,7 +1903,7 @@ namespace Gen7EggRNG
 
             uiSearchData.profile = ProfileData.LoadCurrentProfileData(this);
 
-            uiSearchData.stationary = StationaryData.LoadStationaryData(this);
+            uiSearchData.stationary = StationaryLoadHelper.LoadStationaryData(this, uiSearchData.profile.gameVersion);//StationaryData.LoadStationaryData(this);
             /*if (currentSearchData.searchParameters.type == SearchType.Stationary) {
                 uiSearchData.searchParameters.mainRNG.considerDelay = true;
                 uiSearchData.searchParameters.mainRNG.delay = currentSearchData.stationary.defaultDelay;
@@ -2848,7 +2942,7 @@ namespace Gen7EggRNG
             {
                 uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.MinMax;
                 uiSearchData.searchParameters.mainRNG.minFrame = uiSearchData.profile.seedFrame;
-                uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.MaximumFramesPerSearch;
+                uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.DefaultMaxFrames;
                 uiSearchData.searchParameters.mainRNG.considerDelay = true;
                 uiSearchData.searchParameters.mainRNG.delay = uiSearchData.stationary.defaultDelay;
                 uiSearchData.searchParameters.mainRNG.npcs = uiSearchData.stationary.defaultNPC;
@@ -3289,6 +3383,18 @@ namespace Gen7EggRNG
         }
 
 
+        private bool IsUsingStats() {
+            if (uiSearchData.searchParameters.type == SearchType.Stationary && checkOtherTSV.Checked) {
+                return true;
+            }
+            /*if (uiSearchData.searchParameters.type == SearchType.Event && checkOtherTSV.Checked)
+            {
+                return true;
+            }*/
+            return false;
+        }
+
+
         private void DisableUI() {
             previousButton.Enabled = false;
             searchButton.Enabled = false;
@@ -3308,7 +3414,7 @@ namespace Gen7EggRNG
         }
 
         private void EnableUI() {
-            previousButton.Enabled = true;
+            previousButton.Enabled = previousSearchData.Count > 0;
             searchButton.Enabled = true;
             filterButton.Enabled = true;
             parentsButton.Enabled = true;

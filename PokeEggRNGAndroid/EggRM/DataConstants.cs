@@ -18,8 +18,10 @@ namespace Gen7EggRNG.EggRM
         public const int ResultLimitHigh = 5000;
         public const int ResultLimitVeryHigh = 10000;
 
+        public const int DefaultMaxFrames = 50000;
+
         public const int MaximumFramesSimpleSearch = 50000;
-        public const int MaximumFramesPerSearch = 500000;
+        public const int MaximumFramesPerSearch = 50000;
 
         public const int MaximumEggTargetFrame = 25000;
         public const int MaximumMainTargetFrame = 2000000;

@@ -5,9 +5,11 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using Gen7EggRNG.EggRM;
 
@@ -18,22 +20,30 @@ namespace Gen7EggRNG
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class FilterEditActivity : Activity
     {
-        public class StatCombo {
+        public class IvCombo {
             public SeekBar statMin;
             public SeekBar statMax;
             public TextView statView;
             public TextView statText;
         }
 
+        public class StatCombo {
+            public CheckBox check;
+            public EditText statValue;
+        }
 
+
+        IvCombo[] filterIVs;
         StatCombo[] filterStats;
+
+        //int[] minStats;
+        //int[] maxStats;
 
         int[] hpIndices;// = new int[16] { 5, 15, 14, 11, 0, 8, 1, 10, 6, 3, 13, 2, 12, 4, 7, 9 };
         int[] natureIndices;// = new int[25] { 3, 18, 5, 2, 20, 23, 6, 21, 0, 11, 8, 13, 9, 1, 16, 15, 14, 4, 17, 24, 19, 7, 22, 12, 10 };
 
         Widgets.SpinnerCheckboxContainer[] sccsHiddenPower = null;
         Widgets.SpinnerCheckboxContainer[] sccsNature = null;
-
 
 
         Button setIV031Button;
@@ -54,6 +64,33 @@ namespace Gen7EggRNG
         CheckBox blinkF;
 
         Button clearFilterButton;
+
+        ViewGroup ivStatGroup;
+        ViewGroup baseStatGroup;
+
+
+
+
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            if (ev.Action == MotionEventActions.Down)
+            {
+                View v = CurrentFocus;
+                if (v is EditText)
+                {
+                    Rect outRect = new Rect();
+                    v.GetGlobalVisibleRect(outRect);
+                    if (!outRect.Contains((int)ev.RawX, (int)ev.RawY))
+                    {
+                        v.ClearFocus();
+                        InputMethodManager imm = (InputMethodManager)GetSystemService(InputMethodService);
+                        imm.HideSoftInputFromWindow(v.WindowToken, 0);
+                    }
+                }
+            }
+            return base.DispatchTouchEvent(ev);
+        }
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -79,10 +116,27 @@ namespace Gen7EggRNG
                 Resource.Id.filterSpeMin, Resource.Id.filterSpeMax, Resource.Id.filterSpeView, Resource.Id.filterSpeText
             };
 
-            filterStats = new StatCombo[6];
+            /*int[] resourceStatIDs = {
+                Resource.Id.filterHPSMin, Resource.Id.filterHPSMax, Resource.Id.filterHPSView, Resource.Id.filterHPSText,
+                Resource.Id.filterAtkSMin, Resource.Id.filterAtkSMax, Resource.Id.filterAtkSView, Resource.Id.filterAtkSText,
+                Resource.Id.filterDefSMin, Resource.Id.filterDefSMax, Resource.Id.filterDefSView, Resource.Id.filterDefSText,
+                Resource.Id.filterSpASMin, Resource.Id.filterSpASMax, Resource.Id.filterSpASView, Resource.Id.filterSpASText,
+                Resource.Id.filterSpDSMin, Resource.Id.filterSpDSMax, Resource.Id.filterSpDSView, Resource.Id.filterSpDSText,
+                Resource.Id.filterSpeSMin, Resource.Id.filterSpeSMax, Resource.Id.filterSpeSView, Resource.Id.filterSpeSText
+            };*/
+            int[] resourceStatIDs = {
+                Resource.Id.filterCheckHP, Resource.Id.filterStatHPEdit,
+                Resource.Id.filterCheckAtk, Resource.Id.filterStatAtkEdit,
+                Resource.Id.filterCheckDef, Resource.Id.filterStatDefEdit,
+                Resource.Id.filterCheckSpA, Resource.Id.filterStatSpAEdit,
+                Resource.Id.filterCheckSpD, Resource.Id.filterStatSpDEdit,
+                Resource.Id.filterCheckSpe, Resource.Id.filterStatSpeEdit
+            };
 
+            filterIVs = new IvCombo[6];
+            // Setup IV widgets
             for (int i = 0; i < 6; ++i) {
-                filterStats[i] = new StatCombo();
+                filterIVs[i] = new IvCombo();
                 SeekBar statBarMin = (SeekBar)FindViewById(resourceIDs[i * 4 + 0]);
                 SeekBar statBarMax = (SeekBar)FindViewById(resourceIDs[i * 4 + 1]);
                 TextView statView = (TextView)FindViewById(resourceIDs[i * 4 + 2]);
@@ -116,11 +170,76 @@ namespace Gen7EggRNG
                     }
                 };
 
+                filterIVs[i].statMin = statBarMin;
+                filterIVs[i].statMax = statBarMax;
+                filterIVs[i].statView = statView;
+                filterIVs[i].statText = statText;
+            }
+
+            /*filterStats = new StatCombo[6];
+            // Stat widget setup
+            for (int i = 0; i < 6; ++i)
+            {
+                filterStats[i] = new StatCombo();
+                SeekBar statBarMin = (SeekBar)FindViewById(resourceStatIDs[i * 4 + 0]);
+                SeekBar statBarMax = (SeekBar)FindViewById(resourceStatIDs[i * 4 + 1]);
+                TextView statView = (TextView)FindViewById(resourceStatIDs[i * 4 + 2]);
+                TextView statText = (TextView)FindViewById(resourceStatIDs[i * 4 + 3]);
+
+                int index = i;
+
+                statBarMin.ProgressChanged += (sender, args) => {
+                    if (statBarMax.Progress < statBarMin.Progress)
+                    {
+                        statBarMax.Progress = statBarMin.Progress;
+                    }
+                    statView.Text = (statBarMin.Progress + minStats[index]) + " - " + (statBarMax.Progress + minStats[index]);
+                };
+                statBarMax.ProgressChanged += (sender, args) => {
+                    if (statBarMax.Progress < statBarMin.Progress)
+                    {
+                        statBarMin.Progress = statBarMax.Progress;
+                    }
+                    statView.Text = (statBarMin.Progress + minStats[index]) + " - " + (statBarMax.Progress + minStats[index]);
+                };
+
+                statText.Click += delegate {
+                    if (statBarMax.Progress > 0)
+                    {
+                        statBarMax.Progress = statBarMax.Progress - 1;
+                    }
+                };
+                statView.Click += delegate {
+                    if (statBarMin.Progress < statBarMin.Max)
+                    {
+                        statBarMin.Progress = statBarMin.Progress + 1;
+                    }
+                };
+
                 filterStats[i].statMin = statBarMin;
                 filterStats[i].statMax = statBarMax;
                 filterStats[i].statView = statView;
                 filterStats[i].statText = statText;
+            }*/
+
+            filterStats = new StatCombo[6];
+            for (int i = 0; i < 6; ++i)
+            {
+                filterStats[i] = new StatCombo();
+                CheckBox statCheck = (CheckBox)FindViewById(resourceStatIDs[i * 2 + 0]);
+                EditText statVal = (EditText)FindViewById(resourceStatIDs[i * 2 + 1]);
+
+                filterStats[i].check = statCheck;
+                filterStats[i].statValue = statVal;
+
+                statCheck.CheckedChange += (sender, args) => {
+                    statVal.Enabled = args.IsChecked;
+                };
             }
+
+
+            ivStatGroup = (ViewGroup)FindViewById(Resource.Id.filterIVsLayout);
+            baseStatGroup = (ViewGroup)FindViewById(Resource.Id.filterStatsLayout2);
 
             setIV031Button = (Button)FindViewById(Resource.Id.filterIVResetButton);
             setIV3031Button = (Button)FindViewById(Resource.Id.filterIV3031);
@@ -129,15 +248,15 @@ namespace Gen7EggRNG
 
             setIV031Button.Click += delegate {
                 for (int i = 0; i < 6; ++i) {
-                    filterStats[i].statMin.Progress = 0;
-                    filterStats[i].statMax.Progress = 31;
+                    filterIVs[i].statMin.Progress = 0;
+                    filterIVs[i].statMax.Progress = 31;
                 }
             };
             setIV3031Button.Click += delegate {
                 for (int i = 0; i < 6; ++i)
                 {
-                    filterStats[i].statMax.Progress = 31;
-                    filterStats[i].statMin.Progress = 30;
+                    filterIVs[i].statMax.Progress = 31;
+                    filterIVs[i].statMin.Progress = 30;
                 }
             };
             setIV0Button.Click += delegate {
@@ -152,7 +271,7 @@ namespace Gen7EggRNG
                 menu.MenuItemClick += (sender, args) =>
                 {
                     // Set only select IVs to 0
-                    filterStats[args.Item.ItemId - 1].statMin.Progress = filterStats[args.Item.ItemId - 1].statMax.Progress = 0;
+                    filterIVs[args.Item.ItemId - 1].statMin.Progress = filterIVs[args.Item.ItemId - 1].statMax.Progress = 0;
                 };
                 menu.Show();
             };
@@ -270,6 +389,25 @@ namespace Gen7EggRNG
                     safeF.Visibility = ViewStates.Gone;
                 }
             }
+            if (Intent.GetBooleanExtra("StatMode", false))
+            {
+                ivStatGroup.Visibility = ViewStates.Gone;
+                baseStatGroup.Visibility = ViewStates.Visible;
+
+                int[] baseStats = Intent.GetIntArrayExtra("BaseStats");
+                int level = Intent.GetIntExtra("Level",1);
+                /*minStats = PokeStatsUtil.GetMinStats(baseStats, level);
+                maxStats = PokeStatsUtil.GetMaxStats(baseStats, level);
+
+                for (int i = 0; i < 6; ++i) {
+                    filterStats[i].statMin.Max = maxStats[i] - minStats[i];
+                    filterStats[i].statMax.Max = maxStats[i] - minStats[i];
+                }*/
+            }
+            else {
+                ivStatGroup.Visibility = ViewStates.Visible;
+                baseStatGroup.Visibility = ViewStates.Gone;
+            }
 
 
             LoadFilterData();
@@ -282,21 +420,30 @@ namespace Gen7EggRNG
         }
 
         private void ApplyIVs(IVSet min, IVSet max) {
-            filterStats[0].statMin.Progress = min.hp; filterStats[0].statMax.Progress = max.hp;
-            filterStats[1].statMin.Progress = min.atk; filterStats[1].statMax.Progress = max.atk;
-            filterStats[2].statMin.Progress = min.def; filterStats[2].statMax.Progress = max.def;
-            filterStats[3].statMin.Progress = min.spa; filterStats[3].statMax.Progress = max.spa;
-            filterStats[4].statMin.Progress = min.spd; filterStats[4].statMax.Progress = max.spd;
-            filterStats[5].statMin.Progress = min.spe; filterStats[5].statMax.Progress = max.spe;
+            filterIVs[0].statMin.Progress = min.hp; filterIVs[0].statMax.Progress = max.hp;
+            filterIVs[1].statMin.Progress = min.atk; filterIVs[1].statMax.Progress = max.atk;
+            filterIVs[2].statMin.Progress = min.def; filterIVs[2].statMax.Progress = max.def;
+            filterIVs[3].statMin.Progress = min.spa; filterIVs[3].statMax.Progress = max.spa;
+            filterIVs[4].statMin.Progress = min.spd; filterIVs[4].statMax.Progress = max.spd;
+            filterIVs[5].statMin.Progress = min.spe; filterIVs[5].statMax.Progress = max.spe;
         }
 
         private void SaveFilterData() {
             EggRM.FilterData fdata = new EggRM.FilterData();
 
-            fdata.ivMin = new int[6] { filterStats[0].statMin.Progress, filterStats[1].statMin.Progress, filterStats[2].statMin.Progress,
-                filterStats[3].statMin.Progress, filterStats[4].statMin.Progress, filterStats[5].statMin.Progress, };
-            fdata.ivMax = new int[6] { filterStats[0].statMax.Progress, filterStats[1].statMax.Progress, filterStats[2].statMax.Progress,
-                filterStats[3].statMax.Progress, filterStats[4].statMax.Progress, filterStats[5].statMax.Progress, };
+            fdata.ivMin = new int[6] { filterIVs[0].statMin.Progress, filterIVs[1].statMin.Progress, filterIVs[2].statMin.Progress,
+                filterIVs[3].statMin.Progress, filterIVs[4].statMin.Progress, filterIVs[5].statMin.Progress, };
+            fdata.ivMax = new int[6] { filterIVs[0].statMax.Progress, filterIVs[1].statMax.Progress, filterIVs[2].statMax.Progress,
+                filterIVs[3].statMax.Progress, filterIVs[4].statMax.Progress, filterIVs[5].statMax.Progress, };
+
+            fdata.statChecks = new bool[6] { filterStats[0].check.Checked, filterStats[1].check.Checked, filterStats[2].check.Checked,
+                filterStats[3].check.Checked, filterStats[4].check.Checked, filterStats[5].check.Checked};
+            fdata.stats = new int[6];
+            for (int i = 0; i < 6; ++i) {
+                if ( !int.TryParse(filterStats[i].statValue.Text, out fdata.stats[i] ) ) {
+                    fdata.stats[i] = 0;
+                }
+            }
 
             fdata.ball = ballSpinner.SelectedItemPosition;
             fdata.gender = genderSpinner.SelectedItemPosition;
@@ -330,8 +477,10 @@ namespace Gen7EggRNG
             EggRM.FilterData fdata = EggRM.FilterData.LoadFilterData(this);
 
             for (int i = 0; i < 6; ++i) {
-                filterStats[i].statMin.Progress = fdata.ivMin[i];
-                filterStats[i].statMax.Progress = fdata.ivMax[i];
+                filterIVs[i].statMin.Progress = fdata.ivMin[i];
+                filterIVs[i].statMax.Progress = fdata.ivMax[i];
+                filterStats[i].check.Checked = fdata.statChecks[i];
+                filterStats[i].statValue.Text = fdata.stats[i].ToString();
             }
             
             ballSpinner.SetSelection(fdata.ball);
@@ -358,7 +507,7 @@ namespace Gen7EggRNG
         }
 
         private void SpawnTemplateDialog() {
-            FilterIVDialog dialog = new FilterIVDialog(this, filterStats);
+            FilterIVDialog dialog = new FilterIVDialog(this, filterIVs);
 
             dialog.InitializeDialog();
 

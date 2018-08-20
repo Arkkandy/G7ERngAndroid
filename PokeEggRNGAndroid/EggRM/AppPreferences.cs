@@ -23,6 +23,7 @@ namespace Gen7EggRNG.EggRM
         public bool allRandomGender;
         public bool allAbility;
         public bool showProfileData;
+        public bool targetOnlyAround;
 
         public AppPreferences() {
 
@@ -37,6 +38,7 @@ namespace Gen7EggRNG.EggRM
             allRandomGender = pref.allRandomGender;
             allAbility = pref.allAbility;
             showProfileData = pref.showProfileData;
+            targetOnlyAround = pref.targetOnlyAround;
         }
 
         public static AppPreferences LoadPreferencesData(Context context)
@@ -53,6 +55,7 @@ namespace Gen7EggRNG.EggRM
             ap.allRandomGender = prefs.GetBoolean("PrefsAllRandomGender", false);
             ap.allAbility = prefs.GetBoolean("PrefsAllAbility", false);
             ap.showProfileData = prefs.GetBoolean("PrefsShowProfile", true);
+            ap.targetOnlyAround = prefs.GetBoolean("PrefsTargetOnlyAround", false);
             return ap;
         }
 
@@ -69,6 +72,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutBoolean("PrefsAllRandomGender", data.allRandomGender);
             prefsEdit.PutBoolean("PrefsAllAbility", data.allAbility);
             prefsEdit.PutBoolean("PrefsShowProfile", data.showProfileData);
+            prefsEdit.PutBoolean("PrefsTargetOnlyAround", data.targetOnlyAround);
 
             prefsEdit.Commit();
         }

@@ -15,7 +15,7 @@ namespace Gen7EggRNG
 {
     public class FilterIVDialog : Dialog
     {
-        private FilterEditActivity.StatCombo[] filterStats;
+        private FilterEditActivity.IvCombo[] filterStats;
 
         private List<FilterIVTemplate> tplList;
 
@@ -27,7 +27,7 @@ namespace Gen7EggRNG
 
         private bool modified = false;
 
-        public FilterIVDialog(Context context, FilterEditActivity.StatCombo[] filterData ) : base(context)
+        public FilterIVDialog(Context context, FilterEditActivity.IvCombo[] filterData ) : base(context)
         {
             this.filterStats = filterData;
         }

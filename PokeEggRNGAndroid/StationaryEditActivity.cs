@@ -208,6 +208,9 @@ namespace Gen7EggRNG
             LoadStationaryData();
 
             //subPokeSpinner.SetSelection(0);
+
+            // #DEBUG = Always update stationary data on return!
+            PrepareReturnIntent();
         }
 
         protected override void OnPause()
@@ -388,6 +391,13 @@ namespace Gen7EggRNG
             StationaryData data = StationaryLoadHelper.LoadDataFromTemplate(pkm7);
 
             WriteDataToInterface(data);
+        }
+
+        private void PrepareReturnIntent()
+        {
+            Intent returnIntent = new Intent();
+            returnIntent.PutExtra("UpdateDelay", true);
+            SetResult(Result.Ok, returnIntent);
         }
     }
 }

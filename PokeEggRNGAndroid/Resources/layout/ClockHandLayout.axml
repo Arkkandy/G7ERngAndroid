@@ -605,7 +605,7 @@
                                     android:layout_height="wrap_content"
                                     android:imeOptions="actionDone|flagNoFullscreen"
                                     android:minWidth="30dp"
-                                    android:maxLength="5" />
+                                    android:maxLength="7" />
                                 <TextView
                                     android:text="@string/clock_ui_framesto"
                                     android:id="@+id/textView1"
@@ -621,7 +621,7 @@
                                     android:layout_height="wrap_content"
                                     android:imeOptions="actionDone|flagNoFullscreen"
                                     android:minWidth="30dp"
-                                    android:maxLength="5" />
+                                    android:maxLength="7" />
                             </LinearLayout>
                         </LinearLayout>
                     </ScrollView>

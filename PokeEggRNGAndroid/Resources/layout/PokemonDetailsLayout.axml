@@ -296,7 +296,8 @@
                         android:text="Always Sync"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/sttAlwaysSync" />
+                        android:id="@+id/sttAlwaysSync"
+                        android:enabled="false" />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

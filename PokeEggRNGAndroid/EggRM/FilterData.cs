@@ -21,6 +21,9 @@ namespace Gen7EggRNG.EggRM
         public int[] ivMin;
         public int[] ivMax;
 
+        public bool[] statChecks;
+        public int[] stats;
+
         public int ball;
         public int gender;
         public int ability;
@@ -39,6 +42,9 @@ namespace Gen7EggRNG.EggRM
         public FilterData() {
             ivMin = new int[6] {  0,  0,  0,  0,  0,  0 };
             ivMax = new int[6] { 31, 31, 31, 31, 31, 31 };
+
+            statChecks = new bool[6] { false, false, false, false, false, false };
+            stats = new int[6] { 0, 0, 0, 0, 0, 0 };
 
             ball = gender = ability = 0;
 
@@ -66,6 +72,18 @@ namespace Gen7EggRNG.EggRM
             if (nPerfects > 0) {
                 if (res.IVs.Count(x => x == 31) < nPerfects) { return false; }
             }
+            return true;
+        }
+        private bool VerifyStats(RNGResult res)
+        {
+            for (int i = 0; i < 6; ++i)
+            {
+                if (statChecks[i] && (res.Stats[i] != stats[i])) { return false; }
+            }
+            /*if (nPerfects > 0)
+            {
+                if (res.IVs.Count(x => x == 31) < nPerfects) { return false; }
+            }*/
             return true;
         }
 
@@ -131,6 +149,12 @@ namespace Gen7EggRNG.EggRM
                    VerifyHiddenPower(stationary) && VerifyNature(stationary) &&
                    VerifyShininess(stationary);
         }
+        public bool VerifyStationaryStats(Result7 stationary) {
+            return VerifyStats(stationary) && VerifyGender(stationary) &&
+                   VerifyAbility(stationary) &&
+                   VerifyHiddenPower(stationary) && VerifyNature(stationary) &&
+                   VerifyShininess(stationary);
+        }
 
         /*private bool CheckRandomNumber(uint rn, int tsv, List<int> otherTSV)
         {
@@ -145,6 +169,9 @@ namespace Gen7EggRNG.EggRM
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(context);
             fd.ivMin = Array.ConvertAll(prefs.GetString("FilterMinIV", "0,0,0,0,0,0").Split(','), s => int.Parse(s));
             fd.ivMax = Array.ConvertAll(prefs.GetString("FilterMaxIV", "31,31,31,31,31,31").Split(','), s => int.Parse(s));
+
+            fd.statChecks = Array.ConvertAll(prefs.GetString("FilterStatCheck", "0,0,0,0,0,0").Split(','), s => int.Parse(s) == 1);
+            fd.stats = Array.ConvertAll(prefs.GetString("FilterStats", "0,0,0,0,0,0").Split(','), s => int.Parse(s) );
 
             fd.ball = prefs.GetInt("FilterBall", 0);
             fd.gender = prefs.GetInt("FilterGender", 0);
@@ -178,6 +205,9 @@ namespace Gen7EggRNG.EggRM
             {
                 prefsEdit.PutString("FilterMaxIV", string.Join(",", data.ivMax));
             }
+            prefsEdit.PutString("FilterStatCheck", string.Join(",", Array.ConvertAll(data.statChecks, b => b ? "1" : "0")));
+            prefsEdit.PutString("FilterStats", string.Join(",", data.stats));
+
 
             prefsEdit.PutInt("FilterBall", data.ball);
             prefsEdit.PutInt("FilterGender", data.gender);
