@@ -236,7 +236,7 @@
   <string name="clock_ui_startposition">Start Position</string>
   <string name="clock_ui_endposition">End Position</string>
   <string name="clock_ui_initialseed">Initial Seed</string>
-  <string name="clock_ui_qrseed">QR Seed</string>
+  <string name="clock_ui_qrseed">QR Frame</string>
   <string name="clock_ui_idseed">ID Seed</string>
   <string name="clock_ui_framesto">to</string>
 

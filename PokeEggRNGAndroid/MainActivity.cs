@@ -2942,7 +2942,7 @@ namespace Gen7EggRNG
             {
                 uiSearchData.searchParameters.mainRNG.mainRange = MainSearchRange.MinMax;
                 uiSearchData.searchParameters.mainRNG.minFrame = uiSearchData.profile.seedFrame;
-                uiSearchData.searchParameters.mainRNG.maxFrame = SearchConstants.DefaultMaxFrames;
+                uiSearchData.searchParameters.mainRNG.maxFrame = (SearchConstants.DefaultMaxFrames > uiSearchData.searchParameters.mainRNG.minFrame ? SearchConstants.DefaultMaxFrames : uiSearchData.searchParameters.mainRNG.minFrame + 50000);
                 uiSearchData.searchParameters.mainRNG.considerDelay = true;
                 uiSearchData.searchParameters.mainRNG.delay = uiSearchData.stationary.defaultDelay;
                 uiSearchData.searchParameters.mainRNG.npcs = uiSearchData.stationary.defaultNPC;

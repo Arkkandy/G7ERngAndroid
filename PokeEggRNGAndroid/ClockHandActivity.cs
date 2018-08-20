@@ -153,7 +153,7 @@ namespace Gen7EggRNG
             endPositionEdit = FindViewById<Spinner>(Resource.Id.endPhase);
 
             qrMinEdit = FindViewById<EditText>(Resource.Id.qrMinFrame);
-            qrMaxEdit = FindViewById<EditText>(Resource.Id.qrMinFrame);
+            qrMaxEdit = FindViewById<EditText>(Resource.Id.qrMaxFrame);
 
             int[] layoutRes = new int[] {
                 Resource.Id.clockData0, Resource.Id.clockData1, Resource.Id.clockData2,
@@ -288,6 +288,24 @@ namespace Gen7EggRNG
                             toastMessage.ShowMessage(Resources.GetString(Resource.String.clock_qr_fail), ToastLength.Short);
                             return;
                         }
+                        if (!int.TryParse(qrMinEdit.Text, out minFrame)) {
+                            Toast.MakeText(this, "Failed to parse min frame", ToastLength.Short).Show();
+                            minFrame = GameVersionConversion.GetGameStartingFrame(gameVersion, false);
+                        }
+                        if (!int.TryParse(qrMaxEdit.Text, out maxFrame))
+                        {
+                            Toast.MakeText(this, "Failed to parse max frame", ToastLength.Short).Show();
+                            maxFrame = 50000;
+                        }
+                        if (minFrame > maxFrame) {
+                            qrMinEdit.Text = maxFrame.ToString();
+                            qrMaxEdit.Text = minFrame.ToString();
+
+                            int tmp = maxFrame;
+                            maxFrame = minFrame;
+                            minFrame = tmp;
+                        }
+                        Toast.MakeText(this, "Min Frame: " + minFrame + "   Max Frame: " + maxFrame, ToastLength.Short).Show();
                         //isId = false;
                     }
 
@@ -380,6 +398,7 @@ namespace Gen7EggRNG
             BuildTitle( seed: currentSeed.ToString("X") );
 
             qrMinEdit.Text = GameVersionConversion.GetGameStartingFrame(gameVersion, false).ToString();
+            qrMaxEdit.Text = "50000";
 
             UpdateInputView();
         }
