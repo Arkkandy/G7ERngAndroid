@@ -22,6 +22,7 @@ namespace Gen7EggRNG
         public double postedTime;
         public string url;
         public string author;
+        public string authorflair;
         public string postcontent;
 
         public int HoursSincePosted() {
@@ -220,7 +221,7 @@ namespace Gen7EggRNG
                 if (tsvSVEData.Count > 0) {
                     AddTSVList(tsvSVEData.ConvertAll<int>(tsv => tsv.tsv));
                     UpdateListTSVs();
-                    Toast.MakeText(this, "Added new TSVs from SVE.", ToastLength.Short).Show();
+                    Toast.MakeText(this, Resources.GetString(Resource.String.misc_toast_addedsvetsv), ToastLength.Short).Show();
                     //Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.misc_tsvadded), tsv.ToString().PadLeft(4, '0')), ToastLength.Short).Show();
                 }
             };
@@ -229,9 +230,9 @@ namespace Gen7EggRNG
             {
                 PopupMenu menu = new PopupMenu(this, args.Parent, Android.Views.GravityFlags.Center);
 
-                menu.Menu.Add(Menu.None, 1, 1, "Open URL");
-                menu.Menu.Add(Menu.None, 2, 2, "More Details");
-                menu.Menu.Add(Menu.None, 3, 3, "Exclude TSV");
+                menu.Menu.Add(Menu.None, 1, 1, Resources.GetString(Resource.String.misc_popup_openurl));
+                menu.Menu.Add(Menu.None, 2, 2, Resources.GetString(Resource.String.misc_popup_moredetails));
+                menu.Menu.Add(Menu.None, 3, 3, Resources.GetString(Resource.String.misc_popup_excludetsv));
 
                 menu.MenuItemClick += (s1, arg1) =>
                 {
@@ -246,10 +247,12 @@ namespace Gen7EggRNG
                     else if (arg1.Item.ItemId == 2)
                     {
                         AlertDialog.Builder adb = new AlertDialog.Builder(this);
-                        adb.SetTitle("TSV: " + tt.tsv.ToString("0000") + " - by " + tt.author);
-                        adb.SetMessage(tt.HoursSincePosted() + " hours ago\n" + tt.postcontent);
+                        adb.SetTitle("TSV: " + tt.tsv.ToString("0000") + " - " + String.Format(Resources.GetString(Resource.String.misc_author), tt.author));
+                        adb.SetMessage(String.Format(Resources.GetString(Resource.String.misc_postlifetime), tt.HoursSincePosted()) + "\n" +
+                            tt.authorflair + "\n" +
+                            tt.postcontent );
 
-                        adb.SetPositiveButton("Done",
+                        adb.SetPositiveButton(Resources.GetString(Resource.String.done),
                             (s2, args2) =>
                             {
 
@@ -383,7 +386,7 @@ namespace Gen7EggRNG
                         var urlNode = childData.SelectSingleNode("url");
 
                         var authorNode = childData.SelectSingleNode("author");
-                        //var authorFlairNode = childData.SelectSingleNode("author_flair_text");
+                        var authorFlairNode = childData.SelectSingleNode("author_flair_text");
                         var selfTextNode = childData.SelectSingleNode("selftext");
 
                         if (!IsStringTSV(titleNode.InnerText))
@@ -396,6 +399,7 @@ namespace Gen7EggRNG
                         newTSV.postedTime = double.Parse(timeNode.InnerText);
                         newTSV.url = urlNode.InnerText;
                         newTSV.author = authorNode.InnerText;
+                        newTSV.authorflair = authorFlairNode.InnerText;
                         newTSV.postcontent = selfTextNode.InnerText;
 
                         list.Add(newTSV);
@@ -425,7 +429,9 @@ namespace Gen7EggRNG
         }
 
         private void RemakeSVEList() {
-            var strs = tsvSVEData.ConvertAll<string>(tsv => tsv.tsv.ToString("0000") + ": " + tsv.HoursSincePosted() + " hours ago - by " + tsv.author);
+            var strs = tsvSVEData.ConvertAll<string>(tsv => tsv.tsv.ToString("0000") + ": " +
+                String.Format(Resources.GetString(Resource.String.misc_postlifetime), tsv.HoursSincePosted()) + " - " +
+                String.Format(Resources.GetString(Resource.String.misc_author), tsv.author));
 
             sveList.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, strs);
         }

@@ -75,7 +75,7 @@
         android:layout_weight="2.5"
         android:gravity="center_horizontal">
         <Button
-            android:text="Get TSVs from r/SVExchange"
+            android:text="@string/misc_fetchtsvsfromsve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/miscGetSVE" />
@@ -103,7 +103,7 @@
                 android:id="@+id/linearLayout4"
                 android:gravity="center|bottom">
                 <Button
-                    android:text="ADD ALL"
+                    android:text="@string/misc_addalltsv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/miscAddSVE" />

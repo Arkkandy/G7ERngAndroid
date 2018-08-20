@@ -14,6 +14,7 @@
   <string name="activity_seedrecovery">Seed Recovery</string>
 
   <string name="activity_clockhands">Clock Hand Reader</string>
+  <string name="activity_stationary">Edit Stationary Data</string>
 
   <!--GAME VERSION-->
   <string name="game_sun">Sun</string>
@@ -25,6 +26,7 @@
   <string name="main_search_button">Search</string>
   <string name="main_filter_button">Filters</string>
   <string name="main_parents_button">Parents</string>
+  <string name="main_pokemon_button">Pokemon</string>
   <string name="main_profile_button">Profile</string>
   <string name="main_misc_button">Misc</string>
 
@@ -55,6 +57,7 @@
   <string name="search_targetframe">Target Frame</string>
   <string name="search_checkfilter">Filter</string>
   <string name="search_checktsvs">+TSVs</string>
+  <string name="search_bystats">Stats</string>
 
   <string name="search_profileinfo_currentseed">Current Seed:</string>
   <string name="search_profileinfo_initialseed">Initial Seed:</string>
@@ -92,6 +95,11 @@
   <string name="search_popup_timefinder">Time Finder</string>
   <string name="search_popup_adjustpretimer">Adjust Pre-Timer</string>
 
+  <string name="search_filter_addsubfilter">Add Sub Filter</string>
+  <string name="search_filter_removesubfilter">Remove Sub Filter</string>
+
+  <string name="search_elapsedtime">Search completed in {0}s.</string>
+
   <!--SHORTENED STAT NAMES, USED IN PARENT/FILTER STATS-->
   <string name="hp_stat">HP</string>
   <string name="attack_stat">Atk</string>
@@ -113,6 +121,10 @@
   <string name="filter_templates_deleteyes">Yes, delete</string>
   <string name="filter_templates_deleteno">Never mind</string>
   <string name="filter_templates_emptyname">Text field is empty!</string>
+  <string name="filter_stats">Filter Stats</string>
+  <string name="filter_statreset">Reset</string>
+  <string name="filter_safefonly">Safe F Only</string>
+  <string name="filter_blinkfonly">Blink F Only</string>
   
   <!--PARENT ACITIVITY DATA-->
   <string name="parents_ditto">Is Ditto?</string>
@@ -268,6 +280,18 @@
   <string name="misc_tsvalreadyinlist">TSV {0} is already in the list.</string>
   <string name="misc_tsvadded">TSV {0} added.</string>
   <string name="misc_emptysetname">Text field is empty!</string>
+
+  <string name="misc_fetchtsvsfromsve">Get TSVs from r/SVExchange</string>
+  <string name="misc_addalltsv">Add All</string>
+
+  <string name="misc_author">by {0}</string>
+  <string name="misc_postlifetime">{0} hours ago</string>
+  
+  <string name="misc_popup_openurl">Open URL</string>
+  <string name="misc_popup_moredetails">More Details</string>
+  <string name="misc_popup_excludetsv">Exclude TSV</string>
+
+  <string name="misc_toast_addedsvetsv">Added new TSVs from SVE.</string>
   
   <!--PREFERENCES ACITIVITY DATA-->
   <string name="setting_resultheight">Result Row Height</string>
@@ -288,8 +312,28 @@
   <string name="setting_shinycolors_gray">Gray</string>
   <string name="setting_showprofile">Show profile data</string>
   <string name="setting_helptitle">Help</string>
-  <string name="setting_helpmessage">Gen 7 Android RNG Tool V1.1b\n\nSearch Modes\n\n 1. Frame-By-Frame: Search all frames from the current seed up to a maximum number of results. Additional settings can be seen by holding the Search button.\n\n 2. Accept List: Sequence of eggs that you would obtain by only accepting eggs.\n\n 3. Accept Plus: Sequence of eggs that you would obtain by accepting X eggs and rejecting up to 4 eggs.\n\n 4. Shortest Path: See the shortest sequence of eggs you must accept/reject to get to the egg you want. To help you keep track of your progress, you can click rows to mark eggs as completed.\n\n 5. # Advances: See the number of accepts/rejects you would need to complete to get to each egg. This is effectively a preview of how many eggs you need to take in the Shortest Path.\n\n 6. Main Egg RNG: See the possible PIDs/PSVs you can get for a particular egg spread using Main RNG without Shiny Charm nor Masuda Method.\n\n Auto Search: Any time you click to \"Accept\" or \"Reject\" an egg, if the egg is not in the search, or the search could be improved, the application will automatically redo the search from the new seed.\n\n All Genders: Show all possible genders for random gender ratios.\n\n All Abilities: Show all possible abilities based on the inherited ability.\n\n Show Profile Data: Show the profile info bar at the top of the screen.\n\nThank you for using this tool!</string>
+  <string name="setting_helpmessage">Gen 7 Android RNG Tool V1.1b\n\nSearch Modes\n\n 1. Frame-By-Frame: Search all frames from the current seed up to a maximum number of results. Additional settings can be seen by holding the Search button.\n\n 2. Accept List: Sequence of eggs that you would obtain by only accepting eggs.\n\n 3. Accept Plus: Sequence of eggs that you would obtain by accepting X eggs and rejecting up to 4 eggs.\n\n 4. Shortest Path: See the shortest sequence of eggs you must accept/reject to get to the egg you want. To help you keep track of your progress, you can click rows to mark eggs as completed.\n\n 5. # Advances: See the number of accepts/rejects you would need to complete to get to each egg. This is effectively a preview of how many eggs you need to take in the Shortest Path.\n\n 6. Main Egg RNG: See the possible PIDs/PSVs you can get for a particular egg spread using Main RNG without Shiny Charm nor Masuda Method.\n\n 7. Stationary RNG: View possible spreads for any stationary Pokémon, such as Legendaries, Gifts and In-Game Trades.\n\n Auto Search: Any time you click to \"Accept\" or \"Reject\" an egg, if the egg is not in the search, or the search could be improved, the application will automatically redo the search from the new seed.\n\n All Genders: Show all possible genders for random gender ratios.\n\n All Abilities: Show all possible abilities based on the inherited ability.\n\n Show Profile Data: Show the profile info bar at the top of the screen.\n\n Use Target Frame only Near Target: Use the start frame as the target frame when not doing a Near Target search, this way the Shift/F will be the time value to enter.\n\nThank you for using this tool!</string>
 
+
+  <!--STATIONARY EDIT ACTIVITY-->
+  <string name="stationary_category">Category</string>
+  <string name="stationary_subcategory">Pokemon</string>
+  <string name="stationary_level">Level</string>
+  <string name="stationary_basestats">Base Stats</string>
+  <string name="stationary_syncable">Syncable</string>
+  <string name="stationary_synchronizer">Synchronizer</string>
+  <string name="stationary_always_sync">Always Sync</string>
+  <string name="stationary_fixed3ivs">Fixed 3IVs</string>
+  <string name="stationary_raining">Raining</string>
+  <string name="stationary_ability_locked">Ability Locked</string>
+  <string name="stationary_shiny_locked">Shiny Locked</string>
+  <string name="stationary_forced_shiny">Forced Shiny</string>
+  <string name="stationary_recommdelay">Recommended Delay</string>
+  <string name="stationary_recommnpcs">Recommended NPCs</string>
+  <string name="stationary_hiddenparams">Hidden Parameters</string>
+  <string name="stationary_delaytype">Delay Type</string>
+  <string name="stationary_noblink">No Blink</string>
+  
   <!--POKEMON TYPES-->
   <string name="pokemon_type_bug">Bug</string>
   <string name="pokemon_type_dark">Dark</string>

@@ -238,8 +238,8 @@ namespace Gen7EggRNG
             filterButton.LongClick += delegate {
                 // Spawn popup menu (Apply sub filter / Remove sub filter)
                 PopupMenu menu = new PopupMenu(this, filterButton, Android.Views.GravityFlags.Center);
-                menu.Menu.Add(Menu.None, 1, 1, "Apply sub filter");
-                menu.Menu.Add(Menu.None, 2, 2, "Remove sub filter");
+                menu.Menu.Add(Menu.None, 1, 1, Resources.GetString( Resource.String.search_filter_addsubfilter));
+                menu.Menu.Add(Menu.None, 2, 2, Resources.GetString(Resource.String.search_filter_removesubfilter));
 
                 menu.MenuItemClick += (s1, arg1) =>
                 {
@@ -468,7 +468,7 @@ namespace Gen7EggRNG
 
                 RunOnUiThread(delegate
                 {
-                    Toast.MakeText(this, "Search completed in " + secs + "s.", ToastLength.Long).Show();
+                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_elapsedtime), secs), ToastLength.Long).Show();
 
                     // IF Search succeeded
                     if (eggFrames.Count > 0 || pokeFrames.Count > 0)
@@ -520,7 +520,7 @@ namespace Gen7EggRNG
 
                 RunOnUiThread(delegate
                 {
-                    Toast.MakeText(this, "Search completed in " + secs + "s.", ToastLength.Long).Show();
+                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.search_elapsedtime), secs), ToastLength.Long).Show();
 
                     // IF Search succeeded then show results
                     if (eggFrames.Count > 0 || pokeFrames.Count > 0)
@@ -2766,7 +2766,7 @@ namespace Gen7EggRNG
 
                     // Show search type in UI - #TODO: Losing data from changing UI search!
                     uiSearchData.searchParameters.type = SearchType.Stationary;
-                    searchParamSpinner.SetSelection((int)SearchType.MainEggRNG);
+                    searchParamSpinner.SetSelection((int)SearchType.Stationary);
 
                     // Copy mainRNG search parameters from current search
                     // to make sure any changes made by the user in the UI do not
@@ -2952,8 +2952,8 @@ namespace Gen7EggRNG
                 uiSearchData.searchParameters.mainRNG.Raining = uiSearchData.stationary.raining;
 
                 //#TODO: String literals
-                parentsButton.Text = "Pokemon";
-                checkOtherTSV.Text = "Stats";
+                parentsButton.Text = Resources.GetString(Resource.String.main_pokemon_button);
+                checkOtherTSV.Text = Resources.GetString(Resource.String.search_bystats);
             }
             else
             {

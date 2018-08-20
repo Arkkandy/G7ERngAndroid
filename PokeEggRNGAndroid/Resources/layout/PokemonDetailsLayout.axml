@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:gravity="center">
             <TextView
-                android:text="Category"
+                android:text="@string/stationary_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView1" />
@@ -39,7 +39,7 @@
             android:layout_weight="1"
             android:gravity="center">
             <TextView
-                android:text="Pokemon"
+                android:text="@string/stationary_subcategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2" />
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
-                    android:text="Level"
+                    android:text="@string/stationary_level"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/textView10"
@@ -86,7 +86,7 @@
                     android:layout_marginRight="10dp"
                     android:imeOptions="actionDone|flagNoFullscreen" />
                 <TextView
-                    android:text="Base Stats"
+                    android:text="@string/stationary_basestats"
                     android:id="@+id/textView5"
                     android:gravity="center"
                     android:layout_width="wrap_content"
@@ -107,9 +107,10 @@
                         android:id="@+id/sttHP"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="HP"
+                        android:text="@string/hp_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -130,9 +131,10 @@
                         android:id="@+id/sttAtk"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="Atk"
+                        android:text="@string/attack_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -153,9 +155,10 @@
                         android:id="@+id/sttDef"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="Def"
+                        android:text="@string/defense_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -176,9 +179,10 @@
                         android:id="@+id/sttSpA"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="SpA"
+                        android:text="@string/specialattack_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -199,9 +203,10 @@
                         android:id="@+id/sttSpD"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="SpD"
+                        android:text="@string/specialdefense_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -222,9 +227,10 @@
                         android:id="@+id/sttSpe"
                         android:textSize="14sp"
                         android:text="100"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:imeOptions="actionDone|flagNoFullscreen"
+                        android:maxLength="3" />
                     <TextView
-                        android:text="Spe"
+                        android:text="@string/speed_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/textView7"
@@ -240,7 +246,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
-                    android:text="Gender Ratio"
+                    android:text="@string/parents_genderratio"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/textView3"
@@ -268,7 +274,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <CheckBox
-                        android:text="Syncable"
+                        android:text="@string/stationary_syncable"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttSyncable" />
@@ -283,7 +289,7 @@
                     android:layout_weight="3"
                     android:gravity="center">
                     <CheckBox
-                        android:text="Synchronizer"
+                        android:text="@string/stationary_synchronizer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttSync" />
@@ -293,7 +299,7 @@
                         android:id="@+id/sttSyncNature"
                         android:entries="@array/NatureIndexed" />
                     <CheckBox
-                        android:text="Always Sync"
+                        android:text="@string/stationary_always_sync"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttAlwaysSync"
@@ -317,7 +323,7 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <CheckBox
-                        android:text="Fixed 3IVs"
+                        android:text="@string/stationary_fixed3ivs"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttFixed3IV" />
@@ -332,7 +338,7 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <CheckBox
-                        android:text="Raining"
+                        android:text="@string/stationary_raining"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttRaining" />
@@ -347,7 +353,7 @@
                     android:layout_weight="1"
                     android:gravity="center">
                     <CheckBox
-                        android:text="Ability Locked"
+                        android:text="@string/stationary_ability_locked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/sttAbilityLocked" />
@@ -374,12 +380,12 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <CheckBox
-                        android:text="Shiny Locked"
+                        android:text="@string/stationary_shiny_locked"
                         android:id="@+id/sttShinyLock"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent" />
                     <CheckBox
-                        android:text="Forced Shiny"
+                        android:text="@string/stationary_forced_shiny"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttForceShiny"
@@ -403,7 +409,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                     <TextView
-                        android:text="Recommended Delay"
+                        android:text="@string/stationary_recommdelay"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/textView8"
@@ -428,7 +434,7 @@
                     android:id="@+id/linearLayout16"
                     android:layout_marginLeft="10dp">
                     <TextView
-                        android:text="Recommended NPCs"
+                        android:text="@string/stationary_recommnpcs"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/textView9"
@@ -453,7 +459,7 @@
                 android:id="@+id/linearLayout19"
                 android:gravity="center_horizontal">
                 <TextView
-                    android:text="Hidden Parameters"
+                    android:text="@string/stationary_hiddenparams"
                     android:id="@+id/textView12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -465,7 +471,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/linearLayout18">
                     <TextView
-                        android:text="Delay Type"
+                        android:text="@string/stationary_delaytype"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/textView11"
@@ -479,7 +485,7 @@
                         android:textSize="14sp"
                         android:imeOptions="actionDone|flagNoFullscreen" />
                     <CheckBox
-                        android:text="No Blink"
+                        android:text="@string/stationary_noblink"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:id="@+id/sttNoBlink"

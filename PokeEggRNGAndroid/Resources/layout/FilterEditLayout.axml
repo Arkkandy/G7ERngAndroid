@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:id="@+id/filterIVsLayout"
         android:layout_weight="5"
-        android:visibility="gone">
+        android:visibility="visible">
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
@@ -542,7 +542,7 @@
         android:layout_height="0dp"
         android:id="@+id/filterStatsLayout2"
         android:layout_weight="5"
-        android:visibility="visible">
+        android:visibility="gone">
         <LinearLayout
             android:orientation="vertical"
             android:minWidth="25px"
@@ -552,7 +552,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3">
             <TextView
-                android:text="Filter Stats"
+                android:text="@string/filter_stats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView13"
@@ -575,7 +575,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp">
                     <CheckBox
-                        android:text="HP"
+                        android:text="@string/hp_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckHP" />
@@ -599,7 +599,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp">
                     <CheckBox
-                        android:text="Atk"
+                        android:text="@string/attack_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckAtk" />
@@ -623,7 +623,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp">
                     <CheckBox
-                        android:text="Def"
+                        android:text="@string/defense_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckDef" />
@@ -647,7 +647,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp">
                     <CheckBox
-                        android:text="SpA"
+                        android:text="@string/specialattack_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckSpA" />
@@ -671,7 +671,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginRight="10dp">
                     <CheckBox
-                        android:text="SpD"
+                        android:text="@string/specialdefense_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckSpD" />
@@ -694,7 +694,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                     <CheckBox
-                        android:text="Spe"
+                        android:text="@string/speed_stat"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/filterCheckSpe" />
@@ -719,7 +719,7 @@
             android:id="@+id/linearLayout15"
             android:layout_weight="1">
             <Button
-                android:text="Reset"
+                android:text="@string/filter_statreset"
                 android:id="@+id/filterStatClear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -853,14 +853,14 @@
             android:id="@+id/filterShinyRemind"
             android:layout_marginLeft="20dp" />
         <CheckBox
-            android:text="Safe F Only"
+            android:text="@string/filter_safefonly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/filterSafeF"
             android:layout_marginLeft="20dp"
             android:visibility="gone" />
         <CheckBox
-            android:text="Blink F Only"
+            android:text="@string/filter_blinkfonly"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/filterBlinkF"

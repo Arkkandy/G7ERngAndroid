@@ -51,6 +51,8 @@ namespace Gen7EggRNG
         Button setIV0Button;
         Button setIVTemplateButton;
 
+        Button resetStatFilterButton;
+
         Spinner ballSpinner;
         Spinner genderSpinner;
         Spinner abilitySpinner;
@@ -246,6 +248,8 @@ namespace Gen7EggRNG
             setIV0Button = (Button)FindViewById(Resource.Id.filterIV0);
             setIVTemplateButton = (Button)FindViewById(Resource.Id.filterIVTemplate);
 
+            resetStatFilterButton = FindViewById<Button>(Resource.Id.filterStatClear);
+
             setIV031Button.Click += delegate {
                 for (int i = 0; i < 6; ++i) {
                     filterIVs[i].statMin.Progress = 0;
@@ -295,6 +299,14 @@ namespace Gen7EggRNG
                         ApplyIVs(filterTemplates[args.Item.ItemId-1].ivsmin, filterTemplates[args.Item.ItemId-1].ivsmax);
                     };
                     menu.Show();
+                }
+            };
+
+
+            resetStatFilterButton.Click += delegate {
+                for (int i = 0; i < 6; ++i) {
+                    filterStats[i].check.Checked = false;
+                    filterStats[i].statValue.Text = "0";
                 }
             };
 

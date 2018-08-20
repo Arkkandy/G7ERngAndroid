@@ -16,7 +16,7 @@ using Gen7EggRNG.EggRM;
 
 namespace Gen7EggRNG
 {
-    [Activity(Label = "Edit Stationary Data",
+    [Activity(Label = "@string/activity_stationary",
         ConfigurationChanges = Android.Content.PM.ConfigChanges.ScreenSize | Android.Content.PM.ConfigChanges.Orientation,
         ScreenOrientation = Android.Content.PM.ScreenOrientation.Landscape)]
     public class StationaryEditActivity : Activity
