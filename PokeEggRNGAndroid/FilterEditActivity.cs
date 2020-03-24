@@ -61,6 +61,7 @@ namespace Gen7EggRNG
 
         Spinner nPerfectSpinner;
         CheckBox shinyOnly;
+        CheckBox squareOnly;
         CheckBox shinyRemind;
         CheckBox safeF;
         CheckBox blinkF;
@@ -347,6 +348,20 @@ namespace Gen7EggRNG
             nPerfectSpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line, new string[] { PokeRNGApp.Strings.option_any, "1", "2", "3", "4", "5", "6" });
 
             shinyOnly = (CheckBox)FindViewById(Resource.Id.filterShinyOnly);
+            squareOnly = (CheckBox)FindViewById(Resource.Id.filterSquare);
+            shinyOnly.CheckedChange += (sender, args) => {
+                if (!args.IsChecked)
+                {
+                    squareOnly.Checked = false;
+                }
+            };
+            squareOnly.CheckedChange += (sender, args) => {
+                if (args.IsChecked)
+                {
+                    shinyOnly.Checked = true;
+                }
+            };
+
             shinyRemind = (CheckBox)FindViewById(Resource.Id.filterShinyRemind);
             safeF = (CheckBox)FindViewById(Resource.Id.filterSafeF);
             blinkF = (CheckBox)FindViewById(Resource.Id.filterBlinkF);
@@ -477,6 +492,7 @@ namespace Gen7EggRNG
             fdata.nPerfects = nPerfectSpinner.SelectedItemPosition;
             
             fdata.shinyOnly = shinyOnly.Checked;
+            fdata.squareShinyOnly = squareOnly.Checked;
             fdata.shinyRemind = shinyRemind.Checked;
             fdata.blinkFOnly = blinkF.Checked;
             fdata.safeFOnly = safeF.Checked;
@@ -513,6 +529,7 @@ namespace Gen7EggRNG
             nPerfectSpinner.SetSelection(fdata.nPerfects);
             
             shinyOnly.Checked = fdata.shinyOnly;
+            squareOnly.Checked = fdata.squareShinyOnly;
             shinyRemind.Checked = fdata.shinyRemind;
             blinkF.Checked = fdata.blinkFOnly;
             safeF.Checked = fdata.safeFOnly;

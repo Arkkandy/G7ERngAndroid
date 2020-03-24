@@ -386,6 +386,10 @@ namespace Gen7EggRNG
             LoadProfileData();
             if (updateFrame) {
                 uiSearchData.searchParameters.mainRNG.minFrame = GetBestStartingFrame(uiSearchData.profile.seedFrame);
+                if (uiSearchData.searchParameters.mainRNG.maxFrame <= uiSearchData.searchParameters.mainRNG.minFrame)
+                {
+                    uiSearchData.searchParameters.mainRNG.maxFrame = uiSearchData.searchParameters.mainRNG.minFrame + 50000;
+                }
                 updateFrame = false;
             }
             if (updateStationary) {
@@ -1929,7 +1933,7 @@ namespace Gen7EggRNG
                 profileTagDump.Text = uiSearchData.profile.profileTag + " (" + GameVersionConversion.GetGameVersionName(uiSearchData.profile.gameVersion) + ")";
                 currentSeedDump.Text = PokeRNGApp.Strings.profileinfoseed + " " + uiSearchData.profile.currentSeed.GetSeedToString();
                 iseedDump.Text = Resources.GetString(Resource.String.search_profileinfo_initialseed) + " " + uiSearchData.profile.initialSeed.ToString("X").PadLeft(8, '0');
-                userTSVDump.Text = "TSV=" + uiSearchData.profile.TSV.ToString("0000");
+                userTSVDump.Text = "TSV=" + uiSearchData.profile.TSV.ToString("0000") + " TRV=" + uiSearchData.profile.TRV.ToString("X");
                 shinyCharmDump.Visibility = (uiSearchData.profile.shinyCharm ? ViewStates.Visible : ViewStates.Invisible);
             }
             else {

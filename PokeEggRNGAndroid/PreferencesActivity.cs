@@ -23,6 +23,8 @@ namespace Gen7EggRNG
         LinearLayout shinyPreview;
         Spinner otherTsvSpinner;
         LinearLayout otherPreview;
+        Spinner squareShinySpinner;
+        LinearLayout squarePreview;
         CheckBox autoCheck;
         CheckBox genderCheck;
         CheckBox abilityCheck;
@@ -58,6 +60,13 @@ namespace Gen7EggRNG
                     Resources.GetString(Resource.String.setting_shinycolors_orange), Resources.GetString(Resource.String.setting_shinycolors_gray) });
             otherPreview = (LinearLayout)FindViewById(Resource.Id.prefsOtherPreview);
 
+            squareShinySpinner = (Spinner)FindViewById(Resource.Id.prefsSquareTSV);
+            squareShinySpinner.Adapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleDropDownItem1Line,
+                new string[] { Resources.GetString(Resource.String.setting_shinycolors_blue), Resources.GetString(Resource.String.setting_shinycolors_purple),
+                    Resources.GetString(Resource.String.setting_shinycolors_yellow), Resources.GetString(Resource.String.setting_shinycolors_green),
+                    Resources.GetString(Resource.String.setting_shinycolors_orange), Resources.GetString(Resource.String.setting_shinycolors_gray) });
+            squarePreview = (LinearLayout)FindViewById(Resource.Id.prefsSquarePreview);
+
             helpButton = (ImageButton)FindViewById(Resource.Id.prefsHelp);
 
             autoCheck = (CheckBox)FindViewById(Resource.Id.prefsAuto);
@@ -74,6 +83,10 @@ namespace Gen7EggRNG
             otherTsvSpinner.ItemSelected += (sender, args) =>
             {
                 otherPreview.SetBackgroundColor(EggRM.ColorValues.ShinyColor[args.Position]);
+            };
+            squareShinySpinner.ItemSelected += (sender, args) =>
+            {
+                squarePreview.SetBackgroundColor(EggRM.ColorValues.ShinyColor[args.Position]);
             };
 
 
@@ -105,6 +118,7 @@ namespace Gen7EggRNG
 
             shinyRowSpinner.SetSelection(prefs.shinyColor);
             otherTsvSpinner.SetSelection(prefs.otherTsvColor);
+            squareShinySpinner.SetSelection(prefs.squareShinyColor);
 
             autoCheck.Checked = prefs.autoSearch;
             genderCheck.Checked = prefs.allRandomGender;
@@ -120,6 +134,7 @@ namespace Gen7EggRNG
 
             prefs.shinyColor = shinyRowSpinner.SelectedItemPosition;
             prefs.otherTsvColor = otherTsvSpinner.SelectedItemPosition;
+            prefs.squareShinyColor = squareShinySpinner.SelectedItemPosition;
 
             prefs.autoSearch = autoCheck.Checked;
             prefs.allRandomGender = genderCheck.Checked;

@@ -37,6 +37,7 @@ namespace Gen7EggRNG
         CheckBox shinyCharmBox;
 
         EditText tsvField;
+        EditText trvField;
 
         EditText seed3;
         EditText seed2;
@@ -91,6 +92,7 @@ namespace Gen7EggRNG
             shinyCharmBox = (CheckBox)FindViewById(Resource.Id.hasShinyCharm);
 
             tsvField = (EditText)FindViewById(Resource.Id.tsvField);
+            trvField = (EditText)FindViewById(Resource.Id.trvField);
 
             seed3 = (EditText)FindViewById(Resource.Id.seed3);
             seed2 = (EditText)FindViewById(Resource.Id.seed2);
@@ -118,6 +120,7 @@ namespace Gen7EggRNG
 
             // Set Widget listeners/filters
             tsvField.AddTextChangedListener(new Gen7EggRNG.Util.TSVTextWatcher(tsvField));
+            trvField.SetFilters(new Android.Text.IInputFilter[] { new Gen7EggRNG.Util.HexadecimalInputFilter(), new Android.Text.InputFilterLengthFilter(1) });
 
             seed3.SetFilters(new Android.Text.IInputFilter[] { new Gen7EggRNG.Util.HexadecimalInputFilter(), new Android.Text.InputFilterLengthFilter(8) });
             seed2.SetFilters(new Android.Text.IInputFilter[] { new Gen7EggRNG.Util.HexadecimalInputFilter(), new Android.Text.InputFilterLengthFilter(8) });
@@ -176,6 +179,14 @@ namespace Gen7EggRNG
             };*/
 
             tsvField.FocusChange += (sender, args) =>
+            {
+                if (!args.HasFocus)
+                {
+                    SaveProfile();
+                }
+            };
+
+            trvField.FocusChange += (sender, args) =>
             {
                 if (!args.HasFocus)
                 {
@@ -396,6 +407,7 @@ namespace Gen7EggRNG
                     (sender, args) =>
                     {
                         seedFrameView.Text = "0";
+                        PrepareReturnIntent(0);
                     }
                     );
                 builder.SetNegativeButton("Set",
@@ -412,6 +424,7 @@ namespace Gen7EggRNG
                             x =>
                             {
                                 seedFrameView.Text = x.ToString();
+                                PrepareReturnIntent(x);
                             },
                             delegate
                             {
@@ -460,15 +473,17 @@ namespace Gen7EggRNG
             }
             else if (resultCode == Result.Ok && requestCode == 3)
             {
+                int newSFrame = 0;
+
                 int type = data.GetIntExtra("ClockType", -1);
                 if (type == 0) // Initial Seed
                 {
                     string seed = data.GetStringExtra("InitialSeed");
                     uint iseed = uint.Parse(seed, System.Globalization.NumberStyles.HexNumber);
-                    int frame = data.GetIntExtra("SeedFrame", 0);
+                    newSFrame = data.GetIntExtra("SeedFrame", 0);
 
                     SetInitialSeed(iseed);
-                    seedFrameView.Text = frame.ToString();
+                    seedFrameView.Text = newSFrame.ToString();
                     SaveProfile();
                     //String.Format(Resources.GetString(Resource.String.clock_results), preMinFrame, preMaxFrame);
                     Toast.MakeText(this, Resources.GetString(Resource.String.profile_clock_initial), ToastLength.Short).Show();
@@ -476,21 +491,21 @@ namespace Gen7EggRNG
                 }
                 else if (type == 1) // QR Frame
                 {
-                    int frame = data.GetIntExtra("QRExit", 0);
-                    seedFrameView.Text = frame.ToString();
+                    newSFrame = data.GetIntExtra("QRExit", 0);
+                    seedFrameView.Text = newSFrame.ToString();
                     SaveProfile();
-                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.profile_clock_qr), frame), ToastLength.Short).Show();
+                    Toast.MakeText(this, String.Format(Resources.GetString(Resource.String.profile_clock_qr), newSFrame), ToastLength.Short).Show();
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
                 else if (type == 2) { // ID Seed
                     string seed = data.GetStringExtra("InitialSeed");
                     uint iseed = uint.Parse(seed, System.Globalization.NumberStyles.HexNumber);
-                    int frame = data.GetIntExtra("SeedFrame", 0);
+                    newSFrame = data.GetIntExtra("SeedFrame", 0);
 
                     //#TODO: Correction
                     int correction = data.GetIntExtra("Correction", 0);
 
-                    seedFrameView.Text = frame.ToString();
+                    seedFrameView.Text = newSFrame.ToString();
                     SetInitialSeed(iseed);
 
                     SaveProfile();
@@ -498,8 +513,8 @@ namespace Gen7EggRNG
                     //Toast.MakeText(this, Resources.GetString(Resource.String.profile_seedrecovery_set), ToastLength.Short).Show();
                 }
 
-                if (data.HasExtra("SeedFrame")) {
-                    PrepareReturnIntent(data.GetIntExtra("SeedFrame", 0));
+                if (data.HasExtra("SeedFrame") || data.HasExtra("QRExit")) {
+                    PrepareReturnIntent(data.GetIntExtra("SeedFrame", newSFrame));
                 }
             }
         }
@@ -521,6 +536,7 @@ namespace Gen7EggRNG
             profileTag = pData.profileTag;
             shinyCharmBox.Checked = pData.shinyCharm;
             tsvField.Text = pData.TSV.ToString("0000");
+            trvField.Text = pData.TRV.ToString("X");
             SetCurrentSeed(pData.currentSeed);
             SetCheckpointSeed(pData.checkpointSeed);
             SetInitialSeed(pData.initialSeed);
@@ -537,6 +553,7 @@ namespace Gen7EggRNG
             profileTag = pData.profileTag;
             shinyCharmBox.Checked = pData.shinyCharm;
             tsvField.Text = pData.TSV.ToString("0000");
+            trvField.Text = pData.TRV.ToString("X");
             SetCurrentSeed(pData.currentSeed);
             SetCheckpointSeed(pData.checkpointSeed);
             SetInitialSeed(pData.initialSeed);
@@ -556,6 +573,7 @@ namespace Gen7EggRNG
                     initialSeed = uint.Parse(iSeed.Text, System.Globalization.NumberStyles.HexNumber),
                     shinyCharm = shinyCharmBox.Checked,
                     TSV = ushort.Parse(tsvField.Text),
+                    TRV = ushort.Parse(trvField.Text, System.Globalization.NumberStyles.HexNumber),
                     profileIndex = selectedProfileIndex,
                     profileTag = profileTag
                 };
@@ -654,6 +672,7 @@ namespace Gen7EggRNG
                 initialSeed = uint.Parse(iSeed.Text, System.Globalization.NumberStyles.HexNumber),
                 shinyCharm = shinyCharmBox.Checked,
                 TSV = ushort.Parse(tsvField.Text),
+                TRV = ushort.Parse(trvField.Text, System.Globalization.NumberStyles.HexNumber),
                 profileIndex = selectedProfileIndex,
                 profileTag = name
             };
@@ -691,6 +710,7 @@ namespace Gen7EggRNG
                 initialSeed = uint.Parse(iSeed.Text, System.Globalization.NumberStyles.HexNumber),
                 shinyCharm = shinyCharmBox.Checked,
                 TSV = ushort.Parse(tsvField.Text),
+                TRV = ushort.Parse(trvField.Text, System.Globalization.NumberStyles.HexNumber),
                 profileIndex = selectedProfileIndex,
                 profileTag = name
             };

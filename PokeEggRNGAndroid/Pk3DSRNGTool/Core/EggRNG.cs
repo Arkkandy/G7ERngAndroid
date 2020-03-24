@@ -25,6 +25,7 @@ namespace Pk3DSRNGTool.Core
     public abstract class EggRNG : IPKM, IGenerator
     {
         public ushort TSV { get; set; }
+        public byte TRV { get; set; }
         public int[] MaleIVs { get; set; }
         public int[] FemaleIVs { get; set; }
         public byte MaleItem { get; set; }

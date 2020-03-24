@@ -156,6 +156,7 @@
   <string name="profile_profile">Profile</string>
   <string name="profile_checkcharm">Shiny Charm?</string>
   <string name="profile_tsv">TSV</string>
+  <string name="profile_trv">TRV</string>
   <string name="profile_current">Current Seed</string>
   <string name="profile_checkpoint">Checkpoint Seed</string>
   <string name="profile_find">Find Egg Seed</string>
@@ -298,6 +299,7 @@
   <string name="setting_maxresult">Max Results</string>
   <string name="setting_shinycolor">Shiny Row Color</string>
   <string name="setting_othershinycolor">Other TSV Color</string>
+  <string name="setting_squareshinycolor">Square Shiny</string>
   <string name="setting_autosearch">Automatically redo search</string>
   <string name="setting_allgender">Show all genders</string>
   <string name="setting_allability">Show all abilities</string>

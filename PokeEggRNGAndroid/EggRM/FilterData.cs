@@ -33,6 +33,7 @@ namespace Gen7EggRNG.EggRM
 
         public bool shinyRemind;
         public bool shinyOnly;
+        public bool squareShinyOnly;
 
         public int nPerfects;
 
@@ -51,7 +52,7 @@ namespace Gen7EggRNG.EggRM
             hiddenPowers = Enumerable.Repeat(false, 16).ToArray();
             natures = Enumerable.Repeat(false, 25).ToArray();
 
-            shinyRemind = shinyOnly = blinkFOnly = safeFOnly = false;
+            shinyRemind = shinyOnly = squareShinyOnly = blinkFOnly = safeFOnly = false;
 
             nPerfects = 0;
         }
@@ -60,7 +61,7 @@ namespace Gen7EggRNG.EggRM
             return VerifyIVs(egg) && VerifyGender(egg) &&
                    VerifyBall(egg) && VerifyAbility(egg) &&
                    VerifyHiddenPower(egg) && VerifyNature(egg) &&
-                   VerifyShininess(egg);
+                   VerifyShininess(egg) && VerifySquareShiny(egg);
         }
 
         private bool VerifyIVs(RNGResult res) {
@@ -126,8 +127,16 @@ namespace Gen7EggRNG.EggRM
 
         private bool VerifyShininess(RNGResult egg)
         {
-            if (shinyOnly) {
+            if (shinyOnly && !squareShinyOnly) {
                 return egg.Shiny;
+            }
+            return true;
+        }
+
+        private bool VerifySquareShiny(RNGResult egg) {
+            if (squareShinyOnly)
+            {
+                return egg.SquareShiny;
             }
             return true;
         }
@@ -147,13 +156,13 @@ namespace Gen7EggRNG.EggRM
             return VerifyIVs(stationary) && VerifyGender(stationary) &&
                    VerifyAbility(stationary) &&
                    VerifyHiddenPower(stationary) && VerifyNature(stationary) &&
-                   VerifyShininess(stationary);
+                   VerifyShininess(stationary) && VerifySquareShiny(stationary);
         }
         public bool VerifyStationaryStats(Result7 stationary) {
             return VerifyStats(stationary) && VerifyGender(stationary) &&
                    VerifyAbility(stationary) &&
                    VerifyHiddenPower(stationary) && VerifyNature(stationary) &&
-                   VerifyShininess(stationary);
+                   VerifyShininess(stationary) && VerifySquareShiny(stationary);
         }
 
         /*private bool CheckRandomNumber(uint rn, int tsv, List<int> otherTSV)
@@ -183,6 +192,7 @@ namespace Gen7EggRNG.EggRM
             if (natures != String.Empty && natures.Length == 25) { fd.natures = Array.ConvertAll(natures.ToCharArray(), x => (x == '0' ? false : true)); }
 
             fd.shinyOnly = prefs.GetBoolean("FilterShinyOnly", false);
+            fd.squareShinyOnly = prefs.GetBoolean("FilterSquareOnly", false);
             fd.shinyRemind = prefs.GetBoolean("FilterShinyRemind", false);
 
             fd.blinkFOnly = prefs.GetBoolean("FilterBlinkF", false);
@@ -220,6 +230,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutString("FilterNature", nats);
 
             prefsEdit.PutBoolean("FilterShinyOnly", data.shinyOnly);
+            prefsEdit.PutBoolean("FilterSquareOnly", data.squareShinyOnly);
             prefsEdit.PutBoolean("FilterShinyRemind", data.shinyRemind);
 
             prefsEdit.PutBoolean("FilterBlinkF", data.blinkFOnly);

@@ -100,6 +100,7 @@ namespace Gen7EggRNG.EggRM
             dDelay.Text = pokeFrame.FrameDelayUsed.ToString();
             dMark.Text = pokeFrame.Mark;
             dPSV.Text = pokeRes.PSV.ToString("0000");
+                dPSV.Text += " (" + pokeRes.PRV + ")";
             dSeed.Text = "RandNum: " + pokeFrame.pokemon.RandNum.ToString("X");
 
             if (pokeFrame.pokemon.Synchronize) {
@@ -110,7 +111,13 @@ namespace Gen7EggRNG.EggRM
             if (pokeRes.Shiny)
             {
                 dShinyStar.Visibility = ViewStates.Visible;
-                dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.shinyColor]);
+                if (pokeRes.PRV == currentSearchData.profile.TRV) {
+                    dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.squareShinyColor]);
+                }
+                else
+                {
+                    dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.shinyColor]);
+                }
             }
             else
             {
@@ -171,7 +178,7 @@ namespace Gen7EggRNG.EggRM
                 data += "Ability: " + dAbility.Text + "\n";
                 data += "Nature: " + dNature.Text + "\n";
                 //data += "Ball: " + dBall.Text + "\n";
-                data += "PSV: " + dPSV.Text + (pokeRes.Shiny ? " *\n" : "\n");
+                data += "PSV: " + pokeRes.PSV + (pokeRes.Shiny ? " *\n" : "\n");
                 if (metaMode != 3) { data += dSeed.Text + "\n"; }
 
 

@@ -18,6 +18,7 @@ namespace Gen7EggRNG.EggRM
         public string profileTag;
         public bool shinyCharm;
         public ushort TSV;
+        public ushort TRV;
         public EggSeed currentSeed;
         public EggSeed checkpointSeed;
         public GameVersionUI gameVersion;
@@ -37,6 +38,7 @@ namespace Gen7EggRNG.EggRM
             profileTag = data.profileTag;
             shinyCharm = data.shinyCharm;
             TSV = data.TSV;
+            TRV = data.TRV;
             currentSeed = new EggSeed(data.currentSeed);
             checkpointSeed = new EggSeed(data.checkpointSeed);
             gameVersion = data.gameVersion;
@@ -47,7 +49,7 @@ namespace Gen7EggRNG.EggRM
 
         public static bool AreDifferentProfiles(ProfileData a, ProfileData b) {
             return (a.profileIndex != b.profileIndex) && (a.profileTag != b.profileTag) &&
-                (a.shinyCharm != b.shinyCharm) && (a.TSV != b.TSV) && (a.gameVersion != b.gameVersion);
+                (a.shinyCharm != b.shinyCharm) && (a.TSV != b.TSV) && (a.TRV != b.TRV) && (a.gameVersion != b.gameVersion);
         }
 
         public static int GetNumProfiles(Context context)
@@ -110,6 +112,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutInt(profilePrefix + "SeedFrame", data.seedFrame);
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", data.shinyCharm);
             prefsEdit.PutInt(profilePrefix + "TSV", data.TSV);
+            prefsEdit.PutInt(profilePrefix + "TRV", data.TRV);
 
             prefsEdit.Commit();
         }
@@ -148,6 +151,7 @@ namespace Gen7EggRNG.EggRM
             data.profileTag = prefs.GetString(profilePrefix + "Tag", "New Profile");
             data.shinyCharm = prefs.GetBoolean(profilePrefix + "ShinyCharm", false);
             data.TSV = (ushort)prefs.GetInt(profilePrefix + "TSV", 0);
+            data.TRV = (ushort)prefs.GetInt(profilePrefix + "TRV", 0);
 
             return data;
         }
@@ -189,6 +193,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutInt(profilePrefix + "SeedFrame", 0);
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", false);
             prefsEdit.PutInt(profilePrefix + "TSV", 0);
+            prefsEdit.PutInt(profilePrefix + "TRV", 0);
 
             prefsEdit.Commit();
 
@@ -216,6 +221,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutBoolean(profilePrefix + "ShinyCharm", model.shinyCharm);
             prefsEdit.PutInt(profilePrefix + "SeedFrame", model.seedFrame);
             prefsEdit.PutInt(profilePrefix + "TSV", model.TSV);
+            prefsEdit.PutInt(profilePrefix + "TRV", model.TRV);
 
             prefsEdit.Commit();
 
@@ -237,6 +243,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.Remove(profilePrefix + "GameVersion");
             prefsEdit.Remove(profilePrefix + "ShinyCharm");
             prefsEdit.Remove(profilePrefix + "TSV");
+            prefsEdit.Remove(profilePrefix + "TRV");
 
             prefsEdit.Commit();
         }

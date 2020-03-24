@@ -109,22 +109,58 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center">
-                    <TextView
-                        android:text="@string/profile_tsv"
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:gravity="center" />
-                    <EditText
-                        android:inputType="numberSigned"
-                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/linearLayout12">
+                        <TextView
+                            android:text="@string/profile_tsv"
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center" />
+                        <EditText
+                            android:inputType="numberSigned"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tsvField"
+                            android:numeric="signed"
+                            android:typeface="monospace"
+                            android:maxLength="5"
+                            android:text="0000"
+                            android:imeOptions="actionDone|flagNoFullscreen" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:id="@+id/tsvField"
-                        android:numeric="signed"
-                        android:typeface="monospace"
-                        android:maxLength="5"
-                        android:text="0000"
-                        android:imeOptions="actionDone|flagNoFullscreen" />
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:id="@+id/linearLayout13">
+                        <TextView
+                            android:text="@string/profile_trv"
+                            android:id="@+id/textViewTrv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center" />
+                        <EditText
+                            android:inputType="textNoSuggestions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:id="@+id/trvField"
+                            android:numeric="signed"
+                            android:typeface="monospace"
+                            android:maxLength="2"
+                            android:text="0"
+                            android:imeOptions="actionDone|flagNoFullscreen" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout

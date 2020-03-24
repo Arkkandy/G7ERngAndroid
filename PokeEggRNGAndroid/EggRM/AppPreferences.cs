@@ -19,6 +19,7 @@ namespace Gen7EggRNG.EggRM
         public int maxResults;
         public int shinyColor;
         public int otherTsvColor;
+        public int squareShinyColor;
         public bool autoSearch;
         public bool allRandomGender;
         public bool allAbility;
@@ -34,6 +35,7 @@ namespace Gen7EggRNG.EggRM
             maxResults = pref.maxResults;
             shinyColor = pref.shinyColor;
             otherTsvColor = pref.otherTsvColor;
+            squareShinyColor = pref.squareShinyColor;
             autoSearch = pref.autoSearch;
             allRandomGender = pref.allRandomGender;
             allAbility = pref.allAbility;
@@ -51,6 +53,7 @@ namespace Gen7EggRNG.EggRM
             ap.maxResults = prefs.GetInt("PrefsMaxResults", 0);
             ap.shinyColor = prefs.GetInt("PrefsShiny", 0);
             ap.otherTsvColor = prefs.GetInt("PrefsOtherTSV", 0);
+            ap.squareShinyColor = prefs.GetInt("PrefsSquareShiny", 0);
             ap.autoSearch = prefs.GetBoolean("PrefsAutoSearch", false);
             ap.allRandomGender = prefs.GetBoolean("PrefsAllRandomGender", false);
             ap.allAbility = prefs.GetBoolean("PrefsAllAbility", false);
@@ -68,6 +71,7 @@ namespace Gen7EggRNG.EggRM
             prefsEdit.PutInt("PrefsMaxResults", data.maxResults);
             prefsEdit.PutInt("PrefsShiny", data.shinyColor);
             prefsEdit.PutInt("PrefsOtherTSV", data.otherTsvColor);
+            prefsEdit.PutInt("PrefsSquareShiny", data.squareShinyColor);
             prefsEdit.PutBoolean("PrefsAutoSearch", data.autoSearch);
             prefsEdit.PutBoolean("PrefsAllRandomGender", data.allRandomGender);
             prefsEdit.PutBoolean("PrefsAllAbility", data.allAbility);

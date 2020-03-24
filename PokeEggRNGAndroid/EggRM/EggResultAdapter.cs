@@ -37,6 +37,7 @@ namespace Gen7EggRNG.EggRM
         private Android.Graphics.Color rejectColor;
         private Android.Graphics.Color shinyColor;
         private Android.Graphics.Color otherTsvColor;
+        private Android.Graphics.Color squareShinyColor;
 
         public EggResultAdapter(Context context, int layoutResource, G7EFrame[] values, FullSearchData searchData) : base(context, layoutResource, values) {
             eggFrames = values;
@@ -50,6 +51,7 @@ namespace Gen7EggRNG.EggRM
             rejectColor = new Android.Graphics.Color(255, 0, 0, 64);
             shinyColor = ColorValues.ShinyColor[searchData.preferences.shinyColor];
             otherTsvColor = ColorValues.ShinyColor[searchData.preferences.otherTsvColor];
+            squareShinyColor = ColorValues.ShinyColor[searchData.preferences.squareShinyColor];
 
             rowExtraHeight = (int)Android.Util.TypedValue.ApplyDimension(Android.Util.ComplexUnitType.Dip, 5.0f * searchData.preferences.rowHeight * searchData.preferences.rowHeight, Context.Resources.DisplayMetrics);
 
@@ -163,7 +165,14 @@ namespace Gen7EggRNG.EggRM
                 {
                     if (er.PSV == (uint)searchData.profile.TSV)
                     {
-                        holder.reslayout.SetBackgroundColor(shinyColor);
+                        if (er.SquareShiny)
+                        {
+                            holder.reslayout.SetBackgroundColor(squareShinyColor);
+                        }
+                        else
+                        {
+                            holder.reslayout.SetBackgroundColor(shinyColor);
+                        }
                     }
                     else
                     {
@@ -262,7 +271,14 @@ namespace Gen7EggRNG.EggRM
                 {
                     if (er.PSV == (uint)searchData.profile.TSV)
                     {
-                        holder.reslayout.SetBackgroundColor(shinyColor);
+                        if (er.SquareShiny)
+                        {
+                            holder.reslayout.SetBackgroundColor(squareShinyColor);
+                        }
+                        else
+                        {
+                            holder.reslayout.SetBackgroundColor(shinyColor);
+                        }
                     }
                     else
                     {
@@ -367,7 +383,14 @@ namespace Gen7EggRNG.EggRM
                 {
                     if (er.PSV == (uint)searchData.profile.TSV)
                     {
-                        holder.reslayout.SetBackgroundColor(shinyColor);
+                        if (er.SquareShiny)
+                        {
+                            holder.reslayout.SetBackgroundColor(squareShinyColor);
+                        }
+                        else
+                        {
+                            holder.reslayout.SetBackgroundColor(shinyColor);
+                        }
                     }
                     else
                     {
@@ -574,7 +597,14 @@ namespace Gen7EggRNG.EggRM
                 {
                     if (er.PSV == (uint)searchData.profile.TSV)
                     {
-                        holder.reslayout.SetBackgroundColor(shinyColor);
+                        if (er.SquareShiny)
+                        {
+                            holder.reslayout.SetBackgroundColor(squareShinyColor);
+                        }
+                        else
+                        {
+                            holder.reslayout.SetBackgroundColor(shinyColor);
+                        }
                     }
                     else
                     {
@@ -651,7 +681,14 @@ namespace Gen7EggRNG.EggRM
                 {
                     if (currentFrame.MainPSV == (uint)searchData.profile.TSV)
                     {
-                        holder.reslayout.SetBackgroundColor(shinyColor);
+                        if (currentFrame.egg.PRV == (uint)searchData.profile.TRV)
+                        {
+                            holder.reslayout.SetBackgroundColor(squareShinyColor);
+                        }
+                        else
+                        {
+                            holder.reslayout.SetBackgroundColor(shinyColor);
+                        }
                     }
                     else
                     {
@@ -789,7 +826,14 @@ namespace Gen7EggRNG.EggRM
             {
                 if (er.PSV == (uint)searchData.profile.TSV)
                 {
-                    holder.reslayout.SetBackgroundColor(shinyColor);
+                    if (er.PRV == (uint)searchData.profile.TRV)
+                    {
+                        holder.reslayout.SetBackgroundColor(squareShinyColor);
+                    }
+                    else
+                    {
+                        holder.reslayout.SetBackgroundColor(shinyColor);
+                    }
                 }
                 else
                 {

@@ -25,6 +25,7 @@ namespace Gen7EggRNG.EggRM
         //private int shinyMethod;
 
         private Android.Graphics.Color shinyColor;
+        private Android.Graphics.Color squareShinyColor;
 
         private bool showStats = false;
 
@@ -34,6 +35,7 @@ namespace Gen7EggRNG.EggRM
             this.searchData = searchData;
 
             shinyColor = ColorValues.ShinyColor[searchData.preferences.shinyColor];
+            squareShinyColor = ColorValues.ShinyColor[searchData.preferences.squareShinyColor];
 
             this.showStats = showStats;
 
@@ -152,7 +154,14 @@ namespace Gen7EggRNG.EggRM
                 // Color Shinies
                 if (poke.Shiny)
                 {
-                    holder.reslayout.SetBackgroundColor(shinyColor);
+                    if (poke.SquareShiny)
+                    {
+                        holder.reslayout.SetBackgroundColor(squareShinyColor);
+                    }
+                    else
+                    {
+                        holder.reslayout.SetBackgroundColor(shinyColor);
+                    }
                 }
                 else
                 {

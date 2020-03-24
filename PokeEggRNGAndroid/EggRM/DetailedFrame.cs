@@ -114,6 +114,7 @@ namespace Gen7EggRNG.EggRM
             {
                 dPSV.Text = (!currentSearchData.parents.isMasuda && !currentSearchData.profile.shinyCharm ? "----" : eggFrame.PSV.ToString("0000"));
             }
+            dPSV.Text += " (" + eggFrame.egg.PRV.ToString("X") + ")";
             dSeed.Text = eggFrame.TinyState;
 
             // Set shiny status
@@ -122,7 +123,13 @@ namespace Gen7EggRNG.EggRM
                 dShinyStar.Visibility = ViewStates.Visible;
                 if (eggRes.PSV == currentSearchData.profile.TSV)
                 {
-                    dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.shinyColor]);
+                    if (eggRes.PRV == currentSearchData.profile.TRV) {
+                        dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.squareShinyColor]);
+                    }
+                    else
+                    {
+                        dPSV.SetBackgroundColor(ColorValues.ShinyColor[currentSearchData.preferences.shinyColor]);
+                    }
                 }
                 else
                 {
@@ -236,7 +243,7 @@ namespace Gen7EggRNG.EggRM
                 data += "Ability: " + dAbility.Text + "\n";
                 data += "Nature: " + dNature.Text + "\n";
                 data += "Ball: " + dBall.Text + "\n";
-                data += "PSV: " + dPSV.Text + (eggRes.Shiny ? " *\n" : "\n");
+                data += "PSV: " + eggFrame.egg.PSV + (eggRes.Shiny ? " *\n" : "\n");
                 if (metaMode != 4) { data += dSeed.Text + "\n"; }
 
 

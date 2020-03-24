@@ -132,6 +132,33 @@
                     p1:layout_height="20dp"
                     p1:id="@+id/prefsOtherPreview" />
             </LinearLayout>
+            <LinearLayout
+                p1:orientation="horizontal"
+                p1:minWidth="25px"
+                p1:minHeight="25px"
+                p1:layout_width="wrap_content"
+                p1:layout_height="match_parent"
+                p1:id="@+id/linearLayout6"
+                p1:gravity="center"
+                p1:layout_marginLeft="20dp">
+                <TextView
+                    p1:text="@string/setting_squareshinycolor"
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/textViewSquare"
+                    p1:gravity="center_vertical" />
+                <Spinner
+                    p1:layout_width="wrap_content"
+                    p1:layout_height="wrap_content"
+                    p1:id="@+id/prefsSquareTSV" />
+                <LinearLayout
+                    p1:orientation="horizontal"
+                    p1:minWidth="25px"
+                    p1:minHeight="25px"
+                    p1:layout_width="20dp"
+                    p1:layout_height="20dp"
+                    p1:id="@+id/prefsSquarePreview" />
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             p1:orientation="horizontal"
@@ -201,7 +228,7 @@
         </LinearLayout>
     </LinearLayout>
     <TextView
-        p1:text="Andslg 2018"
+        p1:text="Andslg 2018 | v.1.2.2"
         p1:layout_width="wrap_content"
         p1:layout_height="wrap_content"
         p1:id="@+id/textView2"
